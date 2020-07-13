@@ -12,7 +12,9 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.set('view engine', 'pug');
 
-
+app.get('/', (req, res) => {
+    res.send('Hello World!')
+});
 
 
 
