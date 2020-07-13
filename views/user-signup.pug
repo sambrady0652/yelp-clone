@@ -1,0 +1,19 @@
+extends layout.pug
+
+include includes/form-inputs.pug
+
+block content
+    div 
+        h1 Sign Up for Welp
+    div
+        h2 Connect with great local restaurants
+    div 
+        p By continuing, you agree to Welp's Terms of Service and acknowledge Welp's Privacy Policy.
+    form(method="post" action="/users")
+        +signUpFormInput("firstName", "text", "First Name")
+        +signUpFormInput("lastName", "text", "Last Name")
+        +signUpFormInput("email", "email", "Email")
+        +signUpFormInput("password", "password", "Password")
+        +signUpFormInput("city", "text", "City")
+        +signUpFormInput("state", "text", "State")
+        button(type="submit") Sign up

@@ -2,7 +2,8 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-const csrf = require('csurf');
+const morgan = require('morgan');
+const csurf = require('csurf');
 
 // - Internal Requirements
 const { asyncHandler } = require('./utils');
@@ -12,7 +13,7 @@ const usersRouter = require('./routes/users');
 const restaurantsRouter = require('./routes/restaurants');
 
 // - Declarations
-const csrfProtection = csrf({ cookie: true });
+const csrfProtection = csurf({ cookie: true });
 const app = express();
 app.set('view engine', 'pug');
 
@@ -25,10 +26,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/restaurants', restaurantsRouter);
-
-app.get('/', (req, res) => {
-    res.send('Hello World!')
-});
 
 //ERRORS
 // Error Catch

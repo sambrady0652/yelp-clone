@@ -1,4 +1,4 @@
-const asyncHandler = (handler) => (req, res, next) => (req, res, next).catch(next)
+const asyncHandler = (handler) => (req, res, next) => handler(req, res, next).catch(next)
 
 
 

@@ -1,0 +1,9 @@
+mixin signUpFormInput(name, type, placeHolder, value)
+    div 
+    input(type=type, name=name, placeHolder=placeHolder, required)
+
+mixin settingsFormInput(name, type, value, label, subHeading)
+    div
+        label(for=id)= label
+        p= subHeading
+        input(name=name, id=name, type=type, value=value )

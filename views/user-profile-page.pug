@@ -1,0 +1,24 @@
+extends layout.pug
+
+block content
+    div
+        p top content space
+        div
+            p image
+        div
+            p block of user info
+            p= `${user.firstName} ${user.lastName}`
+            p= `${user.city} ${user.state}`
+        div
+            p links
+    div 
+        p sidebar
+    div
+        p review contents
+    div 
+        for review in reviews
+            p= review.content  
+    div 
+        p user info sidebar
+    div
+        p footer
