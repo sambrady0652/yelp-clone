@@ -9,7 +9,6 @@ module.exports = (sequelize, DataTypes) => {
     keywordId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      references: { model: "RestaurantKeywords" }
     },
     latitude: {
       type: DataTypes.INTEGER,

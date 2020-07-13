@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     keyword: DataTypes.STRING
   }, {});
   RestaurantKeyword.associate = function (models) {
-    RestaurantKeyword.hasMany(models.Restaurant, { foreignKey: "restaurantId" });
+    RestaurantKeyword.hasMany(models.Restaurant, { foreignKey: "keywordId" });
   };
   return RestaurantKeyword;
 };

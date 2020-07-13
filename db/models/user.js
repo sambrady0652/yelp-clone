@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
       unique: true
     },
     hashedPassword: {
-      type: DataTypes.STRING.BINARY,
+      type: DataTypes.INTEGER,
       allowNull: false
     },
     firstName: {
