@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
       unique: true
     },
     hashedPassword: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING.BINARY,
       allowNull: false
     },
     firstName: {
@@ -28,7 +28,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     profilePicture: {
       type: DataTypes.STRING,
-      allowNull: false
     }
   }, {});
   User.associate = function (models) {

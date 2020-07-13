@@ -1,7 +1,7 @@
 // - External Requirements
 const express = require('express');
 const csurf = require('csurf');
-const { check, validationResults } = require('express-validator');
+const { check } = require('express-validator');
 
 // - Internal Requirements
 const { asyncHandler } = require('../utils');

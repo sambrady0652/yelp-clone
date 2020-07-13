@@ -1,11 +1,13 @@
 // - External Requirements
 const express = require('express');
+const bcrypt = require('bcryptjs');
 const csurf = require('csurf');
-const { check, validationResults } = require('express-validator');
+const { check } = require('express-validator');
 
 // - Internal Requirements
-const { asyncHandler } = require('../utils');
+const { asyncHandler, handleValidationErrors } = require('../utils');
 const db = require('../db/models');
+const { requreAuth } = require('../auth');
 
 // - Declarations
 const { User } = db;
@@ -26,6 +28,13 @@ router.get('/login', asyncHandler(async (req, res) => {
 
 //Submits Login Form, Starts Session
 router.post('/login', asyncHandler(async (req, res) => {
+    const { email, password } = req.body;
+    const user = await User.findOne({
+        where: {
+            email
+        }
+    });
+
     res.redirect('/')
 }));
 
@@ -37,3 +46,4 @@ router.get('/search', asyncHandler(async (req, res) => {
 
 
 module.exports = router;
+
