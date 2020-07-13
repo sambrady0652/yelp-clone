@@ -4,7 +4,8 @@
   "description": "App Academy's Group Project #1: Full-stack Clone of Yelp's main features.",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon -r dotenv/config ./bin/www",
+    "start": "node ./bin/www",
+    "dev": "nodemon -r dotenv/config ./bin/www",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
