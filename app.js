@@ -21,6 +21,8 @@ app.set('view engine', 'pug');
 app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(express.static('public'));
 
 // - Routes
 app.use('/', indexRouter);
