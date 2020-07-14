@@ -6,7 +6,8 @@ block content
         p= `${user.firstName} ${user.lastName}'s Account Settings`
     div
         p main body
-        form
+        form(action=`/users/${user.id}` method='patch')
+            input(type='hidden' name='_csrf' value=csrfToken)
             +settingsFormInput("firstName", "text", `${user.firstName}`, "First Name", "This Field is Required.")
             +settingsFormInput("lastName", "text", `${user.lastName}`, "Last Name", "This field is required. Only your last initial will show on your profile.")
             div Gender

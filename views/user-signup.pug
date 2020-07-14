@@ -10,6 +10,7 @@ block content
     div 
         p By continuing, you agree to Welp's Terms of Service and acknowledge Welp's Privacy Policy.
     form(method="post" action="/users")
+        input(type='hidden' name='_csrf' value=csrfToken)
         +signUpFormInput("firstName", "text", "First Name")
         +signUpFormInput("lastName", "text", "Last Name")
         +signUpFormInput("email", "email", "Email")
