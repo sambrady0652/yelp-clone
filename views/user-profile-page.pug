@@ -22,3 +22,7 @@ block content
         p user info sidebar
     div
         p footer
+
+    div
+        form(action=`/users/${user.id}/delete` method="POST") 
+            button(type="submit") Delete User
