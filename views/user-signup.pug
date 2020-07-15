@@ -1,20 +1,38 @@
-extends layout.pug
+extends layout
 
 include includes/form-inputs.pug
 
 block content
-    div 
-        h1 Sign Up for Welp
-    div
-        h2 Connect with great local restaurants
-    div 
-        p By continuing, you agree to Welp's Terms of Service and acknowledge Welp's Privacy Policy.
-    form(class="sign-up-form")
-        +signUpFormInput("firstName", "text", "First Name")
-        +signUpFormInput("lastName", "text", "Last Name")
-        +signUpFormInput("email", "email", "Email")
-        +signUpFormInput("password", "password", "Password")
-        +signUpFormInput("city", "text", "City")
-        +signUpFormInput("state", "text", "State")
-        button(type="submit") Sign up
+    div(class="headBar")
+        div(class="headBar__logoContainer")
+            img(class="headBar__logoContainer--logo" src="/images/welpedLogo.jpg")
+    div(class="suBodyContainer")
+        div(class="suBodyContainer__leftContainer")
+            div(class="suContent")
+                div(class="suContent__words")
+                    div(class="suContent__words--title") 
+                        h1 Sign Up for Welp
+                    div(class="suContent__words--subtitle")
+                        h2 Connect with great local restaurants
+                    div(class="suContent__words--termsAndConditions")
+                        p By continuing, you agree to Welp's Terms of Service and acknowledge Welp's Privacy Policy.
+                    div(class="suContent__words--shareIcons")
+                        div(class="")
+                        div(class="")
+                        div(class="")
+                        p Don't worry, we never post without your permission
+                    
+                div(class="suFormContainer")
+                    form(class="sign-up-form")
+                        +signUpFormInput("firstName", "text", "First Name")
+                        +signUpFormInput("lastName", "text", "Last Name")
+                        +signUpFormInput("email", "email", "Email")
+                        +signUpFormInput("password", "password", "Password")
+                        +signUpFormInput("city", "text", "City")
+                        +signUpFormInput("state", "text", "State")
+                        p You also understand that Welp may send marketing emails about Welp's products, services, and local events. You can unsubscribe at any time.
+                        button(type="submit") Sign up
+        div(class="suBodyContainer__rightContainer")
+            div(class="rightContainer__welcomeBox")
+                img(class="rightContainer__welcomeBox--image" src="https://s3-media0.fl.yelpcdn.com/assets/2/www/img/7922e77f338d/signup/signup_illustration.png")
     script(type="module" src="/js/sign-up.js")
