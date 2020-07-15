@@ -1,3 +1,18 @@
 extends layout.pug
 
-block content 
+block content
+    nav(class="navbar")
+        div(class="logo-container")
+
+        div(class="search-container" display="flex")
+            form(action="" method="")
+                input(type="search" name="keywordSearch" placeholder="tacos, pizza, Lou's Place")
+                input(type="searc" name="locationSearch" placeholder="Chicago, IL")
+                button: i(class="fa fa-search navbutton")
+        div(class="links-container" display="flex")
+            div: a(href="") For Businesses
+            div: a(href="") Write A Review
+        div(class="buttons-container" display="flex")
+            button(class="sign-up-button navbutton") Sign Up
+            button(class="log-in-button navbutton") Log In
+        div()
