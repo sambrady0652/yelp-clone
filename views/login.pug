@@ -1,4 +1,29 @@
 extends layout.pug
 
+include includes/form-inputs.pug
+include includes/utils.pug 
+
 block content
-    
+    h1 Log Into Welp
+    p New to Welp? 
+        span: a(href="/users/signup") Sign up!
+    div(class="log-in-container")
+        div(class="errors-container")
+        form(method="post", action="/login")
+            div
+                button(type="submit") Use Guest Login
+    div.divider ----------------- OR --------------------
+    div(class="log-in-container")
+        div(class="errors-container")
+            +validationErrorSummary(errors)
+        form(class="log-in-form")
+            +signUpFormInput("email", "email", "Email")
+            +signUpFormInput("password", "password", "Password") 
+            //- remove Forgot Passowrd?
+            p Forgot Password?
+            div
+            button(type="submit") Log In
+            div 
+                p New to Welp? 
+                    span: a(href="/users/signup") Sign up!
+    script(type="module" src="/js/log-in.js")  
