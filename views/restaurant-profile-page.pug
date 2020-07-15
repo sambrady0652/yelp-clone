@@ -2,6 +2,7 @@ extends layout.pug
 
 block content
     div Hello World!
-    div(class="favoriteIcon favorited") Favorite Icon
-        button(type="button" id="favoriteButton" method="POST" action=`./users/1/favorites`) Favorite
+    div(class="favoriteIcon") Favorite Icon
+        button(type="button" id="favoriteButton") Favorite
+        script(type="module" src="/js/favorite.js")
     

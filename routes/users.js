@@ -70,17 +70,19 @@ router.post(
 
 //Renders User's Profile Page
 // --- working
-router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
-    const userId = parseInt(req.params.id, 10);
-    const user = await User.findByPk(userId)
-    const reviews = await Review.findAll({
-        include: [User, Restaurant],
-        where: {
-            userId: userId
-        },
-        limit: 10
-    })
-    res.render('user-profile-page', { title: `${user.firstName}'s Profile Page`, user, reviews });
+router.get('/:id(\\d+)',
+    csrfProtection,    
+    asyncHandler(async (req, res) => {
+        const userId = parseInt(req.params.id, 10);
+        const user = await User.findByPk(userId)
+        const reviews = await Review.findAll({
+            include: [User, Restaurant],
+            where: {
+                userId: userId
+            },
+            limit: 10
+        })
+        res.render('user-profile-page', { title: `${user.firstName}'s Profile Page`, user, reviews, token: req.csrfToken() });
 }));
 
 //Renders User's Settings Form 
@@ -97,7 +99,7 @@ router.get(
         res.render('user-settings', { 
             title: `${user.firstName}'s Settings`, 
             user, 
-            csrfToken: req.csrfToken() 
+            token: req.csrfToken() 
         });
     })
 );
@@ -118,7 +120,6 @@ router.patch(
         userToUpdate.state = state;
 
         await userToUpdate.save();
-        await sequelize.close();
 
         res.redirect(`/users/${parseInt(user.id, 10)}`);
     })
@@ -148,7 +149,17 @@ router.get('/:id(\\d+)/favorites', asyncHandler(async (req, res) => {
             userId: userId
         }
     });
-    res.render('user-favorites', { title: `${user.firstName}'s Favorites`, user, favorites })
+
+    /*
+    THIS PORTION OF THE CODE IS NOT FUNCTIONING
+    UNKNOWN WHAT IS BEING PASSED IN FETCH REQUEST
+    SEE FILE /PUBLIC/JS/FAVORITE.JS
+    */
+    res.json({ 
+        restaurant: favorites.restaurantId,
+        user: favorites.userId,
+     });
+    // res.render('user-favorites', { title: `${user.firstName}'s Favorites`, user, favorites })
 }));
 
 //Favorite a Restaurant
@@ -158,9 +169,7 @@ router.post(
     csrfProtection,
     asyncHandler(async (req, res) => {
         const { restaurantId } = req.body;
-        const userId = parseInt(req.params.id, 10);
-        const favoriteIcon = document.querySelector('.favoriteIcon');
-        
+        const userId = parseInt(req.params.id, 10);        
         const checkFavorite = await userFavoriteRestaurant.findAll({
             where: {
                 userId: userId,
@@ -169,14 +178,11 @@ router.post(
         })
 
         if (!checkFavorite) {
-            // favoriteIcon.classList.add('.favorited');
-            const newFavorite = await userFavoriteRestaurant.build({
+            const newFavorite = await userFavoriteRestaurant.create({
                 restaurantId: restaurantId,
                 userId: userId,
             })
-            await newFavorite.save();
         } else {
-            // favoriteIcon.classList.remove('.favorited');
             const favorite = await userFavoriteRestaurant.findByPk({
                 include: [User, Restaurant],
                 where: {

@@ -24,5 +24,6 @@ block content
         p footer
 
     div
-        form(action=`/users/${user.id}/delete` method="POST") 
+        form(action=`/users/${user.id}` method="POST") 
+            input(type="hidden" name="_csrf" value=token)
             button(type="submit") Delete User
