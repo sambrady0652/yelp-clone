@@ -18,25 +18,29 @@ const { Restaurant, User, Review } = db;
 //Renders Restaurant Profile Page
 router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
     const restaurantId = parseInt(req.params.id, 10);
-    const reviews = await Review.findAll({
-        include: [User, Restaurant],
-        where: {
-            restaurantId: restaurantId
-        },
-        limit: 10
-    });
+
+        const reviews = await Review.findAll({
+            where: {
+                restaurantId: restaurantId
+            },
+            include: [{model: User },
+            {model: Restaurant}],
+            limit: 10
+        })
+
+
     res.render('restaurant-profile-page', { reviews })
 }));
 
 //Render New Review Form
 router.get('/:id(\\d+)/reviews/new', csrfProtection, asyncHandler(async (req, res) => {
-    res.send({token: req.csrfToken()})
-    res.render('review-form', { title: "New Review", token: req.csrfToken() })
+    let restaurantId = parseInt(req.params.id, 10)
+    //review form does not exist yet. Placeholder for now.
+    res.render('review-form', { title: "New Review", restaurantId, token: req.csrfToken() })
 }));
 
 //Submits New Review Form
 router.post('/:id(\\d+)/reviews', csrfProtection, asyncHandler(async (req, res) => {
-    //let userId, rating, content, photo = req.body;
     let userId = parseInt(req.body.userId, 10)
     console.log("userID:   " + userId)
     let restaurantId = parseInt(req.params.id, 10);
@@ -51,10 +55,9 @@ router.post('/:id(\\d+)/reviews', csrfProtection, asyncHandler(async (req, res) 
         funnyCount: 0,
         usefulCount: 0
     })
-    //postman tests
-    res.send("Success");
 
-    //res.redirect(`/${restaurantId}`)
+
+    res.redirect(`/${restaurantId}`)
 
 }));
 
@@ -65,8 +68,7 @@ router.get('/:id(\\d+)/reviews/:idd(\\d+)/edit', csrfProtection, asyncHandler(as
     console.log(review)
     let { content, rating } = review
 
-    //postman tests
-    //res.send(rating + " " + content)
+
     res.render('review-form', { title: "Edit Review", rating, content, token: req.csrfToken() })
 }));
 
@@ -85,10 +87,9 @@ router.patch('/:id(\\d+)/reviews/:idd(\\d+)', csrfProtection, asyncHandler(async
 
     await sequelize.close();
 
-    //postman test
-    res.send({review})
 
-    //res.redirect(`/${restaurantId}`)
+
+    res.redirect(`/${restaurantId}`)
 }));
 
 //deletes a review
