@@ -9,8 +9,7 @@ block content
         h2 Connect with great local restaurants
     div 
         p By continuing, you agree to Welp's Terms of Service and acknowledge Welp's Privacy Policy.
-    form(method="post" action="/users")
-        input(type='hidden' name='_csrf' value=csrfToken)
+    form(class="sign-up-form")
         +signUpFormInput("firstName", "text", "First Name")
         +signUpFormInput("lastName", "text", "Last Name")
         +signUpFormInput("email", "email", "Email")
@@ -18,3 +17,4 @@ block content
         +signUpFormInput("city", "text", "City")
         +signUpFormInput("state", "text", "State")
         button(type="submit") Sign up
+    script(type="module" src="/js/sign-up.js")
