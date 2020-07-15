@@ -2,17 +2,23 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const csurf = require('csurf');
+const cookieParser = require('cookie-parser');
 const { check } = require('express-validator');
 
 // - Internal Requirements
 const { asyncHandler, handleValidationErrors } = require('../utils');
 const db = require('../db/models');
 const { getUserToken, requireAuth } = require('../auth');
+const { sequelize } = require('../db/models');
 
 // - Declarations
 const { User, Review, Restaurant, userFavoriteRestaurant } = db;
 const router = express.Router();
 const csrfProtection = csurf({ cookie: true });
+
+// - Users-wide Middleware
+router.use(requireAuth);
+router.use(cookieParser());
 
 // - Validations
 const validateEmailAndPassword = [
@@ -25,24 +31,45 @@ const validateEmailAndPassword = [
         .withMessage("Please provide a password."),
     handleValidationErrors,
 ];
+const validateUserSettings = [
+    check("firstName")
+        .exists({ checkFalsy: true })
+        .withMessage("Please provide a First Name."),
+    check("lastName")
+        .exists({ checkFalsy: true })
+        .withMessage("Please provide a Second Name."),
+    check("city")
+        .exists({ checkFalsy: true })
+        .withMessage("Please provide a City."),
+    check("state")
+        .exists({ checkFalsy: true })
+        .withMessage("Please provide a State."),
+    handleValidationErrors,
+];
 
-router.use(requireAuth);
 //Routes
+// ----
 //Render's Signup Form
-router.get('/signup', (req, res) => {
-    res.render('user-signup', { title: 'Sign Up - Welp' })
+// --- working
+router.get('/signup', csrfProtection, (req, res) => {
+    res.render('user-signup', { title: 'Sign Up - Welp', csrfToken: req.csrfToken()  });
 });
 
 //Create New User(submits signup form)
-router.post('/', validateEmailAndPassword, asyncHandler(async (req, res) => {
-    const { firstName, lastName, email, password, city, state } = req.body;
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await User.create({ firstName, lastName, email, hashedPassword, city, state });
-
-    res.redirect(`/users/${parseInt(user.id, 10)}`);
+// --- working
+router.post(
+    '/', 
+    validateEmailAndPassword,
+    csrfProtection, 
+    asyncHandler(async (req, res) => {
+        const { firstName, lastName, email, password, city, state } = req.body;
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const user = await User.create({ firstName, lastName, email, hashedPassword, city, state });
+        res.redirect(`/users/${parseInt(user.id, 10)}`);
 }));
 
 //Renders User's Profile Page
+// --- working
 router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
     const userId = parseInt(req.params.id, 10);
     const user = await User.findByPk(userId)
@@ -57,25 +84,64 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
 }));
 
 //Renders User's Settings Form 
-router.get('/:id(\\d+)/settings', asyncHandler(async (req, res) => {
-    const userId = parseInt(req.params.id, 10);
-    const user = await User.findByPk(userId)
-    //TODO: Add Settings features to database
-    res.render('user-settings', { title: `${user.firstName}'s Settings`, user })
-}));
+// --- working
+router.get(
+    '/:id(\\d+)/settings', 
+    csrfProtection, 
+    asyncHandler(async (req, res) => {
+        const userId = parseInt(req.params.id, 10);
+        const user = await User.findByPk(userId);
+        
+        //TODO: Add Settings features to database
+
+        res.render('user-settings', { 
+            title: `${user.firstName}'s Settings`, 
+            user, 
+            csrfToken: req.csrfToken() 
+        });
+    })
+);
 //Edit User's Settings (Submits )
-router.patch('/:id(\\d+)', (req, res) => {
+// --- NOT WORKING - Does not Update Data Correctly
+router.patch(
+    '/:id(\\d+)', 
+    validateUserSettings,
+    csrfProtection, 
+    asyncHandler(async (req, res) => {
+        const { firstName, lastName, city, state } = req.body;
+        const userId = parseInt(req.params.id, 10);
+        const userToUpdate = await User.findByPk(userId);
 
-});
+        userToUpdate.firstName = firstName;
+        userToUpdate.lastName = lastName;
+        userToUpdate.city = city;
+        userToUpdate.state = state;
+
+        await userToUpdate.save();
+        await sequelize.close();
+
+        res.redirect(`/users/${parseInt(user.id, 10)}`);
+    })
+);
 //Remove User
-router.delete('/:id(\\d+)', (req, res) => {
-
-});
+// --- Changed VERB to "POST"
+// --- no validate called
+// --- NOT WORKING
+router.post(
+    '/:id(\\d+)/', 
+    csrfProtection,
+    asyncHandler(async (req, res) => {
+        const userId = parseInt(req.params.id, 10);
+        const user = await User.findByPk(userId);
+        await user.destroy();
+        res.redirect('/');
+    }));
 
 //View User's Favorite restaurants
+// --- working
 router.get('/:id(\\d+)/favorites', asyncHandler(async (req, res) => {
     const userId = parseInt(req.params.id, 10);
-    const user = await User.findByPk(userId)
+    const user = await User.findByPk(userId);
     const favorites = await userFavoriteRestaurant.findAll({
         include: [User, Restaurant],
         where: {
@@ -86,14 +152,60 @@ router.get('/:id(\\d+)/favorites', asyncHandler(async (req, res) => {
 }));
 
 //Favorite a Restaurant
-router.post('/:id(\\d+)/favorites', (req, res) => {
-    res.redirect('/');
-});
+// --- NOT WORKING
+router.post(
+    '/:id(\\d+)/favorites', 
+    csrfProtection,
+    asyncHandler(async (req, res) => {
+        const { restaurantId } = req.body;
+        const userId = parseInt(req.params.id, 10);
+        const favoriteIcon = document.querySelector('.favoriteIcon');
+        
+        const checkFavorite = await userFavoriteRestaurant.findAll({
+            where: {
+                userId: userId,
+                restaurantId: restaurantId,
+            }
+        })
+
+        if (!checkFavorite) {
+            // favoriteIcon.classList.add('.favorited');
+            const newFavorite = await userFavoriteRestaurant.build({
+                restaurantId: restaurantId,
+                userId: userId,
+            })
+            await newFavorite.save();
+        } else {
+            // favoriteIcon.classList.remove('.favorited');
+            const favorite = await userFavoriteRestaurant.findByPk({
+                include: [User, Restaurant],
+                where: {
+                    userId: userId
+                }
+            });
+            await favorite.destroy();
+        }
+    })
+);
 
 //Unfavorite a Restaurant 
-router.delete('/:id(\\d+)/favorites/:id(\\d+)', (req, res) => {
-
-});
+// --- NOT WORKING
+router.post(
+    '/:id(\\d+)/favorites/:id(\\d+)', 
+    csrfProtection,
+    asyncHandler(async (req, res) => {
+        const { restaurantId } = req.body;
+        const userId = parseInt(req.params.id, 10);
+        const favoriteToDestroy = userFavoriteRestaurant.findOne({
+            where: {
+                userId: userId,
+                restaurantId: restaurantId
+            }
+        });
+        await favoriteToDestroy.destroy();
+        res.redirect('')
+        
+}));
 
 
 module.exports = router;
