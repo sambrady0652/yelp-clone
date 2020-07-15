@@ -32,7 +32,7 @@ router.get('/login', asyncHandler(async (req, res) => {
 
 //Submits Login Form, Starts Session
 router.post(
-    "/login", 
+    "/login",
     validateEmailAndPassword,
     handleValidationErrors,
     asyncHandler(async (req, res, next) => {
@@ -62,10 +62,21 @@ router.post(
         res.json({ token, user: { id: id } });
     }));
 
-
 //Renders Search Results Page 
 router.get('/search', asyncHandler(async (req, res) => {
     res.render('search-page', { title: "Search Results" });
+}));
+
+router.post('/search', asyncHandler(async (req, res) => {
+    //TODO: Retreive restaurants from database according to search results, then res.json the results;
+
+    /*
+    const {keyword, location} = req.body 
+
+    const restaurants = await Restaurant.findAll({include:..., where: {keyword, location}});
+
+    res.json({restaurants})
+    */
 }));
 
 module.exports = router;

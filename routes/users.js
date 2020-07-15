@@ -89,7 +89,6 @@ router.get('/:id(\\d+)',
     }));
 
 //Renders User's Settings Form 
-// --- working
 router.get(
     '/:id(\\d+)/settings',
     csrfProtection,
@@ -106,31 +105,28 @@ router.get(
         });
     })
 );
-//Edit User's Settings (Submits )
-// --- NOT WORKING - Does not Update Data Correctly
-router.patch(
-    '/:id(\\d+)',
-    validateUserSettings,
+
+//Edit User's Settings
+router.post(
+    '/:id(\\d+)/edit',
     csrfProtection,
     asyncHandler(async (req, res) => {
-        const { firstName, lastName, city, state } = req.body;
         const userId = parseInt(req.params.id, 10);
         const userToUpdate = await User.findByPk(userId);
+        const { firstName, lastName, City, State } = req.body;
 
         userToUpdate.firstName = firstName;
         userToUpdate.lastName = lastName;
-        userToUpdate.city = city;
-        userToUpdate.state = state;
+        userToUpdate.City = City;
+        userToUpdate.State = State;
 
         await userToUpdate.save();
 
-        res.redirect(`/users/${parseInt(user.id, 10)}`);
+        res.redirect(`/users/${parseInt(userToUpdate.id, 10)}`);
     })
 );
+
 //Remove User
-// --- Changed VERB to "POST"
-// --- no validate called
-// --- NOT WORKING
 router.post(
     '/:id(\\d+)/',
     csrfProtection,
@@ -140,6 +136,14 @@ router.post(
         await user.destroy();
         res.redirect('/');
     }));
+
+
+
+
+
+
+
+
 
 //View User's Favorite restaurants
 // --- working
