@@ -4,6 +4,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const csurf = require('csurf');
+const path = require('path')
 
 // - Internal Requirements
 const { asyncHandler } = require('./utils');
