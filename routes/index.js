@@ -31,7 +31,9 @@ router.get('/login', asyncHandler(async (req, res) => {
 }));
 
 //Submits Login Form, Starts Session
-router.post("/login", validateEmailAndPassword,
+router.post(
+    "/login", 
+    validateEmailAndPassword,
     handleValidationErrors,
     asyncHandler(async (req, res, next) => {
         const { email, password } = req.body;

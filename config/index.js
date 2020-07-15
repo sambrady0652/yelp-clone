@@ -11,4 +11,9 @@ module.exports = {
         secret: process.env.JWT_SECRET,
         expiresIn: process.env.JWT_EXPIRES_IN,
     },
+    // To reference the YelpFusion keys in .env file
+    yelpFusionConfig: {
+        clientKey: process.env.YELP_CLIENT_ID,
+        apiKey: process.env.YELP_API_KEY,
+    }
 };
