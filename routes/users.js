@@ -51,27 +51,30 @@ const validateUserSettings = [
 // ----
 //Render's Signup Form
 // --- working
-router.get('/signup', csrfProtection, (req, res) => {
-    res.render('user-signup', { title: 'Sign Up - Welp', csrfToken: req.csrfToken()  });
+router.get('/signup', (req, res) => {
+    res.render('user-signup', { title: 'Sign Up - Welp' });
 });
 
 //Create New User(submits signup form)
 // --- working
 router.post(
-    '/', 
+    '/',
     validateEmailAndPassword,
-    csrfProtection, 
+    handleValidationErrors,
     asyncHandler(async (req, res) => {
         const { firstName, lastName, email, password, city, state } = req.body;
         const hashedPassword = await bcrypt.hash(password, 10);
         const user = await User.create({ firstName, lastName, email, hashedPassword, city, state });
-        res.redirect(`/users/${parseInt(user.id, 10)}`);
-}));
+
+        const token = getUserToken(user);
+        const id = user.id;
+        res.json({ token, user: { id: id } });
+    }));
 
 //Renders User's Profile Page
 // --- working
 router.get('/:id(\\d+)',
-    csrfProtection,    
+    csrfProtection,
     asyncHandler(async (req, res) => {
         const userId = parseInt(req.params.id, 10);
         const user = await User.findByPk(userId)
@@ -83,32 +86,32 @@ router.get('/:id(\\d+)',
             limit: 10
         })
         res.render('user-profile-page', { title: `${user.firstName}'s Profile Page`, user, reviews, token: req.csrfToken() });
-}));
+    }));
 
 //Renders User's Settings Form 
 // --- working
 router.get(
-    '/:id(\\d+)/settings', 
-    csrfProtection, 
+    '/:id(\\d+)/settings',
+    csrfProtection,
     asyncHandler(async (req, res) => {
         const userId = parseInt(req.params.id, 10);
         const user = await User.findByPk(userId);
-        
+
         //TODO: Add Settings features to database
 
-        res.render('user-settings', { 
-            title: `${user.firstName}'s Settings`, 
-            user, 
-            token: req.csrfToken() 
+        res.render('user-settings', {
+            title: `${user.firstName}'s Settings`,
+            user,
+            token: req.csrfToken()
         });
     })
 );
 //Edit User's Settings (Submits )
 // --- NOT WORKING - Does not Update Data Correctly
 router.patch(
-    '/:id(\\d+)', 
+    '/:id(\\d+)',
     validateUserSettings,
-    csrfProtection, 
+    csrfProtection,
     asyncHandler(async (req, res) => {
         const { firstName, lastName, city, state } = req.body;
         const userId = parseInt(req.params.id, 10);
@@ -129,7 +132,7 @@ router.patch(
 // --- no validate called
 // --- NOT WORKING
 router.post(
-    '/:id(\\d+)/', 
+    '/:id(\\d+)/',
     csrfProtection,
     asyncHandler(async (req, res) => {
         const userId = parseInt(req.params.id, 10);
@@ -155,21 +158,21 @@ router.get('/:id(\\d+)/favorites', asyncHandler(async (req, res) => {
     UNKNOWN WHAT IS BEING PASSED IN FETCH REQUEST
     SEE FILE /PUBLIC/JS/FAVORITE.JS
     */
-    res.json({ 
+    res.json({
         restaurant: favorites.restaurantId,
         user: favorites.userId,
-     });
+    });
     // res.render('user-favorites', { title: `${user.firstName}'s Favorites`, user, favorites })
 }));
 
 //Favorite a Restaurant
 // --- NOT WORKING
 router.post(
-    '/:id(\\d+)/favorites', 
+    '/:id(\\d+)/favorites',
     csrfProtection,
     asyncHandler(async (req, res) => {
         const { restaurantId } = req.body;
-        const userId = parseInt(req.params.id, 10);        
+        const userId = parseInt(req.params.id, 10);
         const checkFavorite = await userFavoriteRestaurant.findAll({
             where: {
                 userId: userId,
@@ -197,7 +200,7 @@ router.post(
 //Unfavorite a Restaurant 
 // --- NOT WORKING
 router.post(
-    '/:id(\\d+)/favorites/:id(\\d+)', 
+    '/:id(\\d+)/favorites/:id(\\d+)',
     csrfProtection,
     asyncHandler(async (req, res) => {
         const { restaurantId } = req.body;
@@ -210,8 +213,8 @@ router.post(
         });
         await favoriteToDestroy.destroy();
         res.redirect('')
-        
-}));
+
+    }));
 
 
 module.exports = router;
