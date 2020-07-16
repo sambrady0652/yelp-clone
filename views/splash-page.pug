@@ -1,13 +1,33 @@
 extends layout.pug
 
 block content
-    p hello world
-    div(class="topSplashBar")
     div(class="bulkSplashBody")
+        div(class="orderBar")
+            a(href="") You can always order in
+            div(class=orderBar__options)
+                a(href="") Delivery
+                a(href="") Pizza Delivery
+                a(href="") Chinese Food Delivery
+            a(href="") x
+        div(class="topSplashBar")
+            div(class="topSplashbar__left")
+                a(href="") Write a Review
+                a(href="") Events
+                a(href="") Talk
+            div(class="topSplashbar__right")
+                a(href="/login" class="loginLink") Log In 
+                a(href="/users/signup" class="signup") Sign Up
         div(class="splashBodyMain")
             div(class="splashBodyMain__top")
             div(class="splashBodyMain__logo")
+                img(class="splashBodyMain__logo--img" src="/images/welpedLogo.jpg")
             div(class="splashBodyMain__searchBar")
             div(class="splashBodyMain__quickLinks")
+                a(href="") Italian
+                a(href="") Chinese
+                a(href="") French
             div(class="splashBodyMain__postScript")
+                h5 Welp is commited to supporting the Black Community
+                p As part of their ongoing efforts, Yelp is dontating $500,000 to the Equal Justice Initiative and the NAACP Legal Defense Fund. They are also developing tools in support of Black-owned businessess.
+                a(href="") Learn More
     div(class="bottomSplashContainer")
