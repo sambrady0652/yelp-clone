@@ -10,26 +10,72 @@
     font-size: 18px;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bolder;
+    color: white;
+}
+
+.orderBar__left a {
+    color: white;
+    margin-left: 15px;
+
+}
+
+.orderBar__options {
+    margin-left: 300px;
+}
+
+.orderBar__options a {
+    color: white;
+    font-size: 14px;
 }
 
 .topSplashBar {
     display: flex;
     justify-content: space-evenly;
     width: 100%;
-    height: 75px;
-    margin-top: 25px;
+    height: 40px;
+    margin: 25px;
 }
 
 .bulkSplashBody {
     display: flex;
     flex-direction: column;
     background-color: black;
+
+}
+
+.topSplashBar__left {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .topSplashBar__left a {
     font-size: 14px;
     font-weight: bolder;
     font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    padding: 15px;
+}
+
+.topSplashBar__center {
+    width: 300px;
+}
+
+.topSplashBar__right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.topSplashBar__right a {
+    padding: 10px;
+    margin: 10px;
+}
+
+
+
+.topSplashBar__right i {
+    color: #d32323;
 }
 
 .splashBodyMain {
@@ -40,6 +86,26 @@
     align-items: center;
     justify-content: center;
     
+}
+
+.splash__search-form {
+    display: flex;
+    height: 38px;
+}
+
+.splashBodyMain__quickLinks {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70px;
+}
+
+.splashBodyMain__quickLinks a {
+    font-size: 14px;
+    font-weight: bolder;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    padding: 15px;
 }
 
 .splashBodyMain__postScript {
@@ -55,4 +121,12 @@
 
 .splashBodyMain__postScript > p {
     font-size: smaller;
+}
+
+.splashBodyMain__postScript a {
+    font-size: 14px;
+    font-weight: bolder;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    padding: 15px;
 }
