@@ -21,7 +21,7 @@ signUpForm.addEventListener("submit", async (e) => {
     }
 
     try {
-        const res = await fetch("http://localhost:8081/users", {
+        const res = await fetch("/users", {
             method: "POST",
             body: JSON.stringify(body),
             headers: {
@@ -33,11 +33,11 @@ signUpForm.addEventListener("submit", async (e) => {
         }
         const { token, user: { id } } = await res.json();
 
-        // storage access_token in localStorage:
+        //Store Credentials in Local Storage 
         localStorage.setItem("WELP_USER_TOKEN", token);
         localStorage.setItem("WELP_CURRENT_USER_ID", id);
-        // const id = parseInt(localStorage.getItem("WELP_CURRENT_USER_ID"))
-        window.location.href = `/users/${parseInt(id, 10)}`;
+        //Redirect to Profile Page
+        window.location.href = `/users/${id}`;
 
     } catch (err) {
         handleErrors(err);

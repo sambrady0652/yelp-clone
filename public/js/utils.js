@@ -9,7 +9,7 @@ export const handleErrors = async (err) => {
         </div>
       `,
         ];
-        const { errors } = errorJSON;
+        const { err: { errors } } = errorJSON;
         if (errors && Array.isArray(errors)) {
             errorsHtml = errors.map(
                 (message) => `
