@@ -1,29 +1,44 @@
-extends layout.pug
+
+
+
+extends layout
 
 include includes/form-inputs.pug
 include includes/utils.pug 
 
 block content
-    h1 Log Into Welp
-    p New to Welp? 
-        span: a(href="/users/signup") Sign up!
-    div(class="log-in-container")
-        div(class="errors-container")
-        form(method="post", action="/login")
-            div
-                button(type="submit") Use Guest Login
-    div.divider ----------------- OR --------------------
-    div(class="log-in-container")
-        div(class="errors-container")
-            +validationErrorSummary(errors)
-        form(class="log-in-form")
-            +signUpFormInput("email", "email", "Email")
-            +signUpFormInput("password", "password", "Password") 
-            //- remove Forgot Passowrd?
-            p Forgot Password?
-            div
-            button(type="submit") Log In
-            div 
-                p New to Welp? 
-                    span: a(href="/users/signup") Sign up!
-    script(type="module" src="/js/log-in.js")  
+    div(class="headBar")
+        div(class="headBar__logoContainer")
+            img(class="headBar__logoContainer--logo" src="/images/welpedLogo.jpg")
+    div(class="suBodyContainer")
+        div(class="suBodyContainer__leftContainer")
+            div(class="suContent")
+                div(class="suContent__words")
+                    div(class="suContent__words--title") 
+                        h1 Sign in to Welp
+                    div(class="suContent__words--subtitle")
+                        h2 New to Welp?
+                        a(href="/users/signup") Sign up
+                    div(class="suContent__words--termsAndConditions")
+                        p By logging in, you agree to Welp's Terms of Service and acknowledge Welp's Privacy Policy.
+                    div(class="suContent__words--shareIcons")
+                        div(class="")
+                        div(class="")
+                        div(class="")
+                        p 
+                    
+                div(class="suFormContainer")
+                    form(class="log-in-form")
+                        +signUpFormInput("email", "email", "Email")
+                        +signUpFormInput("password", "password", "Password") 
+                        //- remove Forgot Passowrd?
+                        p Forgot Password?
+                        div
+                        button(type="submit") Log In
+                        div 
+                            p New to Welp? 
+                                span: a(href="/users/signup") Sign up!
+        div(class="suBodyContainer__rightContainer")
+            div(class="rightContainer__welcomeBox")
+                img(class="rightContainer__welcomeBox--image" src="https://s3-media0.fl.yelpcdn.com/assets/2/www/img/7922e77f338d/signup/signup_illustration.png")
+    script(type="module" src="/js/sign-up.js")
