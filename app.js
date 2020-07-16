@@ -12,6 +12,7 @@ const { environment } = require('./config');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const restaurantsRouter = require('./routes/restaurants');
+const apiRouter = require('./routes/api')
 
 // - Declarations
 const csrfProtection = csurf({ cookie: true });
@@ -29,6 +30,7 @@ app.use(express.static('public'));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/restaurants', restaurantsRouter);
+app.use('/api', apiRouter)
 
 //ERRORS
 // Error Catch

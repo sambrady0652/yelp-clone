@@ -28,8 +28,13 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
             limit: 10
         })
 
+        const restaurant = await Restaurant.findOne({
+            where: {
+                id: restaurantId
+            }
+        })
 
-    res.render('restaurant-profile-page', { reviews })
+    res.render('restaurant-profile-page', { reviews, restaurantId, restaurant })
 }));
 
 //Render New Review Form
