@@ -1,4 +1,4 @@
-.signUpHeadBar {
+.logInHeadBar {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -8,17 +8,17 @@
     height: 70px;
 }
 
-.signHeadBar__logoContainer--logo {
+.logInHeadBar__logoContainer--logo {
     box-sizing: border-box;
     height: auto;
 }
 
-.signUpBodyContainer {
+.logInBodyContainer {
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
 
-.signUpBodyContainer__left {
+.logInBodyContainer__left {
     box-sizing: border-box;
     width: 50%;
     display: flex;
@@ -27,14 +27,14 @@
     padding-top: 100px;
 }
 
-.signUpBodyContainer__right {
+.logInBodyContainer__right {
     box-sizing: border-box;
     justify-content: center;
     align-items: center;
     width: 50%;
 }
 
-.signUpContent {
+.logInContent {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -45,7 +45,7 @@
     width: 300px;
 }
 
-.signUpContent__words {
+.logInContent__words {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -53,25 +53,25 @@
     text-align: center;
 }
 
-.signUpContent__words div {
+.logInContent__words div {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.signUpContent__words--title {
+.logInContent__words--title {
     color: #d32323;
     text-align: center;
 }
 
-.signUpContent__words--subtitle {
-    font-size: 20px;
+.logInContent__words--subtitle {
+    font-size: 12px;
     text-align: center;
 }
 
-.signUpContent__words--termsAndConditions {
+.logInContent__words--termsAndConditions {
     font-size: 10px;
 }
 
-.signUpForm button {
+.logInForm button {
     width: 100%;
     height: 40px;
     font-family: Arial, Helvetica, sans-serif;
@@ -80,11 +80,11 @@
     color: white;
 }
 
-.signUpForm p {
+.logInForm p {
     font-size: small;
 }
 
-.signUpBodyContainer__right {
+.logInBodyContainer__right {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -92,3 +92,4 @@
     padding-top: 100px;
 
 }
+
