@@ -32,7 +32,7 @@ router.get('/login', asyncHandler(async (req, res) => {
 
 //Submits Login Form, Starts Session
 router.post(
-    "/login", 
+    "/login",
     validateEmailAndPassword,
     handleValidationErrors,
     asyncHandler(async (req, res, next) => {
@@ -63,10 +63,9 @@ router.post(
     }));
 
 
-//Renders Search Results Page 
+//Renders Search Results Page
 router.get('/search', asyncHandler(async (req, res) => {
     res.render('search-page', { title: "Search Results" });
 }));
 
 module.exports = router;
-
