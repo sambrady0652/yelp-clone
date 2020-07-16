@@ -4,9 +4,9 @@ document.addEventListener('DOMContentLoaded', async (event) => {
 
     //****create a div with a id of map in order for this to work!****
     if(document.querySelectorAll('#map').length > 0){
-        // Create the script tag, set the appropriate attributes
-        // const res = await fetch(`http://localhost:8082/api/key`)
-        // const {key} = await res.json();
+        //Create the script tag, set the appropriate attributes
+        const res = await fetch(`/api/key`)
+        const {key} = await res.json();
 
 
         var script = document.createElement('script');
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', async (event) => {
         }
         //do a for each restarurant, grab coordinates and add to a marker function invoked.
 
-        fetch(`http://localhost:8082/api/${id}`).then((res) => res.json()).then(function(json){
+        fetch(`/api/${id}`).then((res) => res.json()).then(function(json){
             let {restaurant} = json;
             var {latitude, longitude } = restaurant;
             addMarker({lat: latitude, lng: longitude})
