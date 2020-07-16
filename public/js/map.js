@@ -5,8 +5,8 @@ document.addEventListener('DOMContentLoaded', async (event) => {
     //****create a div with a id of map in order for this to work!****
     if(document.querySelectorAll('#map').length > 0){
         // Create the script tag, set the appropriate attributes
-        const res = await fetch(`http://localhost:8082/api/key`)
-        const {key} = await res.json();
+        // const res = await fetch(`http://localhost:8082/api/key`)
+        // const {key} = await res.json();
 
 
         var script = document.createElement('script');

@@ -1,15 +1,24 @@
 extends layout.pug
 
 block content
-    div Hello World!
+    div(class="restaurantCard")
+        div(class='restaurantCard__name' id='restaurantCard')=restaurant.name
+        div(class)
+            button(type='button' class='btn-red' id='review') Write a Review
+            button(type='button' class='btn-white' id='addPhoto') Add Photo
+            button(type='button' class='btn-white' id='addFavorite') Add as a favorite
+
     div(class="favoriteIcon") Favorite Icon
         button(type="button" id="favoriteButton") Favorite
         script(type="module" src="/js/favorite.js")
         script(type="module" src="/js/map.js")
 
+
+    div(id="location_hours") Location and Hours
     div(id='map')
 
     each review in reviews
 
+        div=review.rating
         div()=`${review.content}`
     div(id="restaurantId" hidden)=`${restaurantId}`
