@@ -15,5 +15,8 @@ module.exports = {
     yelpFusionConfig: {
         clientKey: process.env.YELP_CLIENT_ID,
         apiKey: process.env.YELP_API_KEY,
+    },
+    MapsSecretKey: {
+        MAPS_SECRET_KEY: process.env.MAPS_SECRET_KEY
     }
 };

@@ -5,4 +5,11 @@ block content
     div(class="favoriteIcon") Favorite Icon
         button(type="button" id="favoriteButton") Favorite
         script(type="module" src="/js/favorite.js")
-    
+        script(type="module" src="/js/map.js")
+
+    div(id='map')
+
+    each review in reviews
+
+        div()=`${review.content}`
+    div(id="restaurantId" hidden)=`${restaurantId}`

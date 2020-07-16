@@ -62,6 +62,7 @@ router.post(
         res.json({ token, user: { id: id } });
     }));
 
+
 //Renders Search Results Page 
 router.get('/search', asyncHandler(async (req, res) => {
     res.render('search-page', { title: "Search Results" });
@@ -80,4 +81,3 @@ router.post('/search', asyncHandler(async (req, res) => {
 }));
 
 module.exports = router;
-
