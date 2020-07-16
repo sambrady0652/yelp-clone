@@ -6,9 +6,9 @@ block content
         div(class="logo-container")
             img(class="logo-container__logo" src="/images/welpedLogo.jpg")
         div(class="search-container" display="flex")
-            form(class="nav_search-form")
-                input(type="search" name="keywordSearch" placeholder="tacos, pizza, Lou's Place")
-                input(type="search" name="locationSearch" placeholder="Chicago, IL")
+            form(class="nav_search-form" method="post" action="/search")
+                input(type="search" name="keyword" placeholder="tacos, pizza, Lou's Place")
+                input(type="search" name="location" placeholder="Chicago, IL")
                 button: i(type="submit" class="fa fa-search navbutton")
         div(class="links-container" display="flex")
             div: a(class="write-a-review" href="/search") Find A Restaurant
@@ -17,3 +17,4 @@ block content
             button(class="nav_log-in-button navbutton") Log In
             button(class="nav_log-out-button navbutton") Log Out
         div()
+    block search

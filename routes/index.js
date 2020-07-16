@@ -7,14 +7,13 @@ const { check, validationResult } = require('express-validator');
 // - Internal Requirements
 const { asyncHandler, handleValidationErrors } = require('../utils');
 const db = require('../db/models');
-const { requreAuth, loginUser } = require('../auth');
 const validateEmailAndPassword = require('./users');
 const { getUserToken } = require('../auth');
 
 const { handleErrors } = require('../utils');
 
 // - Declarations
-const { User } = db;
+const { User, Restaurant, RestaurantKeyword } = db;
 const router = express.Router();
 const csrfProtection = csurf({ cookie: true });
 
@@ -61,19 +60,15 @@ router.post(
 
 //Renders Search Results Page 
 router.get('/search', asyncHandler(async (req, res) => {
-    res.render('search-page', { title: "Search Results" });
+    res.render('search-page', { title: "Search Results", restaurants: [] });
 }));
 
 router.post('/search', asyncHandler(async (req, res) => {
-    //TODO: Retreive restaurants from database according to search results, then res.json the results;
-
-    /*
-    const {keyword, location} = req.body 
-
-    const restaurants = await Restaurant.findAll({include:..., where: {keyword, location}});
-
-    res.json({restaurants})
-    */
+    const { keyword } = req.body;
+    const searchTerm = await RestaurantKeyword.findOne({ where: { keyword: keyword } });
+    //TODO: Convert to lowercase, seed table with LOWERCASE keywords
+    const restaurants = await Restaurant.findAll({ where: { keywordId: searchTerm.id } });
+    res.render('search-page', { title: "Search Results", restaurants })
 }));
 
 module.exports = router;
