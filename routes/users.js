@@ -29,8 +29,9 @@ const validateEmailAndPassword = [
     check("password")
         .exists({ checkFalsy: true })
         .withMessage("Please provide a password."),
-    handleValidationErrors,
 ];
+
+//This does not appear to be being used; can we delete?
 const validateUserSettings = [
     check("firstName")
         .exists({ checkFalsy: true })
@@ -44,7 +45,6 @@ const validateUserSettings = [
     check("state")
         .exists({ checkFalsy: true })
         .withMessage("Please provide a State."),
-    handleValidationErrors,
 ];
 
 //Routes
@@ -65,6 +65,17 @@ router.post(
         const { firstName, lastName, email, password, city, state } = req.body;
         const hashedPassword = await bcrypt.hash(password, 10);
         const user = await User.create({ firstName, lastName, email, hashedPassword, city, state });
+
+        /* TODO: Insert Unique Constraint on email error handling
+        if(there is a unique constraint error on the email) {
+            const err = new Error("Signup Failed");
+            err.status = 401;
+            err.title = "Signup Failed;
+            err.errors = ["Please provide a unique email address."];
+
+            res.status(400).json({ err });
+        }
+        */
 
         const token = getUserToken(user);
         const id = user.id;
@@ -162,11 +173,13 @@ router.get('/:id(\\d+)/favorites', asyncHandler(async (req, res) => {
     UNKNOWN WHAT IS BEING PASSED IN FETCH REQUEST
     SEE FILE /PUBLIC/JS/FAVORITE.JS
     */
-    res.json({
-        restaurant: favorites.restaurantId,
-        user: favorites.userId,
-    });
-    // res.render('user-favorites', { title: `${user.firstName}'s Favorites`, user, favorites })
+    // res.json({
+    //     restaurant: favorites.restaurantId,
+    //     user: favorites.userId,
+    // });
+
+    //THIS WORKS
+    res.render('user-favorites', { title: `${user.firstName}'s Favorites`, user, favorites })
 }));
 
 //Favorite a Restaurant

@@ -50,11 +50,7 @@ router.post(
             err.title = "Login failed";
             err.errors = ["The provided credentials were invalid."];
 
-            res.render('login', {
-                title: 'Log In - Welp',
-                email,
-                errors: err.errors
-            });
+            res.status(400).json({ err });
         }
 
         const token = getUserToken(user);
