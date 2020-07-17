@@ -62,6 +62,19 @@ router.post(
 router.get('/search', asyncHandler(async (req, res) => {
     res.render('search-page', { title: "Search Results" });
 }));
+router.post('/search', asyncHandler(async (req, res) => {
+    console.log("INSIDE THE ROUTE-------------")
+    const { keyword } = req.body;
+    if (keyword === "") {
+        const popularRestaurant = await Restaurant.findOne();
+        res.render('search-page', { title: "Search Results", popularRestaurant })
+    }
+    else {
+        const searchTerm = await RestaurantKeyword.findOne({ where: { keyword: keyword.toLowerCase() } });
+        const restaurants = await Restaurant.findAll({ where: { keywordId: searchTerm.id } });
+        res.render('search-page', { title: "Search Results", restaurants })
+    }
+}));
 
 //NOTE: search results handled via routes/api and ajax in public/js/map-search.js
 

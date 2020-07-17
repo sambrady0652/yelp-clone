@@ -11,6 +11,10 @@ document.addEventListener('DOMContentLoaded', (e) => {
         signUpButton.classList.add("d-none");
         loginButton.classList.add("d-none");
     }
+    if (id === null) {
+        myProfile.classList.add("d-none");
+        logoutButton.classList.add("d-none");
+    }
 
     signUpButton.addEventListener('click', (e) => {
         window.location.href = '/users/signup';

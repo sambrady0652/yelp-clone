@@ -6,7 +6,7 @@ block content
         div(class="logo-container")
             a(href='/'): img(class="logo-container__logo" src="/images/welpedLogoWBack.jpg")
         div(class="search-container" display="flex")
-            form(class="nav_search-form" method="POST" action="/search")
+            form(class="nav_search-form  search_function")
                 //- div(class="input-group mb-3")
                 input(type="search" class="form-control" name="keyword" placeholder="tacos, pizza, Lou's Place")
                 input(type="search" class="form-control" name="location" placeholder="Chicago, IL")
@@ -20,3 +20,4 @@ block content
             button(class="nav_log-out-button btn btn-secondary") Log Out
             button(class="nav_my_profile_button btn btn-secondary") My Profile
         div()
+    block search

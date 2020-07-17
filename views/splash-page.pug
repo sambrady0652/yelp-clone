@@ -24,7 +24,7 @@ block content
             div(class="splashBodyMain__logo")
                 img(class="splashBodyMain__logo--img" src="/images/welpedLogoBnW.jpg")
             div(class="splashBodyMain__searchBar")
-                form(class="splash__search-form search_function")
+                form(class="splash__search-form" method="POST" action="/search")
                     div(class="input-group mb-3")
                         span(class='input-group-text' id="find-addon") Find
                     input(type="search" class="form-control" name="keyword" placeholder="Tacos and Burritos")

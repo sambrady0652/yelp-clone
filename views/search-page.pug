@@ -1,6 +1,10 @@
-include navbar.pug
+include searchbar.pug
 
 block search
-    ul(id="search_results") Search Results
+    h2 Search Results
+        if restaurants
+            ul(id="search_results")
+                for restaurant in restaurants
+                    li: a(href=`/restaurants/${restaurant.id}`)= restaurant.name
     div(id="map")
     script(type="module" src="/js/map-search.js")

@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', async (event) => {
         fetch(`/api/${id}`).then((res) => res.json()).then(function (json) {
             let { restaurant } = json;
             var { latitude, longitude } = restaurant;
-            addMarker({ lat: latitude, lng: longitude })
+            addMarker({ lat: Number(latitude), lng: Number(longitude) })
         })
 
 

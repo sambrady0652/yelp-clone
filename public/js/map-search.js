@@ -57,6 +57,7 @@ document.addEventListener('DOMContentLoaded', async (event) => {
 
                 const searchResults = document.getElementById("search_results");
                 //Add Markers to the map for each restaurant in the restaurants array
+                searchResults.innerHTML = ""
                 for (let restaurant in restaurants) {
                     const { id, image_url, name, latitude, longitude } = restaurants[restaurant];
                     //Create New Restaurant List Item

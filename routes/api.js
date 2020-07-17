@@ -43,7 +43,7 @@ router.get('/key', asyncHandler(async (req, res) => {
 }))
 
 router.post('/search', asyncHandler(async (req, res) => {
-    console.log("INSIDE THE ROUTE-------------")
+    console.log("INSIDE API ROUTE-------------")
     const { keyword } = req.body;
     if (keyword === "") {
         const popularRestaurant = await Restaurant.findOne();
