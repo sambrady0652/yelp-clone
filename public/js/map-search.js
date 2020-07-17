@@ -54,11 +54,14 @@ document.addEventListener('DOMContentLoaded', async (event) => {
                     throw res;
                 }
 
-                const restaurants = await res.json();
+                const { restaurants } = await res.json();
+                console.log(restaurants);
                 //Add Markers to the map for each restaurant in the restaurants array
                 for (let restaurant in restaurants) {
-                    const { latitude, longitude } = restaurant;
-                    addMarker({ lat: latitude, lng: longitude });
+                    console.log(restaurants[restaurant]);
+                    const { latitude, longitude } = restaurants[restaurant];
+                    console.log(latitude);
+                    addMarker({ lat: parseInt(latitude, 10), lng: parseInt(longitude, 10) });
                 }
             }
             catch (err) {
