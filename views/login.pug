@@ -1,7 +1,7 @@
 extends layout
 
 include includes/form-inputs.pug
-include includes/utils.pug 
+include includes/utils.pug
 
 block content
     div(class="logInHeadBar mx-auto row")
@@ -12,7 +12,7 @@ block content
             div(class="logInBodyContainer__left col")
                 div(class="logInContent")
                     div(class="logInContent__words")
-                        div(class="logInContent__words--title") 
+                        div(class="logInContent__words--title")
                             h3 Sign in to Welp
                         div(class="logInContent__words--subtitle")
                             h5 New to Welp?
@@ -23,8 +23,8 @@ block content
                             div(class="")
                             div(class="")
                             div(class="")
-                            p 
-                        
+                            p
+
                     div(class="logInForm")
                         form(class="log-in-form")
                             div(class="form-group form-row")
@@ -32,15 +32,15 @@ block content
                                     +signUpFormInput("email", "email", "Email")
                             div(class="form-group form-row")
                                 div(class="col")
-                                    +signUpFormInput("password", "password", "Password") 
+                                    +signUpFormInput("password", "password", "Password")
                             //- remove Forgot Passowrd?
                             p Forgot Password?
                             div(class="form-group")
                                 button(type="submit" class="btn btn-danger") Log In
-                            div 
-                                p New to Welp? 
+                            div
+                                p New to Welp?
                                     span: a(href="/users/signup") Sign up!
             div(class="logInBodyContainer__right col")
                 div(class="logInBodyContainer__right-welcomeBox")
                     img(class="logInBodyContainer__right-welcomeBox--image" src="https://s3-media0.fl.yelpcdn.com/assets/2/www/img/7922e77f338d/signup/signup_illustration.png")
-    script(type="module" src="/js/sign-up.js")
+    script(type="module" src="/js/login.js")
