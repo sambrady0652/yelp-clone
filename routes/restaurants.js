@@ -2,11 +2,33 @@
 const express = require('express');
 const csurf = require('csurf');
 const { check } = require('express-validator');
+const aws = require('aws-sdk')
+const multer = require('multer')
+const multerS3 = require('multer-s3')
 
 // - Internal Requirements
 const { asyncHandler } = require('../utils');
 const db = require('../db/models');
 const { sequelize } = require('../db/models');
+const  { awsKeys } = require('../config')
+aws.config.update({
+    secretAccessKey: awsKeys.AWS_SECRET_KEY,
+    accessKeyId: awsKeys.AWS_ACCESS_KEY,
+    region: 'us-east-2'
+})
+const s3 = new aws.S3();
+//middleware that sends photo to S3 bucket
+var upload = multer({
+    storage: multerS3({
+        s3: s3,
+        bucket: 'welp-app-s3',
+        acl: 'public-read',
+        contentType: multerS3.AUTO_CONTENT_TYPE,
+        key: function (req, file, cb) {
+            cb(null, file.originalname);
+        }
+    })
+})
 
 // - Declarations
 const router = express.Router();
@@ -45,8 +67,10 @@ router.get('/:id(\\d+)/reviews/new', csrfProtection, asyncHandler(async (req, re
 }));
 
 //Submits New Review Form
-router.post('/:id(\\d+)/reviews', csrfProtection, asyncHandler(async (req, res) => {
+router.post('/:id(\\d+)/reviews', csrfProtection, upload.array('upl', 1), asyncHandler(async (req, res) => {
     let userId = parseInt(req.body.userId, 10)
+    //gets url for photo being uploaded to S3 bucket
+    let { location } = req.files[0];
     console.log("userID:   " + userId)
     let restaurantId = parseInt(req.params.id, 10);
     let rating = parseInt(req.body.rating, 10)
@@ -55,13 +79,13 @@ router.post('/:id(\\d+)/reviews', csrfProtection, asyncHandler(async (req, res) 
         restaurantId: restaurantId,
         content: req.body.content,
         rating: rating,
-        photos: req.body.photo,
+        photos: location,
         coolCount: 0,
         funnyCount: 0,
         usefulCount: 0
     })
 
-
+    //everything above works but redirect is not.
     res.redirect(`/${restaurantId}`)
 
 }));
@@ -78,23 +102,26 @@ router.get('/:id(\\d+)/reviews/:idd(\\d+)/edit', csrfProtection, asyncHandler(as
 }));
 
 //Submits Edit Review Form
-router.patch('/:id(\\d+)/reviews/:idd(\\d+)', csrfProtection, asyncHandler(async (req, res) => {
+router.patch('/:id(\\d+)/reviews/:idd(\\d+)', csrfProtection, upload.array('upl', 1), asyncHandler(async (req, res) => {
     let { rating, content } = req.body;
     rating = parseInt(rating, 10)
     const reviewId = parseInt(req.params.idd, 10)
     const restaurantId = parseInt(req.params.id, 10)
     const review = await Review.findByPk(reviewId)
+    //gets url for photo being uploaded to S3 bucket
+    let { location } = req.files[0];
 
     review.content = content;
     review.rating = rating;
+    review.photos = location;
 
     await review.save();
 
     await sequelize.close();
 
 
-
-    res.redirect(`/${restaurantId}`)
+    //redirect not working
+    res.redirect(`/restaurants/${restaurantId}`)
 }));
 
 //deletes a review
@@ -106,7 +133,7 @@ router.delete('/:id(\\d+)/reviews/:idd(\\d+)', asyncHandler(async (req, res) => 
 
     await sequelize.close()
 
-
+    //redirect not working.
     res.redirect(`/${restaurantId}`)
 }));
 

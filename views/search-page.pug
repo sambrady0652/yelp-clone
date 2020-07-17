@@ -1,11 +1,6 @@
 include navbar.pug
 
 block search
-    ul Search Results
-    each restaurant in restaurants
-        li= restaurant.name
-    else
-        h1 Sorry, no restaurants matched your search.
+    ul(id="search_results") Search Results
     div(id="map")
-
     script(type="module" src="/js/map-search.js")

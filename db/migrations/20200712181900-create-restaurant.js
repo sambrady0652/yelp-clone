@@ -25,9 +25,17 @@ module.exports = {
         type: Sequelize.STRING,
       },
       latitude: {
+<<<<<<< HEAD
         type: Sequelize.NUMERIC(16, 14)
       },
       longitude: {
+=======
+        allowNull: false,
+        type: Sequelize.NUMERIC(16, 14)
+      },
+      longitude: {
+        allowNull: false,
+>>>>>>> master
         type: Sequelize.NUMERIC(16, 14)
       },
       transactions: {

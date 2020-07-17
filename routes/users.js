@@ -4,12 +4,34 @@ const bcrypt = require('bcryptjs');
 const csurf = require('csurf');
 const cookieParser = require('cookie-parser');
 const { check } = require('express-validator');
+const aws = require('aws-sdk')
+const multer = require('multer')
+const multerS3 = require('multer-s3')
 
 // - Internal Requirements
 const { asyncHandler, handleValidationErrors } = require('../utils');
 const db = require('../db/models');
 const { getUserToken, requireAuth } = require('../auth');
 const { sequelize } = require('../db/models');
+const { awsKeys } = require('../config')
+aws.config.update({
+    secretAccessKey: awsKeys.AWS_SECRET_KEY,
+    accessKeyId: awsKeys.AWS_ACCESS_KEY,
+    region: 'us-east-2'
+})
+const s3 = new aws.S3();
+
+var upload = multer({
+    storage: multerS3({
+        s3: s3,
+        bucket: 'welp-app-s3',
+        acl: 'public-read',
+        contentType: multerS3.AUTO_CONTENT_TYPE,
+        key: function (req, file, cb) {
+            cb(null, file.originalname);
+        }
+    })
+})
 
 // - Declarations
 const { User, Review, Restaurant, userFavoriteRestaurant } = db;
@@ -62,9 +84,9 @@ router.post(
     validateEmailAndPassword,
     handleValidationErrors,
     asyncHandler(async (req, res) => {
-        const { firstName, lastName, email, password, city, state } = req.body;
+        const { firstName, lastName, email, password, city, state, profilePicture } = req.body;
         const hashedPassword = await bcrypt.hash(password, 10);
-        const user = await User.create({ firstName, lastName, email, hashedPassword, city, state });
+        const user = await User.create({ firstName, lastName, email, hashedPassword, city, state, profilePicture });
 
         /* TODO: Insert Unique Constraint on email error handling
         if(there is a unique constraint error on the email) {
@@ -99,7 +121,7 @@ router.get('/:id(\\d+)',
         res.render('user-profile-page', { title: `${user.firstName}'s Profile Page`, user, reviews, token: req.csrfToken() });
     }));
 
-//Renders User's Settings Form 
+//Renders User's Settings Form
 router.get(
     '/:id(\\d+)/settings',
     csrfProtection,
@@ -119,17 +141,20 @@ router.get(
 
 //Edit User's Settings
 router.post(
-    '/:id(\\d+)/edit',
-    csrfProtection,
+    '/:id(\\d+)/edit', upload.array('upl', 1),
+    //csrfProtection,
     asyncHandler(async (req, res) => {
         const userId = parseInt(req.params.id, 10);
+        let { location } = req.files[0];
+        console.log(location)
         const userToUpdate = await User.findByPk(userId);
         const { firstName, lastName, City, State } = req.body;
 
         userToUpdate.firstName = firstName;
         userToUpdate.lastName = lastName;
-        userToUpdate.City = City;
-        userToUpdate.State = State;
+        userToUpdate.city = City;
+        userToUpdate.state = State;
+        userToUpdate.profilePicture = location;
 
         await userToUpdate.save();
 
@@ -214,7 +239,7 @@ router.post(
     })
 );
 
-//Unfavorite a Restaurant 
+//Unfavorite a Restaurant
 // --- NOT WORKING
 router.post(
     '/:id(\\d+)/favorites/:id(\\d+)',
