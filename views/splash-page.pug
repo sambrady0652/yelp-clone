@@ -10,13 +10,12 @@ block content
                 a(href="") Delivery
                 a(href="") Pizza Delivery
                 a(href="") Chinese Food Delivery
-            a(href="") x
+            button(class="close" type="button" aria-label="close") x
         div(class="topSplashBar")
             div(class="topSplashBar__left")
                 a(href="") Write a Review
                 a(href="") Events
                 a(href="") Talk
-            div(class="topSplashBar__center")
             div(class="topSplashBar__right")
                 a(href="/login" class="loginLink btn btn-dark") Log In 
                 a(href="/users/signup" class="signup btn btn-outline-light") Sign Up
@@ -32,7 +31,8 @@ block content
                     div(class="input-group mb-3")
                         span(class='input-group-text' id="find-addon") Near
                     input(type="search" class="form-control" name="locationSearch" placeholder="Chicago, IL")
-                    button: i(type="submit" class="fa fa-search navbutton")
+                    button(class="btn") 
+                        i(type="submit" class="fa fa-search navbutton")
             div(class="splashBodyMain__quickLinks")
                 div(class="splashBodyMain__quickLinks-one")
                     i(class="fa fa-binoculars")

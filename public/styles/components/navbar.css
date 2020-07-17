@@ -1,0 +1,20 @@
+.nav_search-form {
+    display: flex;
+    height: 38px;
+}
+
+.nav_search-form button {
+    background-color: #d32323;
+}
+
+.nav_search-form button > i {
+    background-color: #d32323;
+    color: white;
+}
+
+.navButtons-container button {
+   margin-right: 5px;
+}
+
+
+

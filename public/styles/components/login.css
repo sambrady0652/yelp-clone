@@ -63,8 +63,21 @@
 }
 
 .logInContent__words--subtitle {
-    font-size: 12px;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+}
+
+.logInContent__words--subtitle h5 {
+    position: relative;
+    right: 5px;
+}
+
+.logInContent__words--subtitle a {
+    position: relative;
+    bottom: 4px;
+    left: 5px;
 }
 
 .logInContent__words--termsAndConditions {
