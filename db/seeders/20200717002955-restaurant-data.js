@@ -3,33 +3,27 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('Restaurants', [
-      {
-        name: "Wonder Chop",
-        image_url: "https://s3-media1.fl.yelpcdn.com/bphoto/pRYtVqRLWy-VnqSgWEeUGw/o.jpg",
-        keywordId: 3,
-        price: "$$",
-        latitude: 41.92522,
-        longitude: -87.68845,
-        transactions: ["delivery"],
-        address: "2418 W Fullerton Ave, Chicago, IL 60647",
-        phone: "(773) 384-6499",
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
-      {
-        name: "Paula & Monica's Pizzeria",
-        image_url: "https://s3-media1.fl.yelpcdn.com/bphoto/nCRLW5q3PRDSSvKfo8Qdhg/o.jpg",
-        keywordId: 2,
-        price: "$",
-        latitude: 41.89635,
-        longitude: -87.6656299,
-        transactions: ["pickup", "delivery"],
-        address: "1518 W Chicago Ave, Chicago, IL 60642",
-        phone: "(312) 929-3615",
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
-    ])
+
+      { "name": "Wonder Chop", "image_url": "https://s3-media1.fl.yelpcdn.com/bphoto/pRYtVqRLWy-VnqSgWEeUGw/o.jpg", "keywordId": 1, "price": "$$", "latitude": 41.92522, "longitude": -87.68845, "transactions": ["pickup"], "address": "2418 W Fullerton Ave", "phone": "(773) 384-6499", createdAt: new Date(), updatedAt: new Date() },
+      { "name": "MAK Restaurant", "image_url": "https://s3-media4.fl.yelpcdn.com/bphoto/GJQCgfAFWnNx_iqL5hHEUA/o.jpg", "keywordId": 1, "price": "$$", "latitude": 41.9032611, "longitude": -87.6759818, "transactions": ["pickup", "delivery"], "address": "1924 W Division St", "phone": "(773) 772-6251", createdAt: new Date(), updatedAt: new Date() },
+      { "name": "Chengdu Impression", "image_url": "https://s3-media2.fl.yelpcdn.com/bphoto/LztKqFHml0pxe3or_-o3Hw/o.jpg", "keywordId": 1, "price": "$$", "latitude": 41.9286079, "longitude": -87.648514, "transactions": ["pickup", "delivery"], "address": "2545 N Halsted St", "phone": "(773) 477-6256", createdAt: new Date(), updatedAt: new Date() },
+      { "name": "Shanghai Inn", "image_url": "https://s3-media4.fl.yelpcdn.com/bphoto/XNxQpfA8mEhjXfL65Ko3GQ/o.jpg", "keywordId": 1, "price": "$$", "latitude": 41.967647, "longitude": -87.679002, "transactions": ["pickup", "delivery"], "address": "4723 N Damen Ave", "phone": "(773) 561-3275", createdAt: new Date(), updatedAt: new Date() },
+      { "name": "Cheng Chopsticks", "image_url": "https://s3-media3.fl.yelpcdn.com/bphoto/w2xGpdwU-YQvU2gkqkVhxw/o.jpg", "keywordId": 1, "price": "$", "latitude": 41.91716, "longitude": -87.704205, "transactions": ["pickup", "delivery"], "address": "3054 W Armitage Ave", "phone": "(773) 384-1668", createdAt: new Date(), updatedAt: new Date() },
+      { "name": "Lao Peng You", "image_url": "https://s3-media3.fl.yelpcdn.com/bphoto/beLCg97DzfpRGCZO10wC0A/o.jpg", "keywordId": 1, "price": "$$", "latitude": 41.89610667, "longitude": -87.67786167, "transactions": ["pickup", "delivery"], "address": "2020 W Chicago Ave", "phone": "(872) 206-8624", createdAt: new Date(), updatedAt: new Date() },
+      { "name": "Xi'an Dynasty Cuisine", "image_url": "https://s3-media2.fl.yelpcdn.com/bphoto/2y97AFq1eArX0lCUUBzJIg/o.jpg", "keywordId": 1, "price": "$$", "latitude": 41.92228, "longitude": -87.64465, "transactions": ["pickup", "delivery"], "address": "2218 N Lincoln Ave", "phone": "(773) 904-7253", createdAt: new Date(), updatedAt: new Date() },
+      { "name": "Great Sea Restaurant", "image_url": "https://s3-media2.fl.yelpcdn.com/bphoto/7CEbreU93HOBwlA49elgvA/o.jpg", "keywordId": 1, "price": "$$", "latitude": 41.9683111314671, "longitude": -87.7106371012279, "transactions": ["pickup", "delivery"], "address": "3253 W Lawrence Ave", "phone": "(773) 478-9129", createdAt: new Date(), updatedAt: new Date() },
+      { "name": "MingHin Cuisine", "image_url": "https://s3-media2.fl.yelpcdn.com/bphoto/mFhgIM3zj5ztQPBKz0zTdg/o.jpg", "keywordId": 1, "price": "$$", "latitude": 41.8532564325305, "longitude": -87.6349026829699, "transactions": ["pickup", "delivery"], "address": "2168 S Archer Ave", "phone": "(312) 808-1999", createdAt: new Date(), updatedAt: new Date() },
+      { "name": "Yummy Yummy Asian Cuisine", "image_url": "https://s3-media1.fl.yelpcdn.com/bphoto/wZBZHmz8HJzTgAy6AEhPLQ/o.jpg", "keywordId": 1, "price": "$$", "latitude": 41.935016, "longitude": -87.644032, "transactions": ["pickup", "delivery"], "address": "2901 N Broadway St", "phone": "(773) 525-6677", createdAt: new Date(), updatedAt: new Date() },
+      { "name": "MCCB Chicago 时尚食谱", "image_url": "https://s3-media2.fl.yelpcdn.com/bphoto/N6XozlzESAjPOFYoJQdHWQ/o.jpg", "keywordId": 1, "price": "$$", "latitude": 41.8538027693794, "longitude": -87.6336866427383, "transactions": ["pickup", "delivery"], "address": "2138 South Archer Ave", "phone": "(312) 881-0168", createdAt: new Date(), updatedAt: new Date() },
+      { "name": "MingHin Cuisine", "image_url": "https://s3-media4.fl.yelpcdn.com/bphoto/zhjqo0Bnks76XmQtgO6yaA/o.jpg", "keywordId": 1, "price": "$$", "latitude": 41.8851133316306, "longitude": -87.6191340577136, "transactions": ["pickup", "delivery"], "address": "333 E Benton Pl", "phone": "(312) 228-1333", createdAt: new Date(), updatedAt: new Date() },
+      { "name": "Peking Mandarin", "image_url": "https://s3-media1.fl.yelpcdn.com/bphoto/7XyIIbxwIeoRhdTLrSQNYQ/o.jpg", "keywordId": 1, "price": "$", "latitude": 41.9682451, "longitude": -87.7151227, "transactions": ["delivery"], "address": "3459 W Lawrence Ave", "phone": "(773) 478-5338" },
+      { "name": "Qing Xiang Yuan Dumplings", "image_url": "https://s3-media2.fl.yelpcdn.com/bphoto/Nko67mwukEvP86ompmu8kw/o.jpg", "keywordId": 1, "price": "$$", "latitude": 41.85505, "longitude": -87.63219, "transactions": ["pickup", "delivery"], "address": "2002 S Wentworth Ave", "phone": "(312) 799-1118", createdAt: new Date(), updatedAt: new Date() },
+      { "name": "Takie Outit", "image_url": "https://s3-media2.fl.yelpcdn.com/bphoto/LewUyBFmX9wFJIy3zI-rzA/o.jpg", "keywordId": 1, "price": "$", "latitude": 41.89611, "longitude": -87.68086, "transactions": ["pickup", "delivery"], "address": "2132 W Chicago Ave", "phone": "(773) 252-1880", createdAt: new Date(), updatedAt: new Date() },
+      { "name": "Sun Wah Bar-B-Que", "image_url": "https://s3-media2.fl.yelpcdn.com/bphoto/IQVidynQVU10w9IEcmiOdQ/o.jpg", "keywordId": 1, "price": "$$", "latitude": 41.9739359, "longitude": -87.6592371, "transactions": ["delivery"], "address": "5039 N Broadway", "phone": "(773) 769-1254", createdAt: new Date(), updatedAt: new Date() },
+      { "name": "House of Wah Sun", "image_url": "https://s3-media4.fl.yelpcdn.com/bphoto/YpzfU8t1xLKQFi6Nef8N-w/o.jpg", "keywordId": 1, "price": "$$", "latitude": 41.9601, "longitude": -87.68253, "transactions": ["pickup", "delivery"], "address": "4319 N Lincoln Ave", "phone": "(773) 477-0800", createdAt: new Date(), updatedAt: new Date() },
+      { "name": "Mr Dumpling", "image_url": "https://s3-media4.fl.yelpcdn.com/bphoto/TNXjXhu0f_mTk1bRs8ediw/o.jpg", "keywordId": 1, "price": "$$", "latitude": 41.927788, "longitude": -87.641424, "transactions": ["pickup", "delivery"], "address": "2485 N Clark St", "phone": "(773) 360-1864", createdAt: new Date(), updatedAt: new Date() },
+      { "name": "Lao Sze Chuan", "image_url": "https://s3-media4.fl.yelpcdn.com/bphoto/ZZrEIMeAhwzMaG17gfuu9Q/o.jpg", "keywordId": 1, "price": "$$", "latitude": 41.8914408, "longitude": -87.6243185, "transactions": ["pickup", "delivery"], "address": "520 N Michigan Ave", "phone": "(312) 595-0888", createdAt: new Date(), updatedAt: new Date() }
+    ]);
   },
 
   down: (queryInterface, Sequelize) => {
