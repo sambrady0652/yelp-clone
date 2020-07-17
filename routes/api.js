@@ -45,15 +45,9 @@ router.get('/key', asyncHandler(async (req, res) => {
 router.post('/search', asyncHandler(async (req, res) => {
     console.log("INSIDE API ROUTE-------------")
     const { keyword } = req.body;
-    if (keyword === "") {
-        const popularRestaurant = await Restaurant.findOne();
-        res.json({ popularRestaurant });
-    }
-    else {
-        const searchTerm = await RestaurantKeyword.findOne({ where: { keyword: keyword.toLowerCase() } });
-        const restaurants = await Restaurant.findAll({ where: { keywordId: searchTerm.id } });
-        res.json({ restaurants });
-    }
+    const searchTerm = await RestaurantKeyword.findOne({ where: { keyword: keyword.toLowerCase() } });
+    const restaurants = await Restaurant.findAll({ where: { keywordId: searchTerm.id } });
+    res.json({ restaurants });
 }));
 
 module.exports = router;
