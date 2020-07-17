@@ -13,35 +13,34 @@ module.exports = {
         allowNull: false,
         unique: true
       },
+      image_url: {
+        type: Sequelize.STRING
+      },
       keywordId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: { model: "RestaurantKeywords" }
       },
+      price: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
       latitude: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.NUMERIC(6, 4)
       },
       longitude: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.NUMERIC(6, 4)
       },
-      city: {
-        allowNull: false,
+      transactions: {
         type: Sequelize.STRING
       },
-      state: {
-        allowNull: false,
+      address: {
         type: Sequelize.STRING
       },
-      website: {
+      phone: {
         type: Sequelize.STRING
-      },
-      phoneNumber: {
-        type: Sequelize.INTEGER
-      },
-      amenityId: {
-        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,

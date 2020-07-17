@@ -13,7 +13,7 @@ const { sequelize } = require('../db/models');
 const { environment, MapsSecretKey } = require('../config')
 
 // - Declarations
-const { User, Review, Restaurant, userFavoriteRestaurant } = db;
+const { User, Review, Restaurant, userFavoriteRestaurant, RestaurantKeyword } = db;
 const router = express.Router();
 const csrfProtection = csurf({ cookie: true });
 
@@ -42,7 +42,19 @@ router.get('/key', asyncHandler(async (req, res) => {
     res.json({ key })
 }))
 
-
-
+router.post('/search', asyncHandler(async (req, res) => {
+    console.log("INSIDE THE ROUTE-------------")
+    const { keyword } = req.body;
+    if (keyword === "") {
+        const popularRestaurant = await Restaurant.findOne();
+        res.json({ popularRestaurant });
+    }
+    else {
+        const searchTerm = await RestaurantKeyword.findOne({ where: { keyword: keyword } });
+        //TODO: Convert to lowercase, seed table with LOWERCASE keywords
+        const restaurants = await Restaurant.findAll({ where: { keywordId: searchTerm.id } });
+        res.json({ restaurants });
+    }
+}));
 
 module.exports = router;
