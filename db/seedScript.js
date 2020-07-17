@@ -1,50 +1,57 @@
 const fs = require('fs');
+const { Restaurant, RestaurantKeyword } = require('./models');
 
-const contents = fs.readFileSync("./seedData.json");
+const contents = fs.readFileSync("./db/seedData.json");
 const jsonContent = JSON.parse(contents);
 
-const createData = (json) => {
+const createData = async (json) => {
     const result = [];
-    json.forEach((el) => {
+    for (el of json) {
         let priceVal = "$$"
         let transactionVal = el.transactions;
-        let latVal = el.coordinates.latitude;
-        let longVal = el.coordinates.longitude;
         if (el.price) {
             priceVal = el.price;
         }
-        if (transactionVal === []) {
-            transactionVal = "null"
-        }
-        numString = latVal.toString();
-        while (numString.length < 16) {
-            numString = `${numString}0`;
-            console.log(latVal)
+        if (el.transactions.length === 0) {
+            transactionVal = ["delivery"];
         }
 
-
+        let keyword = await RestaurantKeyword.findOne({
+            where: {
+                keyword: el.categories[0].alias
+            }
+        })
+        if (keyword === null) {
+            keyword = await RestaurantKeyword.create({
+                keyword: el.categories[0].alias,
+                title: el.categories[0].title,
+                createdAt: new Date(),
+                updatedAt: new Date(),
+            })
+        }
         const newObj = {
             name: el.name,
             image_url: el.image_url,
-            keywordId: 1,
+            keywordId: keyword.id,
             price: priceVal,
             latitude: el.coordinates.latitude,
             longitude: el.coordinates.longitude,
-            transactions: transactionVal,
+            transactions: transactionVal.join(","),
             address: el.location.display_address[0],
             phone: el.display_phone,
+            createdAt: new Date(),
+            updatedAt: new Date(),
         }
-        result.push(newObj);
+        console.log(el.name)
+        await Restaurant.create(newObj);
 
-    })
+    }
 
     return result;
 
 }
 
-const seedReadyData = createData(jsonContent);
+(async function () {
 
-fs.writeFile("seedReadyData.js", JSON.stringify(seedReadyData), (err) => {
-    if (err) throw err;
-    console.log("File Written...");
-});
+    const seedReadyData = await createData(jsonContent);
+})()
