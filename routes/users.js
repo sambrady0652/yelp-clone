@@ -84,9 +84,9 @@ router.post(
     validateEmailAndPassword,
     handleValidationErrors,
     asyncHandler(async (req, res) => {
-        const { firstName, lastName, email, password, city, state } = req.body;
+        const { firstName, lastName, email, password, city, state, profilePicture } = req.body;
         const hashedPassword = await bcrypt.hash(password, 10);
-        const user = await User.create({ firstName, lastName, email, hashedPassword, city, state });
+        const user = await User.create({ firstName, lastName, email, hashedPassword, city, state, profilePicture });
 
         /* TODO: Insert Unique Constraint on email error handling
         if(there is a unique constraint error on the email) {

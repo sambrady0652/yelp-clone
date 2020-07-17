@@ -4,7 +4,7 @@ block content
     div
         p top content space
         div
-            p image
+            img(src=`${user.profilePicture}`, alt="profile picture")
         div
             p block of user info
             p= `${user.firstName} ${user.lastName}`
@@ -25,6 +25,3 @@ block content
     
     div: a(href=`/users/${user.id}/settings`) Settings
     div
-        form(action=`/users/${user.id}` method="POST") 
-            input(type="hidden" name="_csrf" value=token)
-            button(type="submit") Delete User
