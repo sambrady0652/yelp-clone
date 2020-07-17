@@ -5,12 +5,10 @@ document.addEventListener('DOMContentLoaded', (e) => {
     const logoutButton = document.querySelector('.nav_log-out-button');
 
     signUpButton.addEventListener('click', (e) => {
-        console.log('signup button clicked')
         window.location.href = '/users/signup';
     });
 
     loginButton.addEventListener('click', (e) => {
-        console.log('login button clicked')
         window.location.href = '/login';
     });
 

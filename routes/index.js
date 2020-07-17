@@ -60,15 +60,10 @@ router.post(
 
 //Renders Search Results Page 
 router.get('/search', asyncHandler(async (req, res) => {
-    res.render('search-page', { title: "Search Results", restaurants: [] });
+    res.render('search-page', { title: "Search Results" });
 }));
 
-router.post('/search', asyncHandler(async (req, res) => {
-    const { keyword } = req.body;
-    const searchTerm = await RestaurantKeyword.findOne({ where: { keyword: keyword } });
-    //TODO: Convert to lowercase, seed table with LOWERCASE keywords
-    const restaurants = await Restaurant.findAll({ where: { keywordId: searchTerm.id } });
-    res.render('search-page', { title: "Search Results", restaurants })
-}));
+//NOTE: search results handled via routes/api and ajax in public/js/map-search.js
+
 
 module.exports = router;
