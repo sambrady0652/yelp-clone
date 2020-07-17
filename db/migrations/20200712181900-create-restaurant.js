@@ -27,11 +27,11 @@ module.exports = {
       },
       latitude: {
         allowNull: false,
-        type: Sequelize.NUMERIC(6, 4)
+        type: Sequelize.NUMERIC(16, 14)
       },
       longitude: {
         allowNull: false,
-        type: Sequelize.NUMERIC(6, 4)
+        type: Sequelize.NUMERIC(16, 14)
       },
       transactions: {
         type: Sequelize.STRING

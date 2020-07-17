@@ -3,10 +3,18 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('RestaurantKeywords', [
-      { keyword: "Burger", createdAt: new Date(), updatedAt: new Date() },
-      { keyword: "Pizza", createdAt: new Date(), updatedAt: new Date() },
-      { keyword: "Chinese", createdAt: new Date(), updatedAt: new Date() },
-      { keyword: "Tacos", createdAt: new Date(), updatedAt: new Date() },
+      { keyword: "burger", createdAt: new Date(), updatedAt: new Date() },
+      { keyword: "pizza", createdAt: new Date(), updatedAt: new Date() },
+      { keyword: "chinese", createdAt: new Date(), updatedAt: new Date() },
+      { keyword: "tacos", createdAt: new Date(), updatedAt: new Date() },
+      { keyword: "italian", createdAt: new Date(), updatedAt: new Date() },
+      { keyword: "chicken", createdAt: new Date(), updatedAt: new Date() },
+      { keyword: "spanish", createdAt: new Date(), updatedAt: new Date() },
+      { keyword: "greek", createdAt: new Date(), updatedAt: new Date() },
+      { keyword: "healthy", createdAt: new Date(), updatedAt: new Date() },
+      { keyword: "vegetarian", createdAt: new Date(), updatedAt: new Date() },
+      { keyword: "mexican", createdAt: new Date(), updatedAt: new Date() },
+      { keyword: "sushi", createdAt: new Date(), updatedAt: new Date() },
     ])
   },
 
