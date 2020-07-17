@@ -36,13 +36,12 @@ const createData = async (json) => {
             price: priceVal,
             latitude: el.coordinates.latitude,
             longitude: el.coordinates.longitude,
-            transactions: transactionVal.join(","),
+            transactions: transactionVal.join(", "),
             address: el.location.display_address[0],
             phone: el.display_phone,
             createdAt: new Date(),
             updatedAt: new Date(),
         }
-        console.log(el.name)
         await Restaurant.create(newObj);
 
     }
