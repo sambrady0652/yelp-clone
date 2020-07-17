@@ -11,15 +11,13 @@ block content
             input(type='hidden' name='_csrf' value=token)
             +settingsFormInput("firstName", "text", `${user.firstName}`, "First Name", "This Field is Required.")
             +settingsFormInput("lastName", "text", `${user.lastName}`, "Last Name", "This field is required. Only your last initial will show on your profile.")
-            div Gender
-                label(for="Female") Female
-                input(type="radio", name= "gender", id= "Female", value="female")
-                label(for="Male") Male
-                input(type="radio", name= "gender", id= "Male", value="male")
-                label(for="Other") Other
-                input(type="radio", name= "gender", id= "Other", vale="other")
             +settingsFormInput("City", "text", `${user.city}`, "City", "This Field is Required.")
             +settingsFormInput("State", "text", `${user.state}`, "State", "This Field is Required.")
             label(for="profilePicture") Add Profile Picture
             input(type="file" name="upl")
-            button(type="submit") Submit
+            div 
+                button(type="submit") Submit
+            div 
+                form(action=`/users/${user.id}` method="POST") 
+                input(type="hidden" name="_csrf" value=token)
+                button(type="submit") Delete User

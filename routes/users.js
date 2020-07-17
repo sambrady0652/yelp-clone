@@ -13,7 +13,7 @@ const { asyncHandler, handleValidationErrors } = require('../utils');
 const db = require('../db/models');
 const { getUserToken, requireAuth } = require('../auth');
 const { sequelize } = require('../db/models');
-const  { awsKeys } = require('../config')
+const { awsKeys } = require('../config')
 aws.config.update({
     secretAccessKey: awsKeys.AWS_SECRET_KEY,
     accessKeyId: awsKeys.AWS_ACCESS_KEY,

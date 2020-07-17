@@ -10,6 +10,7 @@ signUpForm.addEventListener("submit", async (e) => {
     const lastName = formData.get("lastName");
     const city = formData.get("city");
     const state = formData.get("state");
+    const image_url = formData.get("image_url");
 
     const body = {
         email,
@@ -18,6 +19,7 @@ signUpForm.addEventListener("submit", async (e) => {
         lastName,
         city,
         state,
+        image_url
     }
 
     try {

@@ -22,7 +22,8 @@ block content
         p user info sidebar
     div
         p footer
-
+    
+    div: a(href=`/users/${user.id}/settings`) Settings
     div
         form(action=`/users/${user.id}` method="POST") 
             input(type="hidden" name="_csrf" value=token)
