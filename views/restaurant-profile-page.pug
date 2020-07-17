@@ -1,24 +1,102 @@
-extends layout.pug
+include navbar
 
 block content
-    div(class="restaurantCard")
-        div(class='restaurantCard__name' id='restaurantCard')=restaurant.name
-        div(class)
-            button(type='button' class='btn-red' id='review') Write a Review
-            button(type='button' class='btn-white' id='addPhoto') Add Photo
-            button(type='button' class='btn-white' id='addFavorite') Add as a favorite
+    div(class="restaurantPhotoBar row")
+        div(class="col")
+            img(src="")
+        div(class="col")
+            img(src="")
+        div(class="col")
+            img(src="")
+        div(class="col")
+            img(src="")
+            button(class="restaurantPhotoBar__seeAllBtn btn btn-light") See All
+    div(class="restaurantBody container")
+        div(class="row")
+            div(class="col-lg-8")
+                div(class="restaurantCard")
+                    div(class="restaurantCard__name row" id='restaurantCard')=restaurant.name
+                    div(class="restaurantCard__rating row")
+                        img(class="restaurantCard__rating-stars" src="/images/4.5-stars.png")
+                        label(class="restaurantCard__rating-reviewCount") 0 reviews
+                        button(class="btn btn-light btn-sm") Details
+                    div(class="restaurantCard__info row")
+                        label(class="restaurantCard__info-price") $$ -
+                        label(class="restaurantCard__info-category") Category
+                    div(class="restaurantCard__buttons row")
+                        button(type="button" class="btn btn-danger" id="review") Write a Review
+                        button(type="button" class="btn btn-outline-secondary" id="addPhoto") 
+                            i(class="fa fa-camera") 
+                            span Add Photo
+                        button(type="button" class="btn btn-outline-secondary")
+                            i(class="fa fa-share-square-o")
+                            span Share
+                        button(type="button" class="btn btn-outline-secondary" id="addFavorite") 
+                            i(class="fa fa-star-o" id="favoriteStar")
+                            span Favorite
+                hr(class="my-4")
+                div(class="restaurantSubCard") 
+                    span Location & Hours
+                    div(class="restaurantSubCard__body row")
+                        div(class="col")
+                            div(class="restaurantSubCard__body-map" id='map')
+                            div(class="restaurantSubCard__body-address")
+                                label 123 Example Blvd Chicago, Illinois 88888
 
-    div(class="favoriteIcon") Favorite Icon
-        button(type="button" id="favoriteButton") Favorite
-        script(type="module" src="/js/favorite.js")
-        script(type="module" src="/js/map.js")
+                        div(class="col")
+                            div(class="restaurantSubCard__hoursBox")
+                                div(class="row")
+                                    label Mon
+                                    span 11:00 am - 9:00 pm
+                                div(class="row")
+                                    label Tue
+                                    span 11:00 am - 9:00 pm
+                                div(class="row")
+                                    label Wed
+                                    span 11:00 am - 9:00 pm
+                                div(class="row")
+                                    label Thu
+                                    span 11:00 am - 9:00 pm
+                                div(class="row")
+                                    label Fri 
+                                    span 11:00 am - 9:00 pm
+                                div(class="row")
+                                    label Sat
+                                    span 11:00 am - 9:00 pm
+                                div(class="row")
+                                    label Sun
+                                    span  Closed
+                div(class="restaurantReviews container")
+                    each review in reviews
 
+                        div=review.rating
+                        div()=`${review.content}`
+                div(id="restaurantId" hidden)=`${restaurantId}`
+            div(class="restaurantInfoBar col-sm-4")
+                div(class="restaurantInfoBar__main")
+                    div(class="restaurantInfoBar__main-head")
+                        div(class="restaurantInfoBar__main-phoneNumber")
+                            i(class="fa fa-phone")
+                            span 901-555-5555
+                        hr(class="my-4")
+                        div(class="restaurantInfoBar__main-address")
+                            i(class="fa fa-location-arrow")
+                            span 123 Example Blvd Chicago, Illinois 88888
+                    div(class="restaurantInfoBar__subbody")
+                        div(class="restaurantInfoBar__subbody-titles")
+                            h4 You Might Also Consider
+                            div(class="restaurantInfoBar__subbody-sponsor row")
+                                h5 Sponsored 
+                                i(class="fa fa-info-circle")
+                        div(class="restaurantInfoBar__subbody-miniCard")
+                            div(class="row")
+                                img(class="restaurantInfoBar__subbody-miniCard-pic" src="")
+                                div(class="restaurantInfoBar__subbody-miniCard-details")
+                                    h6 Sample Restaurant Name
+                                    img(src="")
+                                    p tiny stars
+                
 
-    div(id="location_hours") Location and Hours
-    div(id='map')
+    script(type="module" src="/js/map.js")
+    script(type="module" src="/js/favorite.js")
 
-    each review in reviews
-
-        div=review.rating
-        div()=`${review.content}`
-    div(id="restaurantId" hidden)=`${restaurantId}`

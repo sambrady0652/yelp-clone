@@ -31,12 +31,10 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
         }
     })
 
-
-
-    res.json({restaurant})
+    res.json({ restaurant })
 }))
 
-router.get('/key', asyncHandler (async (req, res) => {
+router.get('/key', asyncHandler(async (req, res) => {
 
     const key = MapsSecretKey.MAPS_SECRET_KEY;
 
