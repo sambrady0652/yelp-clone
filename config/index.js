@@ -18,5 +18,9 @@ module.exports = {
     },
     MapsSecretKey: {
         MAPS_SECRET_KEY: process.env.MAPS_SECRET_KEY
+    },
+    awsKeys: {
+        AWS_ACCESS_KEY: process.env.AWS_ACCESS_KEY,
+        AWS_SECRET_KEY: process.env.AWS_SECRET_KEY
     }
 };
