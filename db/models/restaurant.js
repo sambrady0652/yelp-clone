@@ -6,29 +6,32 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       unique: true
     },
+    image_url: {
+      type: DataTypes.STRING
+    },
     keywordId: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    price: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     latitude: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.NUMERIC(6, 4),
       allowNull: false
     },
     longitude: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.NUMERIC(6, 4),
       allowNull: false
     },
-    city: {
-      type: DataTypes.STRING,
-      allowNull: false
+    transactions: {
+      type: DataTypes.STRING
     },
-    state: {
-      type: DataTypes.STRING,
-      allowNull: false
+    address: {
+      type: DataTypes.STRING
     },
-    website: DataTypes.STRING,
-    phoneNumber: DataTypes.INTEGER,
-    amenityId: DataTypes.INTEGER
+    phone: DataTypes.STRING
   }, {});
   Restaurant.associate = function (models) {
     const columnMapping = {
@@ -36,16 +39,9 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: "restaurantId",
       otherKey: "userId"
     }
-    const columnMapping2 = {
-      through: "RestaurantAmenity",
-      foreignKey: "restaurantId",
-      otherKey: "amenitiesId"
-
-    }
     Restaurant.belongsTo(models.RestaurantKeyword, { foreignKey: "keywordId" });
     Restaurant.belongsToMany(models.User, columnMapping);
     Restaurant.hasMany(models.Review, { foreignKey: "restaurantId" });
-    Restaurant.belongsToMany(models.Amenity, columnMapping2);
   };
   return Restaurant;
 };
