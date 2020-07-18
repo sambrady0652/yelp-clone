@@ -86,7 +86,6 @@ router.post('/:id(\\d+)/reviews', csrfProtection, upload.array('upl', 1), asyncH
         usefulCount: 0
     })
 
-    //****redirect isn't working.****
     res.redirect(`/restaurants/${restaurantId}`)
 
 }));
@@ -103,7 +102,7 @@ router.get('/:id(\\d+)/reviews/:idd(\\d+)/edit', csrfProtection, asyncHandler(as
 }));
 
 //Submits Edit Review Form
-router.patch('/:id(\\d+)/reviews/:idd(\\d+)', /*csrfProtection,*/ upload.array('upl', 1), asyncHandler(async (req, res) => {
+router.patch('/:id(\\d+)/reviews/:idd(\\d+)', csrfProtection, upload.array('upl', 1), asyncHandler(async (req, res) => {
     let { rating, content } = req.body;
     rating = parseInt(rating, 10)
     const reviewId = parseInt(req.params.idd, 10)
@@ -120,7 +119,6 @@ router.patch('/:id(\\d+)/reviews/:idd(\\d+)', /*csrfProtection,*/ upload.array('
 
 
 
-    //redirect not working
     res.redirect(`/restaurants/${restaurantId}`)
 }));
 
@@ -131,10 +129,8 @@ router.delete('/:id(\\d+)/reviews/:idd(\\d+)', asyncHandler(async (req, res) => 
 
     await review.destroy()
 
-    await sequelize.close()
 
-    //redirect not working.
-    res.redirect(`/${restaurantId}`)
+    res.redirect(`/restaurants/${restaurantId}`)
 }));
 
 
