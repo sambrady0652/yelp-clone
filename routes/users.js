@@ -128,7 +128,18 @@ router.post(
     //csrfProtection,
     asyncHandler(async (req, res) => {
         const userId = parseInt(req.params.id, 10);
-        let { location } = req.files[0];
+            try{
+                let { location } = req.files[0];
+            }catch{
+
+            }finally{
+                tempUser = await User.findByPk(userId);
+                let { profilePicture } = tempUser;
+                var location = profilePicture;
+            }
+
+
+
         console.log(location)
         const userToUpdate = await User.findByPk(userId);
         const { firstName, lastName, City, State } = req.body;
