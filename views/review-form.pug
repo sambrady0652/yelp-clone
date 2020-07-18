@@ -1,0 +1,16 @@
+extends layout.pug
+
+block content
+    div(class="banner")
+        img(class="banner_logo" src="/images/welpedLogo.jpg" alt="")
+        div(class="banner_writeareview") Write a Review
+    div(class="restaurantGuidelines")
+        div(class="restaurantName") Popeyes Paneo Jobi
+        div(class="guidelines") Read our review guidelines
+    div(class="reviewBox")
+        input(class="reviewContent" type="textarea")
+    div(class="headers")
+        div(class="photoHeader") Attach Photo
+        div(class="photoHeader2") Optional
+        input(type="file" class="file" name="ipl")
+    button(type="submit" class="submitButton") Post Review

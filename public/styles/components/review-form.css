@@ -1,0 +1,90 @@
+.banner{
+    height: 63px;
+    width: 100%;
+    background-color: #d32323;
+    display: flex;
+    align-items: center;
+}
+
+.banner_logo{
+    height: 63px;
+    padding-left: 150px
+}
+
+.banner_writeareview{
+    color: white;
+    font-size: 25px;
+
+}
+
+.restaurantName{
+    color: #0073bb;
+    font-size: 40px;                                                                                                                                                                                                                                                                                                                                                                               ;
+}
+
+.guidelines{
+    color: #0073bb;
+    padding-left: 100px
+}
+
+.restaurantGuidelines{
+    display: flex;
+    height: 80px;
+    width: 650px;
+    align-items: center;
+    /* background-color: black; */
+    margin-left: 150px;
+    justify-content: space-between;
+}
+
+.reviewBox{
+    height: 400px;
+    width: 650px;
+    margin-left: 150px;
+    border: solid #e6e6e6 2px;
+
+}
+
+.reviewContent{
+    width: 650px;
+    height: 400px;
+}
+
+.textContent{
+    overflow-wrap: break-word;
+
+}
+
+.headers{
+    display: flex;
+    margin-top: 5px;
+    margin-left: 150px;
+    height: 50px;
+    /* border: solid black 2px; */
+    align-items: center;
+}
+
+.photoHeader{
+    font-size: 15px;
+    color: black;
+    font-weight: bold;
+}
+
+.photoHeader2{
+    font-size: 12px;
+    margin-left: 15px;
+}
+
+.file{
+    margin-left: 150px;
+}
+
+.submitButton{
+    margin-left: 150px;
+    height: 50px;
+    width: 250px;
+    background-color: #d32323;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+}
