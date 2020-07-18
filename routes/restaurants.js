@@ -68,7 +68,8 @@ router.get('/:id(\\d+)/reviews/new', csrfProtection, asyncHandler(async (req, re
 
 //Submits New Review Form
 router.post('/:id(\\d+)/reviews', csrfProtection, upload.array('upl', 1), asyncHandler(async (req, res) => {
-    let userId = parseInt(req.body.userId, 10)
+    //****Need to find a way to get User ID in order for this route to work****
+    //let userId = parseInt(req.body.userId, 10)
     //gets url for photo being uploaded to S3 bucket
     let { location } = req.files[0];
     console.log("userID:   " + userId)
@@ -85,8 +86,8 @@ router.post('/:id(\\d+)/reviews', csrfProtection, upload.array('upl', 1), asyncH
         usefulCount: 0
     })
 
-    //everything above works but redirect is not.
-    res.redirect(`/${restaurantId}`)
+    //****redirect isn't working.****
+    res.redirect(`/restaurants/${restaurantId}`)
 
 }));
 
@@ -102,7 +103,7 @@ router.get('/:id(\\d+)/reviews/:idd(\\d+)/edit', csrfProtection, asyncHandler(as
 }));
 
 //Submits Edit Review Form
-router.patch('/:id(\\d+)/reviews/:idd(\\d+)', csrfProtection, upload.array('upl', 1), asyncHandler(async (req, res) => {
+router.patch('/:id(\\d+)/reviews/:idd(\\d+)', /*csrfProtection,*/ upload.array('upl', 1), asyncHandler(async (req, res) => {
     let { rating, content } = req.body;
     rating = parseInt(rating, 10)
     const reviewId = parseInt(req.params.idd, 10)
@@ -117,7 +118,6 @@ router.patch('/:id(\\d+)/reviews/:idd(\\d+)', csrfProtection, upload.array('upl'
 
     await review.save();
 
-    await sequelize.close();
 
 
     //redirect not working
