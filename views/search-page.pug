@@ -1,10 +1,17 @@
 include searchbar.pug
 
 block search
-    h2 Search Results
-        ul(id="search_results")
-            if restaurants
-                for restaurant in restaurants
-                    li: a(href=`/restaurants/${restaurant.id}`)= restaurant.name
-    div(id="map")
+    if restaurants
+        div(class="card-columns")
+            for restaurant in restaurants
+                div(class="card" style="width:200px")
+                    img(class="card-img-bottom" src=`${restaurant.image_url}` alt="Restaurant image")
+                    div(class="card-body")
+                        h4(class="card-title")= restaurant.name
+                        p(class="card-text")= restaurant.phone
+                        a(href=`/restaurants/${restaurant.id}` class="btn btn-primary stretched-link") See Profile
+
+                    //- li: a(href=`/restaurants/${restaurant.id}`)= restaurant.name
+    div(class="map_container")
+        div(id="map")
     script(type="module" src="/js/map-search.js")
