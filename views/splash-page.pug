@@ -7,18 +7,24 @@ block content
                 i(class="fa fa-car")
                 a(href="") You can always order in
             div(class="orderBar__options")
-                a(href="") Delivery
-                a(href="") Pizza Delivery
-                a(href="") Chinese Food Delivery
-            button(class="close" type="button" aria-label="close") x
+                div(class="orderBar__options-items")
+                    button(type="text" value="" class="btn btn-outline-dark" id="orderBar-Delivery") Delivery
+                div(class="orderBar__options-items")
+                    button(type="text" value="" class="btn btn-outline-dark" id="orderBar-Pizza") Pizza Delivery
+                div(class="orderBar__options-items")
+                    button(type="text" value="" class="btn btn-outline-dark" id="orderBar-Chinese") Chinese Food Delivery
+                div(class="orderBar__options-items")
+                    button(type="text" value="" class="btn btn-outline-dark" id="orderBar-x") X
         div(class="topSplashBar")
             div(class="topSplashBar__left")
-                a(href="") Write a Review
-                a(href="") Events
-                a(href="") Talk
-            div(class="topSplashBar__right")
+                //- No content currently
+            div(class="topSplashBar__right" id="splashUnknown")
                 a(href="/login" class="loginLink btn btn-dark") Log In 
                 a(href="/users/signup" class="signup btn btn-outline-light") Sign Up
+            div(class="topSplashBar__right hidden" id="splashKnownAlt")
+                button(type="button" class="loginLink btn btn-dark" id="splashProfileBtn") Profile
+                button(type="button" class="signup btn btn-outline-light" id="splashAccSettingsBtn") Account Settings
+
         div(class="splashBodyMain")
             div(class="splashBodyMain__top")
             div(class="splashBodyMain__logo")
@@ -27,29 +33,51 @@ block content
                 form(class="splash__search-form" method="POST" action="/search")
                     div(class="input-group mb-3")
                         span(class='input-group-text' id="find-addon") Find
-                    input(type="search" class="form-control" name="keyword" placeholder="Tacos and Burritos")
-                    div(class="input-group mb-3")
-                        span(class='input-group-text' id="find-addon") Near
-                    input(type="search" class="form-control" name="location" placeholder="Chicago, IL")
+                    input(type="search" class="form-control" name="keyword" placeholder="Tacos, Burritos, Deep-dish Pizza, Chinese, Indian, French...")
                     button(class="btn") 
                         i(type="submit" class="fa fa-search navbutton")
             div(class="splashBodyMain__quickLinks")
-                div(class="splashBodyMain__quickLinks-one")
+                div(class="splashBodyMain__quickLinks-items")
                     i(class="fa fa-binoculars")
-                    a(href="") Italian
-                div(class="splashBodyMain__quickLinks-one")
+                    button(type="text" value="" class="btn btn-secondary" id="quickLinks-italian") Italian
+                div(class="splashBodyMain__quickLinks-items")
                     i(class="fa fa-binoculars")
-                    a(href="") Chinese
-                div(class="splashBodyMain__quickLinks-one")
+                    button(type="text" value="" class="btn btn-secondary" id="quickLinks-chinese") Chinese
+                div(class="splashBodyMain__quickLinks-items")
                     i(class="fa fa-binoculars")
-                    a(href="") French
+                    button(type="text" value="" class="btn btn-secondary" id="quickLinks-french") French
             div(class="splashBodyMain__postScript")
                 h5 Welp is commited to supporting the Black Community
                 p As part of their ongoing efforts, the Yelp Foundation is dontating $500,000 
                 p to the Equal Justice Initiative and the NAACP Legal Defense Fund. 
                 p They are also developing tools in support of Black-owned businessess.
-                a(href="") Learn More
+                a(href="https://blog.yelp.com/2020/06/laying-the-groundwork-for-change") Learn More
     div(class="bottomSplashContainer")
         div(class="bottomSplashContainer__locationBar")
             h5 Welp Chicago
-            
+        div(class="bottomSplashContainer__main")
+            div(class="bottomSplashContainer__main-container")
+                div(class="row")
+                    div(class="col")
+                        p Hello World!
+                    div(class="col")
+                        p Hello World!
+                    div(class="col")
+                        p Hello World!
+            div(class="bottomSplashContainer__main-container")
+                div(class="row")
+                    div(class="col")
+                        p Hello World!
+                    div(class="col")
+                        p Hello World!
+                    div(class="col")
+                        p Hello World!
+            div(class="bottomSplashContainer__main-container")
+                div(class="row")
+                    div(class="col")
+                        p Hello World!
+                    div(class="col")
+                        p Hello World!
+                    div(class="col")
+                        p Hello World!
+    script(type="module" src="/js/splash-page.js")
