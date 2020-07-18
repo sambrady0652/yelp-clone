@@ -2,10 +2,9 @@
 const express = require('express');
 const bcrypt = require("bcryptjs");
 const csurf = require('csurf');
-const { check, validationResult } = require('express-validator');
 
 // - Internal Requirements
-const { asyncHandler, handleValidationErrors } = require('../utils');
+const { asyncHandler, handleValidationErrors, includesKeyword } = require('../utils');
 const db = require('../db/models');
 const validateEmailAndPassword = require('./users');
 const { getUserToken } = require('../auth');
@@ -62,12 +61,14 @@ router.post(
 router.get('/search', asyncHandler(async (req, res) => {
     res.render('search-page', { title: "Search Results" });
 }));
+
 router.post('/search', asyncHandler(async (req, res) => {
-    console.log("INSIDE THE ROUTE-------------")
     const { keyword } = req.body;
-    if (keyword === "") {
-        const popularRestaurant = await Restaurant.findOne();
-        res.render('search-page', { title: "Search Results", popularRestaurant })
+    const keywordIncluded = await includesKeyword(keyword);
+    console.log(keyword);
+    console.log(keywordIncluded);
+    if (!keywordIncluded) {
+        res.render('no-results', { title: "Sorry, No Results" });
     }
     else {
         const searchTerm = await RestaurantKeyword.findOne({ where: { keyword: keyword.toLowerCase() } });
