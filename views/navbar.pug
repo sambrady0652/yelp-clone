@@ -9,14 +9,15 @@ block content
             form(class="nav_search-form" method="POST" action="/search")
                 //- div(class="input-group mb-3")
                 input(type="search" class="form-control" name="keyword" placeholder="tacos, pizza, Lou's Place")
-                input(type="search" class="form-control" name="location" placeholder="Chicago, IL")
+                div Near Chicago, IL
                 button(class="btn") 
                     i(type="submit" class="fa fa-search navbutton")
         div(class="links-container" display="flex")
-            div: a(class="write-a-review" href="/search") Find A Restaurant
+            div: a(class="nav_link" href="/search") Find A Restaurant
         div(class="navButtons-container" display="flex")
             button(class="nav_sign-up-button btn btn-secondary") Sign Up
             button(class="nav_log-in-button btn btn-secondary") Log In
             button(class="nav_log-out-button btn btn-secondary") Log Out
             button(class="nav_my_profile_button btn btn-secondary") My Profile
+            button(class="nav_settings btn btn-secondary") Settings
         div()

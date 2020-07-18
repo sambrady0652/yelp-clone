@@ -4,6 +4,8 @@ document.addEventListener('DOMContentLoaded', (e) => {
     const loginButton = document.querySelector('.nav_log-in-button');
     const logoutButton = document.querySelector('.nav_log-out-button');
     const myProfile = document.querySelector('.nav_my_profile_button');
+    const mySettings = document.querySelector('.nav_settings');
+
     const id = localStorage.getItem("WELP_CURRENT_USER_ID");
     const token = localStorage.getItem("WELP_USER_TOKEN");
 
@@ -14,6 +16,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
     if (id === null) {
         myProfile.classList.add("d-none");
         logoutButton.classList.add("d-none");
+        mySettings.classList.add("d-none");
     }
 
     signUpButton.addEventListener('click', (e) => {
@@ -32,6 +35,10 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
     myProfile.addEventListener('click', (e) => {
         window.location.href = `/users/${id}`
+    });
+
+    mySettings.addEventListener('click', (e) => {
+        window.location.href = `/users/${id}/settings`
     });
 
 });
