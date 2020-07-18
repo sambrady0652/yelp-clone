@@ -48,13 +48,13 @@ router.post(
             err.status = 401;
             err.title = "Login failed";
             err.errors = ["The provided credentials were invalid."];
-
             res.status(400).json({ err });
         }
-
-        const token = getUserToken(user);
-        const id = user.id;
-        res.json({ token, user: { id: id } });
+        else {
+            const token = getUserToken(user);
+            const id = user.id;
+            res.json({ token, user: { id: id } });
+        }
     }));
 
 
