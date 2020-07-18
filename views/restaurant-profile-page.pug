@@ -3,8 +3,8 @@ include navbar
 
 block content
     div(class="restaurantPhotoBar row")
-        div(class="col")
-            img(src="")
+        div(class="auto-resize-square col")
+            img(src=restaurant.image_url)
         div(class="col")
             img(src="")
         div(class="col")
@@ -18,14 +18,14 @@ block content
                 div(class="restaurantCard")
                     div(class="restaurantCard__name row" id='restaurantCard')=restaurant.name
                     div(class="restaurantCard__rating row")
-                        img(class="restaurantCard__rating-stars" src="/images/4.5-stars.png")
+                        img(class="restaurantCard__rating-stars" src="/images/4-stars.png")
                         label(class="restaurantCard__rating-reviewCount") 0 reviews
-                        button(class="btn btn-light btn-sm") Details
+                        button(class="btn btn-light btn-sm")=restaurant.Keywords
                     div(class="restaurantCard__info row")
-                        label(class="restaurantCard__info-price") $$ -
+                        label(class="restaurantCard__info-price")=restaurant.price
                         label(class="restaurantCard__info-category") Category
                     div(class="restaurantCard__buttons row")
-                        button(type="button" class="btn btn-danger" id="review") Write a Review
+                        button(type="button" value=restaurant.id class="btn btn-danger" id="review") Write a Review
                         button(type="button" class="btn btn-outline-secondary" id="addPhoto") 
                             i(class="fa fa-camera") 
                             span Add Photo
@@ -42,7 +42,7 @@ block content
                         div(class="col")
                             div(class="restaurantSubCard__body-map" id='map')
                             div(class="restaurantSubCard__body-address")
-                                label 123 Example Blvd Chicago, Illinois 88888
+                                label=restaurant.address
 
                         div(class="col")
                             div(class="restaurantSubCard__hoursBox")
@@ -78,11 +78,11 @@ block content
                     div(class="restaurantInfoBar__main-head")
                         div(class="restaurantInfoBar__main-phoneNumber")
                             i(class="fa fa-phone")
-                            span 901-555-5555
+                            span=restaurant.phone
                         hr(class="my-4")
                         div(class="restaurantInfoBar__main-address")
                             i(class="fa fa-location-arrow")
-                            span 123 Example Blvd Chicago, Illinois 88888
+                            span=restaurant.address
                     div(class="restaurantInfoBar__subbody")
                         div(class="restaurantInfoBar__subbody-titles")
                             h4 You Might Also Consider
@@ -100,4 +100,5 @@ block content
 
     script(type="module" src="/js/map.js")
     script(type="module" src="/js/favorite.js")
+    script(type="module" src="/js/restaurant-profile-page.js")
 

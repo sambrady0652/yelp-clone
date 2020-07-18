@@ -4,6 +4,33 @@
     padding: 0 2px;
 }
 
+.auto-resize-square {
+    height: 200px;
+    width: 200px;
+    object-fit: none;
+}
+
+.restaurantPhotoBar div {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+}
+
+.restaurantPhotoBar img {
+    position: absolute;
+    max-width: 100%;
+    height: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate( -50%, -50%);
+}
+
+.restaurantPhotoBar img.landscape {
+    height: 100%;
+    width: auto;
+}
+
 .restaurantPhotoBar__seeAllBtn {
     position: absolute;
     top: 140px;

@@ -9,11 +9,13 @@ const multer = require('multer')
 const multerS3 = require('multer-s3')
 
 // - Internal Requirements
-const { asyncHandler, handleValidationErrors } = require('../utils');
+const { asyncHandler, handleValidationErrors, emailNotUnique } = require('../utils');
 const db = require('../db/models');
 const { getUserToken, requireAuth } = require('../auth');
 const { sequelize } = require('../db/models');
-const { awsKeys } = require('../config')
+const { awsKeys } = require('../config');
+
+//Photo Upload
 aws.config.update({
     secretAccessKey: awsKeys.AWS_SECRET_KEY,
     accessKeyId: awsKeys.AWS_ACCESS_KEY,
@@ -50,35 +52,17 @@ const validateEmailAndPassword = [
         .withMessage("Please provide a valid email."),
     check("password")
         .exists({ checkFalsy: true })
-        .withMessage("Please provide a password."),
-];
-
-//This does not appear to be being used; can we delete?
-const validateUserSettings = [
-    check("firstName")
-        .exists({ checkFalsy: true })
-        .withMessage("Please provide a First Name."),
-    check("lastName")
-        .exists({ checkFalsy: true })
-        .withMessage("Please provide a Second Name."),
-    check("city")
-        .exists({ checkFalsy: true })
-        .withMessage("Please provide a City."),
-    check("state")
-        .exists({ checkFalsy: true })
-        .withMessage("Please provide a State."),
+        .withMessage("Please provide a password.")
 ];
 
 //Routes
-// ----
+
 //Render's Signup Form
-// --- working
 router.get('/signup', (req, res) => {
     res.render('user-signup', { title: 'Sign Up - Welp' });
 });
 
 //Create New User(submits signup form)
-// --- working
 router.post(
     '/',
     validateEmailAndPassword,
@@ -86,26 +70,23 @@ router.post(
     asyncHandler(async (req, res) => {
         const { firstName, lastName, email, password, city, state, profilePicture } = req.body;
         const hashedPassword = await bcrypt.hash(password, 10);
-        const user = await User.create({ firstName, lastName, email, hashedPassword, city, state, profilePicture });
-
-        /* TODO: Insert Unique Constraint on email error handling
-        if(there is a unique constraint error on the email) {
-            const err = new Error("Signup Failed");
+        const emailInUse = await emailNotUnique(email);
+        if (emailInUse) {
+            const err = new Error("Signup failed");
             err.status = 401;
-            err.title = "Signup Failed;
-            err.errors = ["Please provide a unique email address."];
-
+            err.title = "Signup failed";
+            err.errors = ["That email is already in use."];
             res.status(400).json({ err });
         }
-        */
-
-        const token = getUserToken(user);
-        const id = user.id;
-        res.json({ token, user: { id: id } });
+        else {
+            const user = await User.create({ firstName, lastName, email, hashedPassword, city, state, profilePicture });
+            const token = getUserToken(user);
+            const id = user.id;
+            res.json({ token, user: { id: id } });
+        }
     }));
 
 //Renders User's Profile Page
-// --- working
 router.get('/:id(\\d+)',
     csrfProtection,
     asyncHandler(async (req, res) => {

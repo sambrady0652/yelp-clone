@@ -22,6 +22,8 @@ signUpForm.addEventListener("submit", async (e) => {
         profilePicture
     }
 
+    console.log(body);
+
     try {
         const res = await fetch("/users", {
             method: "POST",
@@ -42,6 +44,6 @@ signUpForm.addEventListener("submit", async (e) => {
         window.location.href = `/users/${id}`;
 
     } catch (err) {
-        handleErrors(err);
+        console.error(err);
     }
 });
