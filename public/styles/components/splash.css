@@ -6,7 +6,7 @@
     height: 64px;
 }
 
-.orderBar > a {
+.orderBar > button {
     font-size: 18px;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bolder;
@@ -19,31 +19,32 @@
     font-weight: bolder;
 }
 
+.orderBar__left i {
+    color: white;
+}
+
 .orderBar__left a {
     color: white;
     margin-left: 15px;
 }
 
-.orderBar__left i {
-    color: white;
-}
-
 .orderBar__options {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: absolute;
     right: 50px;
     padding: 0 20px;
 }
 
-.orderBar__options a {
+#orderBar-x {
+    margin-left: 40px;
+}
+
+.orderBar__options-items button {
     color: white;
     font-size: 14px;
     padding: 0 12px;
-}
-
-.orderBar button {
-    color: white;
-    position: absolute;
-    right: 20px;
 }
 
 .topSplashBar {
@@ -92,9 +93,27 @@
     margin: 10px;
 }
 
+.topSplashBar__right button {
+    padding: 10px;
+    margin: 10px;
+}
 
+.hidden {
+    visibility: hidden;
+}
 
 .topSplashBar__right i {
+    color: #d32323;
+}
+
+.topSplashBar__right-alt a {
+    padding: 10px;
+    margin: 10px;
+}
+
+
+
+.topSplashBar__right-alt i {
     color: #d32323;
 }
 
@@ -110,10 +129,19 @@
 .splash__search-form {
     display: flex;
     height: 38px;
+    width: 600px;
+}
+
+.splash__search-form div {
+    width: 55.7px;
 }
 
 .splash__search-form button {
     background-color: #d32323;
+}
+
+.splash__search-form input {
+    width: 100%;
 }
 
 .splash__search-form button > i {
@@ -126,12 +154,14 @@
     justify-content: center;
     align-items: center;
     height: 70px;
-    margin-top: 10px;
+    margin-top: 30px;
 }
 
-.splashBodyMain__quickLinks-one {
-    padding: 0 20px;
+.splashBodyMain__quickLinks-items {
+    color: white;
+    font-size: 18px;
     position: relative;
+    padding: 0 30px;
     bottom: 20px;
 }
 
@@ -145,6 +175,9 @@
 
 .splashBodyMain__quickLinks i {
     color: white;
+    position: relative;
+    top: 4px;
+    margin-right: 10px;
 }
 
 .splashBodyMain__postScript {
