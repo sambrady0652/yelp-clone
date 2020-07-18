@@ -1,27 +1,25 @@
 include navbar.pug
 
 block content
-    div
-        p top content space
+    div(class="basicUserInfo")
+        div()
+            img(class="basicUserInfo__profilePic" src=`${user.profilePicture}` alt="profile picture")
         div
-            img(src=`${user.profilePicture}`, alt="profile picture")
+            div(class="basicUserInfo__name")= `${user.firstName} ${user.lastName}`
+            div(class="basicUserInfo__location")=`${user.city}, ${user.state}`
         div
-            p block of user info
-            p= `${user.firstName} ${user.lastName}`
-            p= `${user.city} ${user.state}`
-        div
-            p links
-    div 
+            a(class="basicUserInfo__links" href='') Update your profile
+    div(class="leftSideBar")
         p sidebar
     div
         p review contents
-    div 
+    div
         for review in reviews
-            p= review.content  
-    div 
+            p= review.content
+    div
         p user info sidebar
     div
         p footer
-    
+
     div: a(href=`/users/${user.id}/settings`) Settings
     div
