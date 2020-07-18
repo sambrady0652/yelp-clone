@@ -62,13 +62,13 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
 //Render New Review Form
 router.get('/:id(\\d+)/reviews/new', csrfProtection, asyncHandler(async (req, res) => {
     let restaurantId = parseInt(req.params.id, 10)
-    //review form does not exist yet. Placeholder for now.
     res.render('review-form', { title: "New Review", restaurantId, token: req.csrfToken() })
 }));
 
 //Submits New Review Form
 router.post('/:id(\\d+)/reviews', csrfProtection, upload.array('upl', 1), asyncHandler(async (req, res) => {
-    let userId = parseInt(req.body.userId, 10)
+    //****Need to find a way to get User ID in order for this route to work****
+    //let userId = parseInt(req.body.userId, 10)
     //gets url for photo being uploaded to S3 bucket
     let { location } = req.files[0];
     console.log("userID:   " + userId)
@@ -85,8 +85,7 @@ router.post('/:id(\\d+)/reviews', csrfProtection, upload.array('upl', 1), asyncH
         usefulCount: 0
     })
 
-    //everything above works but redirect is not.
-    res.redirect(`/${restaurantId}`)
+    res.redirect(`/restaurants/${restaurantId}`)
 
 }));
 
@@ -117,10 +116,8 @@ router.patch('/:id(\\d+)/reviews/:idd(\\d+)', csrfProtection, upload.array('upl'
 
     await review.save();
 
-    await sequelize.close();
 
 
-    //redirect not working
     res.redirect(`/restaurants/${restaurantId}`)
 }));
 
@@ -131,10 +128,8 @@ router.delete('/:id(\\d+)/reviews/:idd(\\d+)', asyncHandler(async (req, res) => 
 
     await review.destroy()
 
-    await sequelize.close()
 
-    //redirect not working.
-    res.redirect(`/${restaurantId}`)
+    res.redirect(`/restaurants/${restaurantId}`)
 }));
 
 
