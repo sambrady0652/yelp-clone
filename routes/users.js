@@ -34,7 +34,7 @@ var upload = multer({
 })
 
 // - Declarations
-const { User, Review, Restaurant, userFavoriteRestaurant } = db;
+const { User, Review, Restaurant, userFavoriteRestaurant, RestaurantKeywords } = db;
 const router = express.Router();
 const csrfProtection = csurf({ cookie: true });
 
@@ -118,6 +118,8 @@ router.get('/:id(\\d+)',
             },
             limit: 10
         })
+
+        //res.send({reviews})
         res.render('user-profile-page', { title: `${user.firstName}'s Profile Page`, user, reviews, token: req.csrfToken() });
     }));
 

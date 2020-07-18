@@ -8,6 +8,7 @@
 
 .basicUserInfo__profilePic{
     height: 220px;
+    width: 225px;
     margin-left: 150px;
     margin-top: 70px;
     border: lightgrey solid 2px;
@@ -28,3 +29,33 @@
     margin-left: 300px;
     border-left: lightgrey solid 1px;
 }
+
+.reviewCard{
+    display: flex;
+    height: 200px;
+    width: 420px;
+    border-top: lightgrey solid 1px;
+}
+
+.reviewCard__picture{
+    height: 75px;
+    width: 75px;
+}
+
+.sidebarAndReviews{
+    display: flex;
+}
+
+.leftSideBar{
+    height:100%;
+    width:200px;
+    margin-left: 163px;
+    margin-top: 60px;
+}
+
+.displayReviews{
+    margin-left: 35px;
+}
+/* .reviewCard{
+    margin-left: 35px;
+} */

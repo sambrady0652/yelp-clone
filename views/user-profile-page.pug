@@ -8,18 +8,29 @@ block content
             div(class="basicUserInfo__name")= `${user.firstName} ${user.lastName}`
             div(class="basicUserInfo__location")=`${user.city}, ${user.state}`
         div
-            a(class="basicUserInfo__links" href='') Update your profile
+            a(class="basicUserInfo__links" href=`/users/${user.id}/settings`) Update your profile
+div(class="sidebarAndReviews")
     div(class="leftSideBar")
-        p sidebar
-    div
-        p review contents
-    div
+        p=`${user.firstName}'s Profile `
+    div(class="displayReviews")
+        h2 Reviews
         for review in reviews
-            p= review.content
-    div
-        p user info sidebar
-    div
-        p footer
+            div(class='reviewCard')
+                div(class="restaruantInfo")
+                    img(class="reviewCard__picture" src=`${review.User.profilePicture}`)
+                    a(href=`/restaurants/${review.Restaurant.id}`)=review.Restaurant.name
+                    div(class='reviewCard__price')=review.Restaurant.price
+                    div(class="reviewCard__address")=review.Restaurant.address
+                    div(class="reviewCard__cityState") Chicago, IL
+                div(class="reviewCard__reviewcontent")=review.content
 
-    div: a(href=`/users/${user.id}/settings`) Settings
-    div
+
+
+
+
+div
+    p user info sidebar
+div
+    p footer
+
+div: a(href=`/users/${user.id}/settings`) Settings
