@@ -10,8 +10,7 @@ module.exports = {
       },
       email: {
         type: Sequelize.STRING(80),
-        allowNull: false,
-        unique: true
+        allowNull: false
       },
       hashedPassword: {
         type: Sequelize.STRING.BINARY,

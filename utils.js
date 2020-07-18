@@ -1,6 +1,7 @@
 const { validationResult } = require('express-validator');
+const { User } = require('./db/models');
 
-const asyncHandler = (handler) => (req, res, next) => handler(req, res, next).catch(next)
+const asyncHandler = (handler) => (req, res, next) => handler(req, res, next).catch(next);
 const handleValidationErrors = (req, res, next) => {
     const validationErrors = validationResult(req);
 
@@ -11,12 +12,18 @@ const handleValidationErrors = (req, res, next) => {
         err.status = 400;
         err.title = "Bad request.";
         err.errors = errors;
-        return next(err);
+        res.status(400).json({ err });
     }
     next();
 };
 
+const emailNotUnique = async (email) => {
+    const emails = await User.findAll().map((user) => user = user.email);
+    return emails.includes(email);
+}
+
 module.exports = {
     asyncHandler,
     handleValidationErrors,
+    emailNotUnique
 }
