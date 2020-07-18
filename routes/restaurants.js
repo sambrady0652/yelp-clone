@@ -62,7 +62,6 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
 //Render New Review Form
 router.get('/:id(\\d+)/reviews/new', csrfProtection, asyncHandler(async (req, res) => {
     let restaurantId = parseInt(req.params.id, 10)
-    //review form does not exist yet. Placeholder for now.
     res.render('review-form', { title: "New Review", restaurantId, token: req.csrfToken() })
 }));
 
