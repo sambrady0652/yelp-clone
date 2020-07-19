@@ -1,9 +1,10 @@
-extends layout.pug
+include navbar.pug
+include includes/cards.pug
 
 block content
-    div
-        p side body
-    div
-        p main body
-        for favorite in favorites
-            div= favorite.Restaurant.name   
+    if restaurants.length > 0
+        h2 #{user.firstName}'s Favorite Restaurants
+        for restaurant in restaurants 
+            +mediumRestaurantCard(restaurant.id, restaurant.name, restaurant.price, restaurant.address, restaurant.phone, restaurant.image_url)
+    else 
+        h2 #{user.firstName} hasn't favorited any restaurants yet!
