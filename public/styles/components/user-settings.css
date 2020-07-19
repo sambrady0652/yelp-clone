@@ -1,0 +1,15 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.settings_delete-button{
+    background-color: #FD0E35;
+}
+
+.container__name{
+    color: #FD0E35;
+    font-weight: bold;
+}

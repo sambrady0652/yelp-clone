@@ -5,14 +5,18 @@ block content
         img(class="banner_logo" src="/images/welpedLogo.jpg" alt="")
         div(class="banner_writeareview") Write a Review
     div(class="restaurantGuidelines")
-        div(class="restaurantName") Popeyes Paneo Jobi
+        div(class="restaurantName")=`${restaurant.name}`
         div(class="guidelines") Read our review guidelines
-    form(action=`` method='post' enctype="multipart/form-data")
+    form(id="reviewForm" action=`/restaurants/${restaurantId}/reviews` method='post' enctype="multipart/form-data")
         div(class="reviewBox")
-            input(type="")
-            input(class="reviewContent" type="textarea" value=content)
+            input(type="number" name="rating" value=rating )
+            input(class="reviewContent" name="content" type="textarea" value=content)
         div(class="headers")
             div(class="photoHeader") Attach Photo
             div(class="photoHeader2") Optional
             input(type="file" class="file" name="ipl")
+            input(id="userId" name="userId" type='text' hidden value)
+            input(type='hidden' name='_csrf' value=token)
         button(type="submit" class="submitButton") Post Review
+
+    script(type="module" src="/js/review-form.js")

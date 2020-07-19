@@ -17,11 +17,10 @@ div(class="sidebarAndReviews")
         for review in reviews
             div(class='reviewCard')
                 div(class="restaruantInfo")
-                    img(class="reviewCard__picture" src=`${review.User.profilePicture}`)
+                    img(class="reviewCard__picture" src=`${review.photos}`)
+                div()
                     a(href=`/restaurants/${review.Restaurant.id}`)=review.Restaurant.name
                     div(class='reviewCard__price')=review.Restaurant.price
                     div(class="reviewCard__address")=review.Restaurant.address
                     div(class="reviewCard__cityState") Chicago, IL
-                div(class="reviewCard__reviewcontent")=review.content
-
-    div: a(href=`/users/${user.id}/settings`) Settings
+            div(class="reviewCard__reviewcontent")=review.content

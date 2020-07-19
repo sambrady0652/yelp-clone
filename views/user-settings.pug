@@ -1,23 +1,21 @@
 extends layout.pug
 include includes/form-inputs.pug
 block content
-    div
-        p side body
-        p= `${user.firstName} ${user.lastName}'s Account Settings`
-    div
-        p main body
+    div(class="container")
+
+        div(class="container__name")=`${user.firstName} ${user.lastName}'s Account Settings`
         form(action=`/users/${user.id}/edit` method='post' enctype="multipart/form-data")
 
             input(type='hidden' name='_csrf' value=token)
             +settingsFormInput("firstName", "text", `${user.firstName}`, "First Name", "This Field is Required.")
-            +settingsFormInput("lastName", "text", `${user.lastName}`, "Last Name", "This field is required. Only your last initial will show on your profile.")
+            +settingsFormInput("lastName", "text", `${user.lastName}`, "Last Name", "This field is required.")
             +settingsFormInput("City", "text", `${user.city}`, "City", "This Field is Required.")
             +settingsFormInput("State", "text", `${user.state}`, "State", "This Field is Required.")
             label(for="profilePicture") Add Profile Picture
             input(type="file" name="upl")
-            div 
+            div
                 button(type="submit") Submit
-        div 
-            form(action=`/users/${user.id}` method="POST") 
+        div
+            form(action=`/users/${user.id}` method="POST")
                 input(type="hidden" name="_csrf" value=token)
                 button(type="submit" class="settings_delete-button") Delete User
