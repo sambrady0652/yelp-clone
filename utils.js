@@ -34,10 +34,16 @@ const isFavorited = async (userId, restaurantId) => {
     return favIds.includes(restaurantId);
 };
 
+const topChoiceFinder = async () => {
+    const favorites = await userFavoriteRestaurant.findAll();
+    console.log(favorites);
+}
+
 module.exports = {
     asyncHandler,
     handleValidationErrors,
     emailNotUnique,
     includesKeyword,
-    isFavorited
+    isFavorited,
+    topChoiceFinder
 }

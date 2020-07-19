@@ -1,4 +1,5 @@
 include navbar.pug
+include includes/cards.pug 
 
 block content
     div(class="basicUserInfo")
@@ -16,12 +17,4 @@ div(class="sidebarAndReviews")
         a(href=`/users/${user.id}/favorites`) #{user.firstName}'s Favorite Restaurants 
         h2 Reviews
         for review in reviews
-            div(class='reviewCard')
-                div(class="restaruantInfo")
-                    img(class="reviewCard__picture" src=`${review.photos}`)
-                div()
-                    a(href=`/restaurants/${review.Restaurant.id}`)=review.Restaurant.name
-                    div(class='reviewCard__price')=review.Restaurant.price
-                    div(class="reviewCard__address")=review.Restaurant.address
-                    div(class="reviewCard__cityState") Chicago, IL
-            div(class="reviewCard__reviewcontent")=review.content
+            +userReviewCard(review.Restaurant.image_url, review.rating, review.Restaurant.name, review.Restaurant.price, review.Restaurant.address, review.Restaurant.phone, review.content, review.restaurantId )

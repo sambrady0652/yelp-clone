@@ -12,10 +12,9 @@ block search
                     div(class="col-sm-7")
                         div(class="card-body")
                             h5(class="card-title")= restaurant.name
-                            ul(class="card-details-list")
-                                li(class="card-text card-detail")= restaurant.price 
-                                li(class="card-text card-detail")= restaurant.address 
-                                li(class="card-text card-detail")= restaurant.phone
+                            div(class='reviewCard__price text-right small text-secondary')= restaurant.price
+                            div(class="reviewCard__address text-right small text-secondary") #{restaurant.address}, Chicago, IL
+                            div(class="reviewCard__cityState text-right  small text-secondary")= restaurant.phone
                             a(href=`/restaurants/${restaurant.id}` class="btn btn-primary stretched-link") View Profile
     div(class="map_container")
         div(id="map")
