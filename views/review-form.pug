@@ -5,11 +5,23 @@ block content
         img(class="banner_logo" src="/images/welpedLogo.jpg" alt="")
         div(class="banner_writeareview") Write a Review
     div(class="restaurantGuidelines")
-        div(class="restaurantName")=`${restaurant.name}`
-        div(class="guidelines") Read our review guidelines
+        div(class="restaurantGuidelines__namebox")
+            div(class="restaurantName")=`${restaurant.name}`
+        div(class="restaurantGuidelines__textbox")
+            button(type="button" class="guidelines btn btn-outline-secondary") Read our review guidelines
     form(id="reviewForm" action=`/restaurants/${restaurantId}/reviews` method='post' enctype="multipart/form-data")
         div(class="reviewBox")
-            input(type="number" name="rating" value=rating )
+            //- Would like to set the default to a value determined by rating for edits
+            div(class="mainReviewCard__rating reviewRatingDefault reviewRatingDefault--0")
+                button(type="button" class="reviewRatingHover__1" value="1" id="reviewRatingHover-1")
+                button(type="button" class="reviewRatingHover__2" value="2" id="reviewRatingHover-2")
+                button(type="button" class="reviewRatingHover__3" value="3" id="reviewRatingHover-3")
+                button(type="button" class="reviewRatingHover__4" value="4" id="reviewRatingHover-4")
+                button(type="button" class="reviewRatingHover__5" value="5" id="reviewRatingHover-5")
+            div(class="row reviewBox__instruction")
+                i(class="reviewBox__arrow fa fa-arrow-left")
+                div(class="reviewBox__text") Provide a Rating
+            input(type="hidden" name="rating" value=rating id="ratingFormInput" )
             input(class="reviewContent" name="content" type="textarea" value=content)
         div(class="headers")
             div(class="photoHeader") Attach Photo
@@ -17,6 +29,6 @@ block content
             input(type="file" class="file" name="ipl")
             input(id="userId" name="userId" type='text' hidden value)
             input(type='hidden' name='_csrf' value=token)
-        button(type="submit" class="submitButton") Post Review
+        button(type="submit" class="reviewForm__submit") Post Review
 
     script(type="module" src="/js/review-form.js")
