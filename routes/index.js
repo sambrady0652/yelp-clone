@@ -8,7 +8,7 @@ const { asyncHandler, handleValidationErrors, includesKeyword } = require('../ut
 const db = require('../db/models');
 const validateEmailAndPassword = require('./users');
 const { getUserToken } = require('../auth');
-
+const { MapsSecretKey } = require('../config')
 const { handleErrors } = require('../utils');
 
 // - Declarations
@@ -57,7 +57,6 @@ router.post(
         }
     }));
 
-
 //Renders Search Results Page 
 router.get('/search', asyncHandler(async (req, res) => {
     res.render('search-page', { title: "Search Results" });
@@ -79,19 +78,19 @@ router.get('/search/:val', asyncHandler(async (req, res) => {
 router.post('/search', asyncHandler(async (req, res) => {
     const { keyword } = req.body;
     const keywordIncluded = await includesKeyword(keyword);
-    // console.log(keyword);
-    // console.log(keywordIncluded);
+
+    const key = MapsSecretKey.MAPS_SECRET_KEY;
+    const src = `https://maps.googleapis.com/maps/api/js?key=${key}&callback=initMap&libraries=&v=weekly`;
+
+
     if (!keywordIncluded) {
         res.render('no-results', { title: "Sorry, No Results" });
     }
     else {
         const searchTerm = await RestaurantKeyword.findOne({ where: { keyword: keyword.toLowerCase() } });
         const restaurants = await Restaurant.findAll({ where: { keywordId: searchTerm.id } });
-        res.render('search-page', { title: "Search Results", restaurants })
+        res.render('search-page', { title: "Search Results", restaurants, src })
     }
 }));
-
-//NOTE: search results handled via routes/api and ajax in public/js/map-search.js
-
 
 module.exports = router;
