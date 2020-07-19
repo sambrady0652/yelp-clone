@@ -56,7 +56,19 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
         }
     })
 
-    res.render('restaurant-profile-page', { reviews, restaurantId, restaurant, otherRestaurants })
+    const reviewAvgFunc = () => {
+        let sum = 0;
+        const total = reviews.length;
+        let i = 0;
+        while (i < total) {
+            sum += reviews[i].rating;
+            i++;
+        }
+        return Math.floor(sum / total);
+    };
+    const reviewAvg = reviewAvgFunc();
+
+    res.render('restaurant-profile-page', { reviews, restaurantId, restaurant, otherRestaurants, reviewAvg })
 }));
 
 //Render New Review Form
@@ -71,34 +83,34 @@ router.post('/:id(\\d+)/reviews', /*csrfProtection,*/ upload.array('upl', 1), as
     let userId = parseInt(req.body.userId, 10)
     let restaurantId = parseInt(req.params.id, 10);
     //gets url for photo being uploaded to S3 bucket
-    if(req.files[0]){
-         let { location } = req.files[0];
-         let rating = parseInt(req.body.rating, 10)
-    await Review.create({
-        userId: userId,
-        restaurantId: restaurantId,
-        content: req.body.content,
-        rating: rating,
-        photos: location,
-        coolCount: 0,
-        funnyCount: 0,
-        usefulCount: 0
-    })
-    }else{
-        //sets a default picture for review if one not provided. Pic will need to be changed.
-         let location = 'https://welp-app-s3.s3.us-east-2.amazonaws.com/familyEating.jpg';
-         let restaurantId = parseInt(req.params.id, 10);
-    let rating = parseInt(req.body.rating, 10)
-    await Review.create({
-        userId: userId,
-        restaurantId: restaurantId,
-        content: req.body.content,
-        rating: rating,
-        photos: location,
-        coolCount: 0,
-        funnyCount: 0,
-        usefulCount: 0
-    })
+
+    if (req.files[0]) {
+        let { location } = req.files[0];
+        let rating = parseInt(req.body.rating, 10)
+        await Review.create({
+            userId: userId,
+            restaurantId: restaurantId,
+            content: req.body.content,
+            rating: rating,
+            photos: location,
+            coolCount: 0,
+            funnyCount: 0,
+            usefulCount: 0
+        })
+    } else {
+        let location = 'https://welp-app-s3.s3.us-east-2.amazonaws.com/familyEating.jpg';
+        let restaurantId = parseInt(req.params.id, 10);
+        let rating = parseInt(req.body.rating, 10)
+        await Review.create({
+            userId: userId,
+            restaurantId: restaurantId,
+            content: req.body.content,
+            rating: rating,
+            photos: location,
+            coolCount: 0,
+            funnyCount: 0,
+            usefulCount: 0
+        })
     }
 
 

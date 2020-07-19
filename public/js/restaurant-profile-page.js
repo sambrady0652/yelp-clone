@@ -1,3 +1,5 @@
+import { handleErrors } from './utils.js';
+
 document.addEventListener("DOMContentLoaded", () => {
     const userId = localStorage.getItem("WELP_CURRENT_USER_ID");
     const writeReviewBtn = document.getElementById("review");
@@ -11,7 +13,6 @@ document.addEventListener("DOMContentLoaded", () => {
         img.setAttribute("src", `/images/hours${randomImg}.jpg`);
         hoursBox.appendChild(img);
     };
-
     getHours();
 
     writeReviewBtn.addEventListener("click", (e) => {
