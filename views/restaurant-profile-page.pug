@@ -1,5 +1,7 @@
 include navbar
 
+include includes/cards.pug
+
 
 block content
     div(class="restaurantPhotoBar row")
@@ -36,37 +38,14 @@ block content
                             i(class="fa fa-star-o" id="favoriteStar")
                             span Favorite
                 hr(class="my-4")
+                div(class="restaurantCard__address")
+                    label=restaurant.address
                 div(class="restaurantSubCard") 
-                    span Location & Hours
                     div(class="restaurantSubCard__body row")
-                        div(class="col")
+                        div(class="restaurantSubCard__body-left")
                             div(class="restaurantSubCard__body-map" id='map')
-                            div(class="restaurantSubCard__body-address")
-                                label=restaurant.address
-
                         div(class="col")
                             div(class="restaurantSubCard__hoursBox")
-                                div(class="row")
-                                    label Mon
-                                    span 11:00 am - 9:00 pm
-                                div(class="row")
-                                    label Tue
-                                    span 11:00 am - 9:00 pm
-                                div(class="row")
-                                    label Wed
-                                    span 11:00 am - 9:00 pm
-                                div(class="row")
-                                    label Thu
-                                    span 11:00 am - 9:00 pm
-                                div(class="row")
-                                    label Fri 
-                                    span 11:00 am - 9:00 pm
-                                div(class="row")
-                                    label Sat
-                                    span 11:00 am - 9:00 pm
-                                div(class="row")
-                                    label Sun
-                                    span  Closed
                 div(class="restaurantReviews container")
                     each review in reviews
 
@@ -93,10 +72,15 @@ block content
                             div(class="row")
                                 img(class="restaurantInfoBar__subbody-miniCard-pic" src="")
                                 div(class="restaurantInfoBar__subbody-miniCard-details")
-                                    h6 Sample Restaurant Name
-                                    img(src="")
-                                    p tiny stars
-                
+                                    for restaurant in otherRestaurants
+                                        div(class="bottomSplashContainer__main-item")
+                                            +smallRestaurantCard(
+                                                restaurant.id, 
+                                                restaurant.name, 
+                                                restaurant.address, 
+                                                restaurant.image_url
+                                            )
+                                        
 
     script(type="module" src="/js/map.js")
     script(type="module" src="/js/favorite.js")

@@ -1,0 +1,25 @@
+mixin mediumRestaurantCard(id, name, price, address, phone, image_url)
+    div(class="card mediumCard")
+        div(class="row no-gutters")
+            div(class="col-sm-5 mediumCard__img-container")
+                img(class="card-img mediumCard__img" src=`${image_url}` alt="Restaurant Image")
+            div(class="col-sm-7")
+                div(class="card-body mediumCard__body")
+                    h5(class="card-title mediumCard__title")= name
+                    div(class="card-details-list mediumCard__details")
+                        p(class="card-text card-detail")= price 
+                        p(class="card-text card-detail")= address 
+                        p(class="card-text card-detail")= phone
+        a(href=`/restaurants/${id}` class="btn btn-primary btn-sm") View Profile
+
+mixin smallRestaurantCard(id, name, address, image_url)
+    div(class="card smallCard")
+        div(class="row no-gutters")
+            div(class="col smallCard__img-container")
+                img(class="card-img smallCard__img" src=`${image_url}` alt="Restaurant Image")
+            div(class="col")
+                div(class="card-body smallCard__body")
+                    p(class="card-title smallCard__title")= name
+                    div(class="card-details-list mediumCard__details")
+                        p(class="card-text card-detail")= address 
+        a(href=`/restaurants/${id}` class="btn btn-primary btn-sm") View

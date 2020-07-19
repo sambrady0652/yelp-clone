@@ -20,7 +20,8 @@ const csrfProtection = csurf({ cookie: true });
 
 //Renders Splash Page
 router.get('/', asyncHandler(async (req, res) => {
-    res.render('splash-page', { title: "Welcome to Welp" })
+    const restaurants = await Restaurant.findAll({ limit: 15 });
+    res.render('splash-page', { title: "Welcome to Welp", restaurants })
 }));
 
 //Renders Login Form
