@@ -1,10 +1,11 @@
-@import url('components/navbar.css');
-@import url('components/map.css');
-@import url('components/signup.css');
+@import url('components/cards.css');
 @import url('components/login.css');
-@import url('components/splash.css');
+@import url('components/map.css');
+@import url('components/navbar.css');
 @import url('components/restaurant-profile.css');
 @import url('components/user-profile.css');
 @import url('components/review-form.css');
 @import url('components/user-profile-page.css');
 @import url('components/user-settings.css');
+@import url('components/signup.css');
+@import url('components/splash.css');

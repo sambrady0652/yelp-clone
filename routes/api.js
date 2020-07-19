@@ -50,4 +50,5 @@ router.post('/search', asyncHandler(async (req, res) => {
     res.json({ restaurants });
 }));
 
+
 module.exports = router;

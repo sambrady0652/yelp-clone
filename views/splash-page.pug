@@ -1,5 +1,7 @@
 extends layout.pug
 
+include includes/cards.pug
+
 block content
     div(class="bulkSplashBody")
         div(class="orderBar")
@@ -55,29 +57,18 @@ block content
     div(class="bottomSplashContainer")
         div(class="bottomSplashContainer__locationBar")
             h5 Welp Chicago
+        hr(class="my-4")
+
         div(class="bottomSplashContainer__main")
-            div(class="bottomSplashContainer__main-container")
-                div(class="row")
-                    div(class="col")
-                        p Hello World!
-                    div(class="col")
-                        p Hello World!
-                    div(class="col")
-                        p Hello World!
-            div(class="bottomSplashContainer__main-container")
-                div(class="row")
-                    div(class="col")
-                        p Hello World!
-                    div(class="col")
-                        p Hello World!
-                    div(class="col")
-                        p Hello World!
-            div(class="bottomSplashContainer__main-container")
-                div(class="row")
-                    div(class="col")
-                        p Hello World!
-                    div(class="col")
-                        p Hello World!
-                    div(class="col")
-                        p Hello World!
+            for restaurant in restaurants
+                div(class="bottomSplashContainer__main-item")
+                    +mediumRestaurantCard(
+                        restaurant.id, 
+                        restaurant.name, 
+                        restaurant.price, 
+                        restaurant.address, 
+                        restaurant.phone, 
+                        restaurant.image_url
+                    )
+
     script(type="module" src="/js/splash-page.js")
