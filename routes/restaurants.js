@@ -125,8 +125,8 @@ router.get('/:id(\\d+)/reviews/:idd(\\d+)/edit', /*csrfProtection,*/ asyncHandle
         where: {
             id: reviewId
         },
-        include: [{model: User},
-        {model: Restaurant}]
+        include: [{ model: User },
+        { model: Restaurant }]
     })
 
     let { content, rating } = review
@@ -144,12 +144,12 @@ router.post('/:id(\\d+)/reviews/:idd(\\d+)', csrfProtection, upload.array('upl',
     const review = await Review.findByPk(reviewId)
     //gets url for photo being uploaded to S3 bucket
     //use photo user attaches or use what they already had/default pic.
-    if(req.files[0]){
+    if (req.files[0]) {
         let { location } = req.files[0];
         review.content = content;
         review.rating = rating;
         review.photos = location;
-    }else{
+    } else {
         review.content = content;
         review.rating = rating;
     }
