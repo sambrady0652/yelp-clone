@@ -10,7 +10,7 @@ const multerS3 = require('multer-s3')
 const { asyncHandler } = require('../utils');
 const db = require('../db/models');
 const { sequelize } = require('../db/models');
-const  { awsKeys } = require('../config')
+const { awsKeys } = require('../config')
 aws.config.update({
     secretAccessKey: awsKeys.AWS_SECRET_KEY,
     accessKeyId: awsKeys.AWS_ACCESS_KEY,
@@ -40,23 +40,23 @@ const { Restaurant, User, Review } = db;
 //Renders Restaurant Profile Page
 router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
     const restaurantId = parseInt(req.params.id, 10);
+    const otherRestaurants = await Restaurant.findAll({ limit: 8 });
+    const reviews = await Review.findAll({
+        where: {
+            restaurantId: restaurantId
+        },
+        include: [{ model: User },
+        { model: Restaurant }],
+        limit: 10
+    })
 
-        const reviews = await Review.findAll({
-            where: {
-                restaurantId: restaurantId
-            },
-            include: [{model: User },
-            {model: Restaurant}],
-            limit: 10
-        })
+    const restaurant = await Restaurant.findOne({
+        where: {
+            id: restaurantId
+        }
+    })
 
-        const restaurant = await Restaurant.findOne({
-            where: {
-                id: restaurantId
-            }
-        })
-
-    res.render('restaurant-profile-page', { reviews, restaurantId, restaurant })
+    res.render('restaurant-profile-page', { reviews, restaurantId, restaurant, otherRestaurants })
 }));
 
 //Render New Review Form
