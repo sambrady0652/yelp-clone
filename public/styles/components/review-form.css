@@ -18,8 +18,10 @@
 }
 
 .restaurantName{
+    box-sizing: border-box;
     color: #0073bb;
-    font-size: 40px;                                                                                                                                                                                                                                                                                                                                                                               ;
+    font-size: 40px;
+    height: auto;
 }
 
 .guidelines{

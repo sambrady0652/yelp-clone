@@ -23,3 +23,15 @@ mixin smallRestaurantCard(id, name, address, image_url)
                     div(class="card-details-list mediumCard__details")
                         p(class="card-text card-detail")= address 
         a(href=`/restaurants/${id}` class="btn btn-primary btn-sm") View
+
+mixin largeReviewCard(user, content, rating)
+    div(class="card mainReviewCard")
+        div(class="col")
+            div(class="mainReviewCard__user")
+                p=user
+        div(class="col")
+            div(class="row")
+                div(class="mainReviewCard__rating")
+                    div(id=`rating-img-${rating}`)
+            div(class="row")
+                p=content

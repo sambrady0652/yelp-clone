@@ -41,9 +41,14 @@
     padding-top: 30px;
 }
 
+.restaurantCard {
+    position: relative;
+    right: 75px;
+}
+
 .restaurantCard__name{
     color: black bold;
-    height: 70px;
+    height: auto;
     font-size: 50px;
     font-weight: bolder;
     font-family: Poppins,Helvetica Neue,Helvetica,Arial,sans-serif;
@@ -89,7 +94,8 @@
 
 .restaurantSubCard {
     position: relative;
-    right: 20px;
+    width: 650px;
+    right: 100px;
     border-radius: 15px;
     box-shadow: 10px 5px 5px grey;
 }
@@ -98,11 +104,22 @@
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    width: 650px;
+}
+
+.restaurantSubCard__body.row {
+    box-sizing: border-box;
 }
 
 .restaurantSubCard__body-left {
     box-sizing: border-box;
     width: 400px;
+    height: 300px;
+}
+
+.restaurantSubCard__body-right {
+    box-sizing: border-box;
+    width: 200px;
     height: 300px;
 }
 
@@ -115,7 +132,13 @@
 }
 
 .restaurantSubCard__hoursBox {
+    max-width: 300px;
+    max-height: 300px;
+}
+
+.restaurantSubCard__hoursBox > img {
     padding-left: 10px;
+    object-fit: contain;
 }
 
 .restaurantSubCard__hoursBox span {
@@ -131,7 +154,7 @@
 
 .restaurantReviews {
     position: relative;
-    right: 20px;
+    right: 93px;
     border: .5px solid black;
     border-radius: 10px;
     box-shadow: 10px 5px 5px grey;

@@ -32,14 +32,17 @@ document.addEventListener("DOMContentLoaded", () => {
     xBtn.addEventListener("click", (e) => {
 
     });
-    quickLinksItalian.addEventListener("click", (e) => {
-
+    quickLinksItalian.addEventListener("click", async (e) => {
+        const keyword = e.target.value;
+        window.location.href = `/search/${keyword}`
     });
-    quickLinksChinese.addEventListener("click", (e) => {
-
+    quickLinksChinese.addEventListener("click", async (e) => {
+        const keyword = e.target.value;
+        window.location.href = `/search/${keyword}`
     });
-    quickLinksFrench.addEventListener("click", (e) => {
-
+    quickLinksFrench.addEventListener("click", async (e) => {
+        const keyword = e.target.value;
+        window.location.href = `/search/${keyword}`
     });
     splashProfileBtn.addEventListener("click", (e) => {
         window.location.href = `/users/${userId}`;
