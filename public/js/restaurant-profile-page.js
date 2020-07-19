@@ -1,7 +1,6 @@
-window.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
     const userId = localStorage.getItem("WELP_CURRENT_USER_ID");
     const writeReviewBtn = document.getElementById("review");
-    const userId = localStorage.getItem("WELP_CURRENT_USER_ID")
     const restaurantIdElement = document.getElementById("restaurantId")
     const restaurantId = restaurantIdElement.innerHTML;
     const hoursBox = document.querySelector(".restaurantSubCard__hoursBox");
