@@ -20,7 +20,8 @@ block content
                 div(class="restaurantCard")
                     div(class="restaurantCard__name row" id='restaurantCard')=restaurant.name
                     div(class="restaurantCard__rating row")
-                        img(class="restaurantCard__rating-stars" src="/images/4-stars.png")
+                        div(class="mainReviewCard__rating")
+                            div(class="restaurantCard__rating-stars" id=`rating-img-${reviewAvg}`)
                         label(class="restaurantCard__rating-reviewCount") 0 reviews
                         button(class="btn btn-light btn-sm")=restaurant.Keywords
                     div(class="restaurantCard__info row")
@@ -44,13 +45,30 @@ block content
                     div(class="restaurantSubCard__body row")
                         div(class="restaurantSubCard__body-left")
                             div(class="restaurantSubCard__body-map" id='map')
-                        div(class="col")
+                        div(class="restaurantSubCard__body-right")
                             div(class="restaurantSubCard__hoursBox")
                 div(class="restaurantReviews container")
-                    each review in reviews
-
-                        div=review.rating
-                        div()=`${review.content}`
+                    for review in reviews
+                        div(class="largeReviewCard__container")
+                            div(class="card mainReviewCard")
+                                div(class="col")
+                                    div(class="mainReviewCard__user")
+                                        p=review.userId
+                                div(class="col")
+                                    div(class="row")
+                                        div(class="mainReviewCard__rating")
+                                            div(id=`rating-img-${review.rating}`)
+                                    div(class="row")
+                                        p=review.content
+                            //- +largeReviewCard(
+                            //-     review.userId, 
+                            //-     review.content, 
+                            //-     review.rating, 
+                            //- )
+                            //-     review.photos, 
+                            //-     review.coolCount, 
+                            //-     review.funnyCount, 
+                            //-     review.usefulCount,
                 div(id="restaurantId" hidden)=`${restaurantId}`
             div(class="restaurantInfoBar col-sm-4")
                 div(class="restaurantInfoBar__main")
