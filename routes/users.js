@@ -128,27 +128,33 @@ router.post(
     //csrfProtection,
     asyncHandler(async (req, res) => {
         const userId = parseInt(req.params.id, 10);
-            try{
-                let { location } = req.files[0];
-            }catch{
+            var userToUpdate;
+            if(req.files[0]){
+                let {location} = req.files[0];
+                userToUpdate = await User.findByPk(userId);
+                const { firstName, lastName, City, State } = req.body;
 
-            }finally{
+                userToUpdate.firstName = firstName;
+                userToUpdate.lastName = lastName;
+                userToUpdate.city = City;
+                userToUpdate.state = State;
+                userToUpdate.profilePicture = location;
+            }else{
                 tempUser = await User.findByPk(userId);
                 let { profilePicture } = tempUser;
                 var location = profilePicture;
+                userToUpdate = await User.findByPk(userId);
+                const { firstName, lastName, City, State } = req.body;
+
+                userToUpdate.firstName = firstName;
+                userToUpdate.lastName = lastName;
+                userToUpdate.city = City;
+                userToUpdate.state = State;
+                userToUpdate.profilePicture = location;
             }
 
 
 
-        console.log(location)
-        const userToUpdate = await User.findByPk(userId);
-        const { firstName, lastName, City, State } = req.body;
-
-        userToUpdate.firstName = firstName;
-        userToUpdate.lastName = lastName;
-        userToUpdate.city = City;
-        userToUpdate.state = State;
-        userToUpdate.profilePicture = location;
 
         await userToUpdate.save();
 
@@ -162,6 +168,15 @@ router.post(
     csrfProtection,
     asyncHandler(async (req, res) => {
         const userId = parseInt(req.params.id, 10);
+        const reviews = await Review.findAll({
+            where: { userId: userId}
+        })
+        //Before we can delete user, we must delete their reviews.
+        if(reviews.length > 0){
+            for(let i = 0; i < reviews.length; i++){
+                await reviews[i].destroy()
+            }
+        }
         const user = await User.findByPk(userId);
         await user.destroy();
         res.redirect('/');

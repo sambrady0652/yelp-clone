@@ -55,7 +55,9 @@
 
 .displayReviews{
     margin-left: 35px;
+    width: 350px
 }
-/* .reviewCard{
-    margin-left: 35px;
-} */
+.reviewCard{
+    height: 100px;
+    width: 325px;
+}

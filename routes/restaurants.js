@@ -62,17 +62,31 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
 //Render New Review Form
 router.get('/:id(\\d+)/reviews/new', csrfProtection, asyncHandler(async (req, res) => {
     let restaurantId = parseInt(req.params.id, 10)
-    res.render('review-form', { title: "New Review", restaurantId, token: req.csrfToken() })
+    let restaurant = await Restaurant.findByPk(restaurantId)
+    res.render('review-form', { title: "New Review", restaurant, restaurantId, token: req.csrfToken() })
 }));
 
 //Submits New Review Form
-router.post('/:id(\\d+)/reviews', csrfProtection, upload.array('upl', 1), asyncHandler(async (req, res) => {
-    //****Need to find a way to get User ID in order for this route to work****
-    //let userId = parseInt(req.body.userId, 10)
-    //gets url for photo being uploaded to S3 bucket
-    let { location } = req.files[0];
-    console.log("userID:   " + userId)
+router.post('/:id(\\d+)/reviews', /*csrfProtection,*/ upload.array('upl', 1), asyncHandler(async (req, res) => {
+    let userId = parseInt(req.body.userId, 10)
     let restaurantId = parseInt(req.params.id, 10);
+    //gets url for photo being uploaded to S3 bucket
+    if(req.files[0]){
+         let { location } = req.files[0];
+         let rating = parseInt(req.body.rating, 10)
+    await Review.create({
+        userId: userId,
+        restaurantId: restaurantId,
+        content: req.body.content,
+        rating: rating,
+        photos: location,
+        coolCount: 0,
+        funnyCount: 0,
+        usefulCount: 0
+    })
+    }else{
+         let location = 'https://welp-app-s3.s3.us-east-2.amazonaws.com/familyEating.jpg';
+         let restaurantId = parseInt(req.params.id, 10);
     let rating = parseInt(req.body.rating, 10)
     await Review.create({
         userId: userId,
@@ -84,6 +98,8 @@ router.post('/:id(\\d+)/reviews', csrfProtection, upload.array('upl', 1), asyncH
         funnyCount: 0,
         usefulCount: 0
     })
+    }
+
 
     res.redirect(`/restaurants/${restaurantId}`)
 
