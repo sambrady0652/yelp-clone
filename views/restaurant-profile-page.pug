@@ -22,7 +22,10 @@ block content
                     div(class="restaurantCard__rating row")
                         div(class="mainReviewCard__rating")
                             div(class="restaurantCard__rating-stars" id=`rating-img-${reviewAvg}`)
-                        label(class="restaurantCard__rating-reviewCount") 0 reviews
+                        if reviews.length === 1
+                            label(class="restaurantCard__rating-reviewCount") 1 review
+                        else 
+                            label(class="restaurantCard__rating-reviewCount") #{reviews.length} reviews
                         button(class="btn btn-light btn-sm")=restaurant.Keywords
                     div(class="restaurantCard__info row")
                         label(class="restaurantCard__info-price")=restaurant.price
