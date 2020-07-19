@@ -78,15 +78,10 @@ router.get('/search/:val', asyncHandler(async (req, res) => {
 router.post('/search', asyncHandler(async (req, res) => {
     const { keyword } = req.body;
     const keywordIncluded = await includesKeyword(keyword);
-<<<<<<< HEAD
 
     const key = MapsSecretKey.MAPS_SECRET_KEY;
     const src = `https://maps.googleapis.com/maps/api/js?key=${key}&callback=initMap&libraries=&v=weekly`;
 
-=======
-    // console.log(keyword);
-    // console.log(keywordIncluded);
->>>>>>> 4bd7f417682eab73db682bd8cf3bd5bb354a719c
     if (!keywordIncluded) {
         res.render('no-results', { title: "Sorry, No Results" });
     }
