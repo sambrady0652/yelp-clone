@@ -10,7 +10,7 @@ mixin mediumRestaurantCard(id, name, price, address, phone, image_url)
                         p(class="card-text card-detail")= price 
                         p(class="card-text card-detail")= address 
                         p(class="card-text card-detail")= phone
-        a(href=`/restaurants/${id}` class="mediumRCardbtn btn btn-danger btn-sm") View Profile
+        a(href=`/restaurants/${id}` class="mediumRCardbtn btn btn-danger btn-sm stretched-link") View Profile
 
 mixin smallRestaurantCard(id, name, address, image_url)
     div(class="card smallCard")
