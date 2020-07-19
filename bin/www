@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 
 const app = require('../app');
-const { port } = require('../config/index');
+// const { port } = require('../config/index');
+const port = Number.parseInt(process.env.PORT, 10) || 8081
 const db = require('../db/models')
 db.sequelize.authenticate()
     .then(() => {

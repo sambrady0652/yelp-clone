@@ -1,6 +1,6 @@
 module.exports = {
     environment: process.env.NODE_ENV || 'development',
-    port: Number.parseInt(process.env.PORT, 10) || 8081,
+    // port: Number.parseInt(process.env.PORT, 10) || 8081,
     db: {
         username: process.env.DB_USERNAME,
         password: process.env.DB_PASSWORD,
