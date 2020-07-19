@@ -1,4 +1,4 @@
-include searchbar.pug
+include navbar.pug
 
 block search
     div(class="card-columns")
@@ -13,4 +13,4 @@ block search
                         a(href=`/restaurants/${Math.floor(Math.random() * 200 + 1)}` class="btn btn-primary") View Random Profile
     div(class="map_container")
         div(id="map")
-    script(type="module" src="/js/map-search.js")
+    //- script(type="module" src="/js/map-search.js")
