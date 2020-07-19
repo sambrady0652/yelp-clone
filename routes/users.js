@@ -9,7 +9,7 @@ const multer = require('multer')
 const multerS3 = require('multer-s3')
 
 // - Internal Requirements
-const { asyncHandler, handleValidationErrors, emailNotUnique } = require('../utils');
+const { asyncHandler, handleValidationErrors, emailNotUnique, isFavorited } = require('../utils');
 const db = require('../db/models');
 const { getUserToken, requireAuth } = require('../auth');
 const { sequelize } = require('../db/models');
@@ -128,30 +128,30 @@ router.post(
     //csrfProtection,
     asyncHandler(async (req, res) => {
         const userId = parseInt(req.params.id, 10);
-            var userToUpdate;
-            if(req.files[0]){
-                let {location} = req.files[0];
-                userToUpdate = await User.findByPk(userId);
-                const { firstName, lastName, City, State } = req.body;
+        var userToUpdate;
+        if (req.files[0]) {
+            let { location } = req.files[0];
+            userToUpdate = await User.findByPk(userId);
+            const { firstName, lastName, City, State } = req.body;
 
-                userToUpdate.firstName = firstName;
-                userToUpdate.lastName = lastName;
-                userToUpdate.city = City;
-                userToUpdate.state = State;
-                userToUpdate.profilePicture = location;
-            }else{
-                tempUser = await User.findByPk(userId);
-                let { profilePicture } = tempUser;
-                var location = profilePicture;
-                userToUpdate = await User.findByPk(userId);
-                const { firstName, lastName, City, State } = req.body;
+            userToUpdate.firstName = firstName;
+            userToUpdate.lastName = lastName;
+            userToUpdate.city = City;
+            userToUpdate.state = State;
+            userToUpdate.profilePicture = location;
+        } else {
+            tempUser = await User.findByPk(userId);
+            let { profilePicture } = tempUser;
+            var location = profilePicture;
+            userToUpdate = await User.findByPk(userId);
+            const { firstName, lastName, City, State } = req.body;
 
-                userToUpdate.firstName = firstName;
-                userToUpdate.lastName = lastName;
-                userToUpdate.city = City;
-                userToUpdate.state = State;
-                userToUpdate.profilePicture = location;
-            }
+            userToUpdate.firstName = firstName;
+            userToUpdate.lastName = lastName;
+            userToUpdate.city = City;
+            userToUpdate.state = State;
+            userToUpdate.profilePicture = location;
+        }
 
 
 
@@ -169,11 +169,11 @@ router.post(
     asyncHandler(async (req, res) => {
         const userId = parseInt(req.params.id, 10);
         const reviews = await Review.findAll({
-            where: { userId: userId}
+            where: { userId: userId }
         })
         //Before we can delete user, we must delete their reviews.
-        if(reviews.length > 0){
-            for(let i = 0; i < reviews.length; i++){
+        if (reviews.length > 0) {
+            for (let i = 0; i < reviews.length; i++) {
                 await reviews[i].destroy()
             }
         }
@@ -182,18 +182,9 @@ router.post(
         res.redirect('/');
     }));
 
-
-
-
-
-
-
-
-
 //View User's Favorite restaurants
-// --- working
 router.get('/:id(\\d+)/favorites', asyncHandler(async (req, res) => {
-    const userId = parseInt(req.params.id, 10);
+    const userId = Number(req.params.id);
     const user = await User.findByPk(userId);
     const favorites = await userFavoriteRestaurant.findAll({
         include: [User, Restaurant],
@@ -201,71 +192,33 @@ router.get('/:id(\\d+)/favorites', asyncHandler(async (req, res) => {
             userId: userId
         }
     });
+    const restaurants = favorites.map((fav) => fav = fav.Restaurant);
 
-    /*
-    THIS PORTION OF THE CODE IS NOT FUNCTIONING
-    UNKNOWN WHAT IS BEING PASSED IN FETCH REQUEST
-    SEE FILE /PUBLIC/JS/FAVORITE.JS
-    */
-    // res.json({
-    //     restaurant: favorites.restaurantId,
-    //     user: favorites.userId,
-    // });
-
-    //THIS WORKS
-    res.render('user-favorites', { title: `${user.firstName}'s Favorites`, user, favorites })
+    res.render('user-favorites', { title: `${user.firstName}'s Favorites`, user, restaurants })
 }));
 
-//Favorite a Restaurant
-// --- NOT WORKING
-router.post(
-    '/:id(\\d+)/favorites',
-    csrfProtection,
-    asyncHandler(async (req, res) => {
-        const { restaurantId } = req.body;
-        const userId = parseInt(req.params.id, 10);
-        const checkFavorite = await userFavoriteRestaurant.findAll({
-            where: {
-                userId: userId,
-                restaurantId: restaurantId,
-            }
-        })
-
-        if (!checkFavorite) {
-            const newFavorite = await userFavoriteRestaurant.create({
-                restaurantId: restaurantId,
-                userId: userId,
-            })
-        } else {
-            const favorite = await userFavoriteRestaurant.findByPk({
-                include: [User, Restaurant],
-                where: {
-                    userId: userId
-                }
-            });
-            await favorite.destroy();
-        }
-    })
-);
-
-//Unfavorite a Restaurant
-// --- NOT WORKING
-router.post(
-    '/:id(\\d+)/favorites/:id(\\d+)',
-    csrfProtection,
-    asyncHandler(async (req, res) => {
-        const { restaurantId } = req.body;
-        const userId = parseInt(req.params.id, 10);
-        const favoriteToDestroy = userFavoriteRestaurant.findOne({
+//Favorite/Unfavorite a Restaurant
+router.post('/:id(\\d+)/favorites', asyncHandler(async (req, res) => {
+    const userId = Number(req.body.userId);
+    const restaurantId = Number(req.body.restaurantId);
+    const restaurant = await Restaurant.findByPk(restaurantId);
+    const keywordId = restaurant.keywordId;
+    const restaurantIsFavorited = await isFavorited(userId, restaurantId)
+    if (restaurantIsFavorited) {
+        const favoriteToDestroy = await userFavoriteRestaurant.findOne({
             where: {
                 userId: userId,
                 restaurantId: restaurantId
             }
         });
         await favoriteToDestroy.destroy();
-        res.redirect('')
-
-    }));
+        res.json(null)
+    }
+    else {
+        const newFav = await userFavoriteRestaurant.create({ userId, restaurantId, keywordId })
+        res.json({ newFav })
+    }
+}));
 
 
 module.exports = router;

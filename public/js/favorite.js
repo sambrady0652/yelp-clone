@@ -1,35 +1,36 @@
-// import { handleErrors } from './utils';
+import { handleErrors } from './utils.js';
+document.addEventListener('DOMContentLoaded', async () => {
+    const userId = parseInt(localStorage.getItem("WELP_CURRENT_USER_ID"));
+    const restaurantId = document.getElementById("restaurantId").innerHTML;
+    const favoriteButton = document.getElementById("favoriteButton");
+    const favoriteStar = document.querySelector(".favoriteStar");
+    favoriteButton.addEventListener('click', async (e) => {
+        try {
+            const res = await fetch(`/users/${userId}/favorites`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ userId, restaurantId })
+            });
 
-// const favoriteIcon = document.querySelector('.favoriteIcon');
-// const favoriteButton = document.getElementById("favoriteButton");
-// const userId = parseInt(localStorage.getItem("WELP_CURRENT_USER_ID"));
-// // const userId = 1;
+            if (!res.ok) {
+                throw res;
+            }
 
-/*
-THIS PORTION OF THE CODE IS NOT WORKING
-UNDEFINED RETURNING FROM FETCH REQUEST
-// */
-// document.addEventListener('DOMContentLoaded', async () => {
+            const favorite = await res.json();
+            if (favorite !== null) {
+                favoriteStar.classList.add("fa-star")
+                favoriteStar.classList.remove("fa-star-o")
+            }
+            else {
+                favoriteStar.classList.remove("fa-star")
+                favoriteStar.classList.add("fa-star-o")
+            }
 
-//     favoriteButton.addEventListener('click', (e) => {
-//         const res = await fetch(`/users/${userId}/favortes`, {
-//             method: "POST",
-//             headers: {
-//                 "Content-Type": "application/json"
-//             },
-//             body
-//         })
-//     })
-//     try {
-//         const res = await fetch(`/users/${userId}/favorites`)
-
-//         if (!res.ok) {
-//             throw res;
-//         }
-//         const { restaurant, user } = await res.json();
-
-//     } catch (err) {
-//         handleErrors(err);
-//     }
-// });
+        } catch (err) {
+            console.error(err);
+        }
+    })
+});
 

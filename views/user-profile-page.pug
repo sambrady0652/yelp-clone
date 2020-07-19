@@ -13,6 +13,7 @@ div(class="sidebarAndReviews")
     div(class="leftSideBar")
         p=`${user.firstName}'s Profile `
     div(class="displayReviews")
+        a(href=`/users/${user.id}/favorites`) #{user.firstName}'s Favorite Restaurants 
         h2 Reviews
         for review in reviews
             div(class='reviewCard')

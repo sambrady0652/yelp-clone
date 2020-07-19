@@ -223,6 +223,6 @@
     width: 95%;
 }
 
-#favoriteStar {
-    color: rgb(197, 171, 20);
+.favoriteStar {
+    color:#d32323;
 }

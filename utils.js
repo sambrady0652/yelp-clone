@@ -1,5 +1,5 @@
 const { validationResult } = require('express-validator');
-const { User, RestaurantKeyword } = require('./db/models');
+const { User, RestaurantKeyword, userFavoriteRestaurant } = require('./db/models');
 
 const asyncHandler = (handler) => (req, res, next) => handler(req, res, next).catch(next);
 const handleValidationErrors = (req, res, next) => {
@@ -28,9 +28,16 @@ const includesKeyword = async (keyword) => {
     return keywords.includes(keyword.toLowerCase());
 };
 
+const isFavorited = async (userId, restaurantId) => {
+    const favorites = await userFavoriteRestaurant.findAll({ where: { userId: userId } });
+    const favIds = favorites.map((fav) => fav = fav.restaurantId);
+    return favIds.includes(restaurantId);
+};
+
 module.exports = {
     asyncHandler,
     handleValidationErrors,
     emailNotUnique,
-    includesKeyword
+    includesKeyword,
+    isFavorited
 }
