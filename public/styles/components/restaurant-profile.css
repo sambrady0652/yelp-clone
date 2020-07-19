@@ -65,6 +65,8 @@
 }
 
 .restaurantCard__info {
+    position: relative;
+    left: 200px;
     padding: 10px 0;
 }
 
@@ -96,8 +98,6 @@
     position: relative;
     width: 650px;
     right: 100px;
-    border-radius: 15px;
-    box-shadow: 10px 5px 5px grey;
 }
 
 .restaurantSubCard__body {
@@ -132,6 +132,8 @@
 }
 
 .restaurantSubCard__hoursBox {
+    position: relative;
+    top: 30px;
     max-width: 300px;
     max-height: 300px;
 }
