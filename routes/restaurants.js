@@ -85,6 +85,7 @@ router.post('/:id(\\d+)/reviews', /*csrfProtection,*/ upload.array('upl', 1), as
         usefulCount: 0
     })
     }else{
+        //sets a default picture for review if one not provided. Pic will need to be changed.
          let location = 'https://welp-app-s3.s3.us-east-2.amazonaws.com/familyEating.jpg';
          let restaurantId = parseInt(req.params.id, 10);
     let rating = parseInt(req.body.rating, 10)
@@ -106,29 +107,42 @@ router.post('/:id(\\d+)/reviews', /*csrfProtection,*/ upload.array('upl', 1), as
 }));
 
 //Renders Edit Review Form
-router.get('/:id(\\d+)/reviews/:idd(\\d+)/edit', csrfProtection, asyncHandler(async (req, res) => {
+router.get('/:id(\\d+)/reviews/:idd(\\d+)/edit', /*csrfProtection,*/ asyncHandler(async (req, res) => {
     const reviewId = parseInt(req.params.idd, 10)
-    const review = await Review.findByPk(reviewId)
-    console.log(review)
+    const review = await Review.findOne({
+        where: {
+            id: reviewId
+        },
+        include: [{model: User},
+        {model: Restaurant}]
+    })
+
     let { content, rating } = review
 
 
-    res.render('review-form', { title: "Edit Review", rating, content, token: req.csrfToken() })
+    res.render('edit-review-form', { title: "Edit Review", review, rating, content, token: req.csrfToken() })
 }));
 
 //Submits Edit Review Form
-router.patch('/:id(\\d+)/reviews/:idd(\\d+)', csrfProtection, upload.array('upl', 1), asyncHandler(async (req, res) => {
+router.post('/:id(\\d+)/reviews/:idd(\\d+)', csrfProtection, upload.array('upl', 1), asyncHandler(async (req, res) => {
     let { rating, content } = req.body;
     rating = parseInt(rating, 10)
     const reviewId = parseInt(req.params.idd, 10)
     const restaurantId = parseInt(req.params.id, 10)
     const review = await Review.findByPk(reviewId)
     //gets url for photo being uploaded to S3 bucket
-    let { location } = req.files[0];
+    //use photo user attaches or use what they already had/default pic.
+    if(req.files[0]){
+        let { location } = req.files[0];
+        review.content = content;
+        review.rating = rating;
+        review.photos = location;
+    }else{
+        review.content = content;
+        review.rating = rating;
+    }
 
-    review.content = content;
-    review.rating = rating;
-    review.photos = location;
+
 
     await review.save();
 
