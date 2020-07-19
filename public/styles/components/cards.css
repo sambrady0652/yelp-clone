@@ -15,6 +15,10 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
+.mediumRCardbtn {
+    color: #d32323;
+}
+
 .mediumCard__img-container {
     height: 200px;
     width: 200px;
@@ -72,7 +76,6 @@
     position: absolute;
     max-width: auto;
     max-height: 100%;
-    /* overflow: hidden; */
     object-fit: cover;
     top: 50%;
     left: 50%;

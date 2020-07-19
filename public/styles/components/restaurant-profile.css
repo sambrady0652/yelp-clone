@@ -1,7 +1,8 @@
 .restaurantPhotoBar {
-    height: 200px;
+    height: 450px;
     background-color: rgb(119, 207, 207);
     padding: 0 2px;
+    overflow: hidden;
 }
 
 .auto-resize-square {
@@ -17,18 +18,24 @@
     overflow: hidden;
 }
 
-.restaurantPhotoBar img {
+/* .restaurantPhotoBar img {
     position: absolute;
     max-width: 100%;
     height: auto;
     top: 50%;
     left: 50%;
     transform: translate( -50%, -50%);
-}
+} */
 
-.restaurantPhotoBar img.landscape {
+/* .restaurantPhotoBar img.landscape {
     height: 100%;
     width: auto;
+} */
+
+.restaurantPhotoBar img {
+    object-fit: cover;
+    width: 100%;
+
 }
 
 .restaurantPhotoBar__seeAllBtn {

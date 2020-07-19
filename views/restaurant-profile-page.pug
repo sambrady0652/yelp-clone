@@ -3,16 +3,18 @@ include navbar
 include includes/cards.pug
 
 block content
-    div(class="restaurantPhotoBar row")
-        div(class="auto-resize-square col")
-            img(src=restaurant.image_url)
-        div(class="col")
-            img(src="")
-        div(class="col")
-            img(src="")
-        div(class="col")
-            img(src="")
-            button(class="restaurantPhotoBar__seeAllBtn btn btn-light") See All
+    div(class="restaurantPhotoBar")
+        img(src=restaurant.image_url)
+
+        //- div(class="auto-resize-square col")
+        //-     img(src=restaurant.image_url)
+        //- div(class="col")
+        //-     img(src="")
+        //- div(class="col")
+        //-     img(src="")
+        //- div(class="col")
+        //-     img(src="")
+        //-     button(class="restaurantPhotoBar__seeAllBtn btn btn-light") See All
     div(class="restaurantBody container")
         div(class="row")
             div(class="col-lg-8")
@@ -21,14 +23,14 @@ block content
                     div(class="restaurantCard__rating row")
                         div(class="mainReviewCard__rating")
                             div(class="restaurantCard__rating-stars" id=`rating-img-${reviewAvg}`)
-                        if reviews.length === 1
-                            label(class="restaurantCard__rating-reviewCount") 1 review
-                        else 
-                            label(class="restaurantCard__rating-reviewCount") #{reviews.length} reviews
                         button(class="btn btn-light btn-sm")=restaurant.Keywords
                     div(class="restaurantCard__info row")
                         label(class="restaurantCard__info-price")=restaurant.price
                         label(class="restaurantCard__info-category") Category
+                        if reviews.length === 1
+                            label(class="restaurantCard__rating-reviewCount") 1 review
+                        else 
+                            label(class="restaurantCard__rating-reviewCount") #{reviews.length} reviews
                     div(class="restaurantCard__buttons row")
                         button(type="button" value=restaurant.id class="btn btn-danger" id="review") Write a Review
                         button(type="button" class="btn btn-outline-secondary" id="addPhoto") 

@@ -4,6 +4,8 @@ block content
     div(class="banner")
         img(class="banner_logo" src="/images/welpedLogo.jpg" alt="")
         div(class="banner_writeareview") Write a Review
+        form(action=`/restaurants/${restaurantId}` method="GET")
+            button(type="submit" class="btn btn-primary") Back to Restaurant
     div(class="restaurantGuidelines")
         div(class="restaurantGuidelines__namebox")
             div(class="restaurantName")=`${restaurant.name}`
@@ -24,10 +26,12 @@ block content
             input(type="hidden" name="rating" value=rating id="ratingFormInput" )
             input(class="reviewContent" name="content" type="textarea" value=content)
         div(class="headers")
-            div(class="photoHeader") Attach Photo
-            div(class="photoHeader2") Optional
-            input(type="file" class="file" name="ipl")
-            input(id="userId" name="userId" type='text' hidden value)
+            div(class="reviewHeaders__fileAttach")
+                div(class="reviewHeaders__fileAttach-text")
+                    div(class="photoHeader") Attach Photo
+                    div(class="photoHeader2") Optional
+                input(type="file" class="file" name="ipl")
+                input(id="userId" name="userId" type='text' hidden value)
             input(type='hidden' name='_csrf' value=token)
         button(type="submit" class="reviewForm__submit") Post Review
 

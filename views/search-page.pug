@@ -1,21 +1,22 @@
 include navbar.pug
 
+include includes/cards.pug
+
 block search
 
     if restaurants
-        div(class="card-columns")
-        for restaurant in restaurants
-            div(class="card" style="width: 500px")
-                div(class="row no-gutters")
-                    div(class="col-sm-5")
-                        img(class="card-img" src=`${restaurant.image_url}` alt="Restaurant Image")
-                    div(class="col-sm-7")
-                        div(class="card-body")
-                            h5(class="card-title")= restaurant.name
-                            div(class='reviewCard__price text-right small text-secondary')= restaurant.price
-                            div(class="reviewCard__address text-right small text-secondary") #{restaurant.address}, Chicago, IL
-                            div(class="reviewCard__cityState text-right  small text-secondary")= restaurant.phone
-                            a(href=`/restaurants/${restaurant.id}` class="btn btn-primary stretched-link") View Profile
+        div(class="bottomSplashContainer__main")
+            for restaurant in restaurants
+                div(class="bottomSplashContainer__main-item")
+                    +mediumRestaurantCard(
+                        restaurant.id, 
+                        restaurant.name, 
+                        restaurant.price, 
+                        restaurant.address, 
+                        restaurant.phone, 
+                        restaurant.image_url
+                    )
+       
     div(class="map_container")
         div(id="map")
     //- script(type="module" src="/js/map-search.js")

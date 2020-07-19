@@ -66,7 +66,8 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
         }
         return Math.floor(sum / total);
     };
-    const reviewAvg = reviewAvgFunc();
+    let reviewAvg = reviewAvgFunc();
+    if (!reviewAvg) { reviewAvg = 0 };
 
     res.render('restaurant-profile-page', { reviews, restaurantId, restaurant, otherRestaurants, reviewAvg })
 }));
