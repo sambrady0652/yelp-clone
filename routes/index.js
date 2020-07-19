@@ -62,12 +62,26 @@ router.get('/search', asyncHandler(async (req, res) => {
     res.render('search-page', { title: "Search Results" });
 }));
 
+router.get('/search/:val', asyncHandler(async (req, res) => {
+    const keyword = req.params.val
+    const keywordIncluded = await includesKeyword(keyword);
+    if (!keywordIncluded) {
+        res.render('no-results', { title: "Sorry, No Results" });
+    }
+    else {
+        const searchTerm = await RestaurantKeyword.findOne({ where: { keyword: keyword.toLowerCase() } });
+        const restaurants = await Restaurant.findAll({ where: { keywordId: searchTerm.id } });
+        res.render('search-page', { title: "Search Results", restaurants })
+    }
+}));
+
 router.post('/search', asyncHandler(async (req, res) => {
     const { keyword } = req.body;
     const keywordIncluded = await includesKeyword(keyword);
 
     const key = MapsSecretKey.MAPS_SECRET_KEY;
     const src = `https://maps.googleapis.com/maps/api/js?key=${key}&callback=initMap&libraries=&v=weekly`;
+
 
     if (!keywordIncluded) {
         res.render('no-results', { title: "Sorry, No Results" });

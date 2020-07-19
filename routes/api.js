@@ -32,15 +32,13 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
     })
 
     res.json({ restaurant })
-}))
+}));
 
+// Get Secret Key for Maps
 router.get('/key', asyncHandler(async (req, res) => {
-
     const key = MapsSecretKey.MAPS_SECRET_KEY;
-
-
     res.json({ key })
-}))
+}));
 
 router.post('/search', asyncHandler(async (req, res) => {
     console.log("INSIDE API ROUTE-------------")
