@@ -16,20 +16,7 @@ block search
                         restaurant.phone, 
                         restaurant.image_url
                     )
-        //- div(class="searchPage__container")
-        //-     for restaurant in restaurants
-        //-         div(class="card" style="width: 500px")
-        //-             div(class="row no-gutters")
-        //-                 div(class="col-sm-5")
-        //-                     img(class="card-img" src=`${restaurant.image_url}` alt="Restaurant Image")
-        //-                 div(class="col-sm-7")
-        //-                     div(class="card-body")
-        //-                         h5(class="card-title")= restaurant.name
-        //-                         ul(class="card-details-list")
-        //-                             li(class="card-text card-detail")= restaurant.price 
-        //-                             li(class="card-text card-detail")= restaurant.address 
-        //-                             li(class="card-text card-detail")= restaurant.phone
-        //-                         a(href=`/restaurants/${restaurant.id}` class="btn btn-primary stretched-link") View Profile
+       
     div(class="map_container")
         div(id="map")
     //- script(type="module" src="/js/map-search.js")

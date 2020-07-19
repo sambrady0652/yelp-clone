@@ -1,3 +1,11 @@
+.card {
+    margin: 10px;
+}
+
+.reviewCard__content {
+    padding-top: 10px;
+}
+
 .mediumCard {
     width: 450px;
     height: 200px;
@@ -137,4 +145,12 @@
     background-image: url("../../images/5-stars.png");
     width: 100%;
     height: 100%;
+}
+
+.text-right {
+    padding-right: 5px;
+}
+
+.review_Card_title {
+    padding-left: 10px;
 }

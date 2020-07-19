@@ -11,11 +11,14 @@ block content
             +settingsFormInput("lastName", "text", `${user.lastName}`, "Last Name", "This field is required.")
             +settingsFormInput("City", "text", `${user.city}`, "City", "This Field is Required.")
             +settingsFormInput("State", "text", `${user.state}`, "State", "This Field is Required.")
-            label(for="profilePicture") Add Profile Picture
-            input(type="file" name="upl")
+            label(for="profilePicture") Add Profile Picture:
+            div    
+                input(type="file" name="upl")
             div
                 button(type="submit") Submit
         div
-            form(action=`/users/${user.id}` method="POST")
-                input(type="hidden" name="_csrf" value=token)
-                button(type="submit" class="settings_delete-button") Delete User
+        
+
+        form(action=`/users/${user.id}` method="POST")
+            input(type="hidden" name="_csrf" value=token)
+            button(type="submit" class="settings_delete-button") Delete User

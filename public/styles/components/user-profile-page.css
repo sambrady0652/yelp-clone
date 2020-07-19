@@ -11,6 +11,7 @@
     width: 225px;
     margin-left: 150px;
     margin-top: 70px;
+    object-fit: cover;
     border: lightgrey solid 2px;
 }
 

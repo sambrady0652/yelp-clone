@@ -2,7 +2,6 @@ include navbar
 
 include includes/cards.pug
 
-
 block content
     div(class="restaurantPhotoBar")
         img(src=restaurant.image_url)
@@ -54,26 +53,7 @@ block content
                             div(class="restaurantSubCard__hoursBox")
                 div(class="restaurantReviews container")
                     for review in reviews
-                        div(class="largeReviewCard__container")
-                            div(class="card mainReviewCard")
-                                div(class="col")
-                                    div(class="mainReviewCard__user")
-                                        p=review.userId
-                                div(class="col")
-                                    div(class="row")
-                                        div(class="mainReviewCard__rating")
-                                            div(id=`rating-img-${review.rating}`)
-                                    div(class="row")
-                                        p=review.content
-                            //- +largeReviewCard(
-                            //-     review.userId, 
-                            //-     review.content, 
-                            //-     review.rating, 
-                            //- )
-                            //-     review.photos, 
-                            //-     review.coolCount, 
-                            //-     review.funnyCount, 
-                            //-     review.usefulCount,
+                        +largeReviewCard(review.User.profilePicture, review.rating, review.User.firstName, review.content, review.userId)
                 div(id="restaurantId" hidden)=`${restaurantId}`
             div(class="restaurantInfoBar col-sm-4")
                 div(class="restaurantInfoBar__main")
