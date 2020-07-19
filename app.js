@@ -2,7 +2,7 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-const morgan = require('morgan');
+// const morgan = require('morgan');
 const csurf = require('csurf');
 const path = require('path')
 
@@ -20,7 +20,7 @@ const app = express();
 app.set('view engine', 'pug');
 
 // - Application-wide Middleware
-app.use(morgan('dev'));
+// app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
