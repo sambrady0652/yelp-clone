@@ -78,7 +78,7 @@ router.post('/search', asyncHandler(async (req, res) => {
     else {
         const searchTerm = await RestaurantKeyword.findOne({ where: { keyword: keyword.toLowerCase() } });
         const restaurants = await Restaurant.findAll({ where: { keywordId: searchTerm.id } });
-        res.render('search-page', { title: "Search Results", restaurants, src })
+        res.render('search-page', { title: "Search Results", restaurants })
     }
 }));
 
