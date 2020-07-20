@@ -3,7 +3,7 @@ const express = require('express');
 const sequelize = require('sequelize');
 
 //Internal Modules
-const { asyncHandler, handleValidationErrors, includesKeyword, validateEmailAndPassword, getFavs } = require('../utils');
+const { asyncHandler, handleValidationErrors, includesKeyword, validateEmailAndPassword } = require('../utils');
 const { User, Restaurant, RestaurantKeyword } = require('../db/models');
 const { getUserToken } = require('../auth');
 
