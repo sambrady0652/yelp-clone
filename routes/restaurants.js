@@ -122,7 +122,7 @@ router.post('/:id(\\d+)/reviews', /*csrfProtection,*/ upload.array('upl', 1), as
 }));
 
 //Renders Edit Review Form
-router.get('/:id(\\d+)/reviews/:idd(\\d+)/edit', /*csrfProtection,*/ asyncHandler(async (req, res) => {
+router.get('/:id(\\d+)/reviews/:idd(\\d+)/edit', asyncHandler(async (req, res) => {
     const reviewId = parseInt(req.params.idd, 10)
     const review = await Review.findOne({
         where: {
@@ -134,7 +134,7 @@ router.get('/:id(\\d+)/reviews/:idd(\\d+)/edit', /*csrfProtection,*/ asyncHandle
 
     let { content, rating } = review;
 
-    res.render('edit-review-form', { title: "Edit Review", review, rating, content, token: req.csrfToken() })
+    res.render('edit-review-form', { title: "Edit Review", review, rating, content })
 }));
 
 //Submits Edit Review Form

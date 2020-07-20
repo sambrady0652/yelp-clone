@@ -35,7 +35,7 @@ logInForm.addEventListener("submit", async (e) => {
         window.location.href = `/users/${id}`;
 
     } catch (err) {
-        console.error(err);
+        handleErrors(err);
     }
 
 });

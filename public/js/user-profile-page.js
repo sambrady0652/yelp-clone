@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", () => {
     for (let i = 0; i < editReviewBtn.length; i++) {
         if (id === hiddenUserId.innerHTML) {
             editReviewBtn[i].hidden = false;
-            console.log("inside hiddendiv")
         }
     }
 });
