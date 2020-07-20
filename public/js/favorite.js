@@ -5,8 +5,21 @@ document.addEventListener('DOMContentLoaded', async () => {
     const restaurantId = document.getElementById("restaurantId").innerHTML;
     const favoriteButton = document.getElementById("favoriteButton");
     const favoriteStar = document.querySelector(".favoriteStar");
+
     favoriteButton.addEventListener('click', async (e) => {
         try {
+            //Error Handling: must be logged in to favorite
+            if (!userId) {
+                const res = await fetch(`/users/error/favorites`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ restaurantId })
+                });
+                throw res;
+            }
+
             //Retrieve JSON information
             const res = await fetch(`/users/${userId}/favorites`, {
                 method: "POST",

@@ -184,6 +184,7 @@ router.post('/:id(\\d+)/favorites', asyncHandler(async (req, res) => {
     const restaurant = await Restaurant.findByPk(restaurantId);
     const keywordId = restaurant.keywordId;
     const restaurantIsFavorited = await isFavorited(userId, restaurantId)
+
     if (restaurantIsFavorited) {
         const favoriteToDestroy = await userFavoriteRestaurant.findOne({
             where: {
@@ -198,6 +199,15 @@ router.post('/:id(\\d+)/favorites', asyncHandler(async (req, res) => {
         const newFav = await userFavoriteRestaurant.create({ userId, restaurantId, keywordId })
         res.json({ newFav })
     }
+}));
+
+//Favorites Error Handling 
+router.post('/error/favorites', asyncHandler(async (req, res) => {
+    const err = new Error("Favorite failed");
+    err.status = 401;
+    err.title = "Favorite failed";
+    err.errors = ["You must be logged in to favorite!"];
+    res.status(400).json({ err });
 }));
 
 module.exports = router;

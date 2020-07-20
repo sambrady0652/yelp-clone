@@ -2,7 +2,7 @@
 const express = require('express');
 
 //Internal Modules
-const { asyncHandler, handleValidationErrors, includesKeyword, validateEmailAndPassword } = require('../utils');
+const { asyncHandler, handleValidationErrors, includesKeyword, validateEmailAndPassword, getFavs } = require('../utils');
 const { User, Restaurant, RestaurantKeyword } = require('../db/models');
 const { getUserToken } = require('../auth');
 
@@ -56,29 +56,41 @@ router.get('/search', asyncHandler(async (req, res) => {
 //Renders Search Result Page with keyword provided via Req.params
 router.get('/search/:val', asyncHandler(async (req, res) => {
     const keyword = req.params.val
+    //Checks to see if the word put into the search form is cintained within the database 
     const keywordIncluded = await includesKeyword(keyword);
     if (!keywordIncluded) {
         res.render('no-results', { title: "Sorry, No Results" });
     }
     else {
-        const searchTerm = await RestaurantKeyword.findOne({ where: { keyword: keyword.toLowerCase() } });
-        const restaurants = await Restaurant.findAll({ where: { keywordId: searchTerm.id } });
-        res.render('search-page', { title: "Search Results", restaurants })
+        //Checks to see if there are any restaurants associated with that keyword
+        if (!searchTerm) {
+            res.render('no-results', { title: "Sorry, No Results" });
+        }
+        else {
+            const restaurants = await Restaurant.findAll({ where: { keywordId: searchTerm.id } });
+            res.render('search-page', { title: "Search Results", restaurants })
+        }
     }
 }));
 
 //Renders Search Results Page with keyword provided via Req.body
 router.post('/search', asyncHandler(async (req, res) => {
     const { keyword } = req.body;
+    //Checks to see if the word put into the search form is cintained within the database 
     const keywordIncluded = await includesKeyword(keyword);
-
     if (!keywordIncluded) {
         res.render('no-results', { title: "Sorry, No Results" });
     }
     else {
         const searchTerm = await RestaurantKeyword.findOne({ where: { keyword: keyword.toLowerCase() } });
-        const restaurants = await Restaurant.findAll({ where: { keywordId: searchTerm.id } });
-        res.render('search-page', { title: "Search Results", restaurants })
+        //Checks to see if there are any restaurants associated with that keyword
+        if (!searchTerm) {
+            res.render('no-results', { title: "Sorry, No Results" });
+        }
+        else {
+            const restaurants = await Restaurant.findAll({ where: { keywordId: searchTerm.id } });
+            res.render('search-page', { title: "Search Results", restaurants })
+        }
     }
 }));
 

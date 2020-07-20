@@ -45,8 +45,25 @@ const isFavorited = async (userId, restaurantId) => {
     return favIds.includes(restaurantId);
 };
 
-const topChoiceFinder = async () => {
-    const favorites = await userFavoriteRestaurant.findAll();
+const getFavs = async () => {
+    const allFavorites = await userFavoriteRestaurant.findAll();
+    const mappedFavs = allFavorites.map((fav) => fav = {
+        keywordId: fav.keywordId,
+        restaurantId: fav.restaurantId,
+        favCount: 1
+    })
+
+    const results = [];
+    for (let i = 0; i < mappedFavs.length - 1; i++) {
+        const fav = mappedFavs[i];
+        const nextFav = mappedFavs[i + 1]
+        let { keywordId, restaurantId, favCount } = fav;
+        if (fav.restaurantId === nextFav.restaurantId) {
+            favCount += 1
+        }
+        results.push();
+    }
+    return results;
 }
 
 module.exports = {
@@ -55,6 +72,6 @@ module.exports = {
     emailNotUnique,
     includesKeyword,
     isFavorited,
-    topChoiceFinder,
+    getFavs,
     validateEmailAndPassword
 }
