@@ -77,9 +77,9 @@
     max-width: auto;
     max-height: 100%;
     object-fit: cover;
-    top: 50%;
+    /* top: 50%;
     left: 50%;
-    transform: translate( -50%, -50%);
+    transform: translate( -50%, -50%); */
 }
 
 .smallCard__title {
@@ -90,8 +90,9 @@
 }
 
 .smallCard a {
-    position: relative;
-    bottom: 20px;
+    position: absolute;
+    left: 200px;
+    bottom: 15px;
 }
 
 .mainReviewCard {
@@ -153,4 +154,10 @@
 
 .review_Card_title {
     padding-left: 10px;
+}
+
+#editReview-button {
+    position: absolute;
+    left: 15px;
+    bottom: 10px;
 }

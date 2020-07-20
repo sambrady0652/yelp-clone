@@ -1,5 +1,6 @@
 //External Modules
 const express = require('express');
+const sequelize = require('sequelize');
 const csurf = require('csurf');
 const csrfProtection = csurf({ cookie: true });
 const aws = require('aws-sdk');
@@ -36,7 +37,14 @@ var upload = multer({
 //Renders Restaurant Profile Page
 router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
     const restaurantId = parseInt(req.params.id, 10);
-    const otherRestaurants = await Restaurant.findAll({ limit: 8 });
+    // Populates Eight Other Restaurants Randomized
+    const otherRestaurants = await Restaurant.findAll({
+        order: [
+            sequelize.fn("RANDOM")
+        ],
+        limit: 8
+    });
+    // Populates Ten Restaurant Reviews
     const reviews = await Review.findAll({
         where: {
             restaurantId: restaurantId
