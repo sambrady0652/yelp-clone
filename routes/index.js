@@ -56,7 +56,13 @@ router.post(
 
 //Renders Empty Search Results Page 
 router.get('/search', asyncHandler(async (req, res) => {
-    res.render('search-page', { title: "Search Results" });
+    const restaurants = await Restaurant.findAll({
+        order: [
+            sequelize.fn('RANDOM')
+        ],
+        limit: 15
+    });
+    res.render('search-page', { title: "Our Favorites", restaurants });
 }));
 
 //Renders Search Result Page with keyword provided via Req.params
