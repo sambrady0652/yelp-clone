@@ -212,6 +212,11 @@
     padding: 15px;
 }
 
+.bottomSplashContainer {
+    height: auto;
+    width: 100%;
+}
+
 .bottomSplashContainer__locationBar {
     display: flex;
     justify-content: center;
@@ -231,7 +236,7 @@
     justify-content: space-around;
     align-items: center;
     box-sizing: border-box;
-    max-height: 800px;
+    max-height: auto;
 }
 
 .bottomSplashContainer__main div {

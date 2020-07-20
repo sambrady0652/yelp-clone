@@ -1,0 +1,43 @@
+.welpFooterDefault {
+    margin-top: 30px;
+    height: 350px;
+    width: 100%;
+}
+
+.welpFooterDefault__body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #f1f1f1;
+    width: 100%;
+    height: 100%;
+}
+
+.welpFooterDefault__penultimate {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.welpFooter__streetImg {
+    border: 5px solid #e6e6e6;
+}
+
+.welpFooterDefault__ultimate {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.welpFooterDefault__ultimate p {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    margin-top: 18px;
+}
+
+.welpFooterDefault__ultimate i {
+    font-size: 10px;
+    margin: 0 5px;
+}
