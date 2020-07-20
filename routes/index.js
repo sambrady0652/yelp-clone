@@ -1,5 +1,6 @@
 //External Modules
 const express = require('express');
+const sequelize = require('sequelize');
 
 //Internal Modules
 const { asyncHandler, handleValidationErrors, includesKeyword, validateEmailAndPassword, getFavs } = require('../utils');
@@ -11,7 +12,12 @@ const router = express.Router();
 
 //Renders Splash Page
 router.get('/', asyncHandler(async (req, res) => {
-    const restaurants = await Restaurant.findAll({ limit: 15 });
+    const restaurants = await Restaurant.findAll({
+        order: [
+            sequelize.fn('RANDOM')
+        ],
+        limit: 15
+    });
     res.render('splash-page', { title: "Welcome to Welp", restaurants })
 }));
 
