@@ -41,6 +41,13 @@
     margin-left: 40px;
 }
 
+.orderBar__options-items p {
+    color: white;
+    font-size: 14px;
+    font-weight: bolder;
+    margin: 5px;
+}
+
 .orderBar__options-items button {
     color: white;
     font-size: 14px;
