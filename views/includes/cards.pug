@@ -7,8 +7,8 @@ mixin mediumRestaurantCard(id, name, price, address, phone, image_url)
                 div(class="card-body mediumCard__body")
                     h5(class="card-title mediumCard__title")= name
                     div(class="card-details-list mediumCard__details")
-                        p(class="card-text card-detail")= price 
-                        p(class="card-text card-detail")= address 
+                        p(class="card-text card-detail")= price
+                        p(class="card-text card-detail")= address
                         p(class="card-text card-detail")= phone
         a(href=`/restaurants/${id}` class="mediumRCardbtn btn btn-danger btn-sm stretched-link") View Profile
 
@@ -21,7 +21,7 @@ mixin smallRestaurantCard(id, name, address, image_url)
                 div(class="card-body smallCard__body")
                     p(class="card-title smallCard__title")= name
                     div(class="card-details-list mediumCard__details")
-                        p(class="card-text card-detail")= address 
+                        p(class="card-text card-detail")= address
         a(href=`/restaurants/${id}` class="btn btn-primary btn-sm") View
 
 mixin largeReviewCard(userPic, rating, userName, content, userId)
@@ -37,7 +37,7 @@ mixin largeReviewCard(userPic, rating, userName, content, userId)
                     p= content
                     a(href=`/users/${userId}` class="btn btn-primary stretched-link") View Profile
 
-mixin userReviewCard(restaurantPic, rating, restaurantName, price, address, phone, content, restaurantId)
+mixin userReviewCard(restaurantPic, rating, restaurantName, price, address, phone, content, restaurantId, reviewId,userId)
     div(class="card" style="width: 500px")
         div(class="row no-gutters")
             div(class="col-sm-5")
@@ -52,3 +52,6 @@ mixin userReviewCard(restaurantPic, rating, restaurantName, price, address, phon
                     div(class="reviewCard__cityState  small text-secondary")= phone
                     p(class="reviewCard__content")= content
                     a(href=`/restaurants/${restaurantId}` class="btn btn-primary stretched-link") View Restaurant Page
+            form(class="editReview" action=`/restaurants/${restaurantId}/reviews/${reviewId}/edit` method='get' enctype="multipart/form-data" hidden)
+                div(id="hidden_userId" hidden)=userId
+                button(class="btn btn-primary" id="editReview-button" type="submit") Edit Review
