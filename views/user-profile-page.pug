@@ -8,8 +8,6 @@ block content
         div
             div(class="basicUserInfo__name")= `${user.firstName} ${user.lastName}`
             div(class="basicUserInfo__location")=`${user.city}, ${user.state}`
-        div
-            a(class="basicUserInfo__links" href=`/users/${user.id}/settings`) Update your profile
 div(class="sidebarAndReviews")
     div(class="leftSideBar")
         p=`${user.firstName}'s Profile `

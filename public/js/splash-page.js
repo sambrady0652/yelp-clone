@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
+    //Retreive Buttons from DOM
     const deliveryBtn = document.getElementById("orderBar-Delivery");
     const pizzaBtn = document.getElementById("orderBar-Pizza");
     const chineseBtn = document.getElementById("orderBar-Chinese");
@@ -6,32 +7,39 @@ document.addEventListener("DOMContentLoaded", () => {
     const quickLinksItalian = document.getElementById("quickLinks-italian");
     const quickLinksChinese = document.getElementById("quickLinks-chinese");
     const quickLinksFrench = document.getElementById("quickLinks-french");
-    const unknown = document.getElementById("splashUnknown");
-    const known = document.getElementById("splashKnownAlt");
     const splashProfileBtn = document.getElementById("splashProfileBtn");
     const splashAccSettingsBtn = document.getElementById("splashAccSettingsBtn");
+    //Divs containing buttons. known = Profile/Settings, unknown = Login/Signup
+    const unknown = document.getElementById("splashUnknown");
+    const known = document.getElementById("splashKnownAlt");
+    //orderBar can be hidden
+    const orderBar = document.querySelector(".orderBar");
 
+    //Retreive User Info from DOM 
     const userId = localStorage.getItem("WELP_CURRENT_USER_ID");
-    const token = localStorage.getItem("WELP_USER_TOKEN");
 
+    //Show/Hide Appropriate Buttons
     if (userId !== null) {
         known.classList.remove("hidden")
         unknown.classList.add("hidden");
     }
 
-    // -- Button Event Listeners
+    //Order Bar Buttons
     deliveryBtn.addEventListener("click", (e) => {
-
+        //TODO
     });
     pizzaBtn.addEventListener("click", (e) => {
-
+        //TODO
     });
     chineseBtn.addEventListener("click", (e) => {
-
+        //TODO
     });
+    //Show/Hide Order Bar
     xBtn.addEventListener("click", (e) => {
-
+        orderBar.classList.add("hidden");
     });
+
+    //Main Splash Buttons
     quickLinksItalian.addEventListener("click", async (e) => {
         const keyword = e.target.value;
         window.location.href = `/search/${keyword}`

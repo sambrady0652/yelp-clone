@@ -2,20 +2,21 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const csurf = require('csurf');
+const csrfProtection = csurf({ cookie: true });
 const cookieParser = require('cookie-parser');
-const { check } = require('express-validator');
 const aws = require('aws-sdk')
 const multer = require('multer')
 const multerS3 = require('multer-s3')
 
 // - Internal Requirements
-const { asyncHandler, handleValidationErrors, emailNotUnique, isFavorited } = require('../utils');
-const db = require('../db/models');
+const { asyncHandler, handleValidationErrors, emailNotUnique, isFavorited, validateEmailAndPassword } = require('../utils');
+const { User, Review, Restaurant, userFavoriteRestaurant } = require('../db/models');
 const { getUserToken, requireAuth } = require('../auth');
-const { sequelize } = require('../db/models');
 const { awsKeys } = require('../config');
 
-//Photo Upload
+const router = express.Router();
+
+//Photo Uploader Setup
 aws.config.update({
     secretAccessKey: awsKeys.AWS_SECRET_KEY,
     accessKeyId: awsKeys.AWS_ACCESS_KEY,
@@ -35,34 +36,19 @@ var upload = multer({
     })
 })
 
-// - Declarations
-const { User, Review, Restaurant, userFavoriteRestaurant, RestaurantKeywords } = db;
-const router = express.Router();
-const csrfProtection = csurf({ cookie: true });
-
-// - Users-wide Middleware
+//Middleware
 router.use(requireAuth);
 router.use(cookieParser());
 
-// - Validations
-const validateEmailAndPassword = [
-    check("email")
-        .exists({ checkFalsy: true })
-        .isEmail()
-        .withMessage("Please provide a valid email."),
-    check("password")
-        .exists({ checkFalsy: true })
-        .withMessage("Please provide a password.")
-];
 
-//Routes
+//ROUTES
 
 //Render's Signup Form
 router.get('/signup', (req, res) => {
     res.render('user-signup', { title: 'Sign Up - Welp' });
 });
 
-//Create New User(submits signup form)
+//Create New User and start user Session
 router.post(
     '/',
     validateEmailAndPassword,
@@ -100,7 +86,6 @@ router.get('/:id(\\d+)',
             limit: 10
         })
 
-        //res.send({reviews})
         res.render('user-profile-page', { title: `${user.firstName}'s Profile Page`, user, reviews, token: req.csrfToken() });
     }));
 
@@ -111,8 +96,6 @@ router.get(
     asyncHandler(async (req, res) => {
         const userId = parseInt(req.params.id, 10);
         const user = await User.findByPk(userId);
-
-        //TODO: Add Settings features to database
 
         res.render('user-settings', {
             title: `${user.firstName}'s Settings`,
@@ -152,9 +135,6 @@ router.post(
             userToUpdate.state = State;
             userToUpdate.profilePicture = location;
         }
-
-
-
 
         await userToUpdate.save();
 
@@ -219,6 +199,5 @@ router.post('/:id(\\d+)/favorites', asyncHandler(async (req, res) => {
         res.json({ newFav })
     }
 }));
-
 
 module.exports = router;

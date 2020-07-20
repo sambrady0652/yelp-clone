@@ -1,16 +1,19 @@
-// - External Requirements
+//External Modules
 const express = require('express');
 const csurf = require('csurf');
-const { check } = require('express-validator');
-const aws = require('aws-sdk')
-const multer = require('multer')
-const multerS3 = require('multer-s3')
+const csrfProtection = csurf({ cookie: true });
+const aws = require('aws-sdk');
+const multer = require('multer');
+const multerS3 = require('multer-s3');
 
-// - Internal Requirements
+//Internal Modules
 const { asyncHandler } = require('../utils');
-const db = require('../db/models');
-const { sequelize } = require('../db/models');
-const { awsKeys } = require('../config')
+const { Restaurant, User, Review } = require('../db/models');
+const { awsKeys } = require('../config');
+
+const router = express.Router();
+
+//Photo Uploader Setup
 aws.config.update({
     secretAccessKey: awsKeys.AWS_SECRET_KEY,
     accessKeyId: awsKeys.AWS_ACCESS_KEY,
@@ -30,13 +33,6 @@ var upload = multer({
     })
 })
 
-// - Declarations
-const router = express.Router();
-const csrfProtection = csurf({ cookie: true });
-const { Restaurant, User, Review } = db;
-
-// - Routes
-
 //Renders Restaurant Profile Page
 router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
     const restaurantId = parseInt(req.params.id, 10);
@@ -55,7 +51,7 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
             id: restaurantId
         }
     })
-
+    //Calculates Restaurant's Average Rating 
     const reviewAvgFunc = () => {
         let sum = 0;
         const total = reviews.length;
@@ -85,6 +81,7 @@ router.post('/:id(\\d+)/reviews', /*csrfProtection,*/ upload.array('upl', 1), as
     let restaurantId = parseInt(req.params.id, 10);
     //gets url for photo being uploaded to S3 bucket
 
+    //Photo Uploader Logic
     if (req.files[0]) {
         let { location } = req.files[0];
         let rating = parseInt(req.body.rating, 10)
@@ -113,10 +110,7 @@ router.post('/:id(\\d+)/reviews', /*csrfProtection,*/ upload.array('upl', 1), as
             usefulCount: 0
         })
     }
-
-
     res.redirect(`/restaurants/${restaurantId}`)
-
 }));
 
 //Renders Edit Review Form
@@ -130,8 +124,7 @@ router.get('/:id(\\d+)/reviews/:idd(\\d+)/edit', /*csrfProtection,*/ asyncHandle
         { model: Restaurant }]
     })
 
-    let { content, rating } = review
-
+    let { content, rating } = review;
 
     res.render('edit-review-form', { title: "Edit Review", review, rating, content, token: req.csrfToken() })
 }));
@@ -155,26 +148,19 @@ router.post('/:id(\\d+)/reviews/:idd(\\d+)', csrfProtection, upload.array('upl',
         review.rating = rating;
     }
 
-
-
     await review.save();
-
-
 
     res.redirect(`/restaurants/${restaurantId}`)
 }));
 
-//deletes a review
+//Deletes a Review
 router.delete('/:id(\\d+)/reviews/:idd(\\d+)', asyncHandler(async (req, res) => {
     const restaurantId = parseInt(req.params.id, 10)
     const review = await Review.findByPk(req.params.idd)
 
     await review.destroy()
 
-
     res.redirect(`/restaurants/${restaurantId}`)
 }));
-
-
 
 module.exports = router;

@@ -1,7 +1,18 @@
-const { validationResult } = require('express-validator');
+const { validationResult, check } = require('express-validator');
 const { User, RestaurantKeyword, userFavoriteRestaurant } = require('./db/models');
 
 const asyncHandler = (handler) => (req, res, next) => handler(req, res, next).catch(next);
+
+const validateEmailAndPassword = [
+    check("email")
+        .exists({ checkFalsy: true })
+        .isEmail()
+        .withMessage("Please provide a valid email."),
+    check("password")
+        .exists({ checkFalsy: true })
+        .withMessage("Please provide a password.")
+];
+
 const handleValidationErrors = (req, res, next) => {
     const validationErrors = validationResult(req);
 
@@ -36,7 +47,6 @@ const isFavorited = async (userId, restaurantId) => {
 
 const topChoiceFinder = async () => {
     const favorites = await userFavoriteRestaurant.findAll();
-    console.log(favorites);
 }
 
 module.exports = {
@@ -45,5 +55,6 @@ module.exports = {
     emailNotUnique,
     includesKeyword,
     isFavorited,
-    topChoiceFinder
+    topChoiceFinder,
+    validateEmailAndPassword
 }

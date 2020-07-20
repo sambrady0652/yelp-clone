@@ -1,32 +1,26 @@
-// - External Requirements
+//External Modules
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-// const morgan = require('morgan');
-const csurf = require('csurf');
-// const path = require('path')
 
-// - Internal Requirements
-const { asyncHandler } = require('./utils');
+//Internal Modules
 const { environment } = require('./config');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const restaurantsRouter = require('./routes/restaurants');
 const apiRouter = require('./routes/api')
 
-// - Declarations
-const csrfProtection = csurf({ cookie: true });
+//Declarations
 const app = express();
 app.set('view engine', 'pug');
 
-// - Application-wide Middleware
-// app.use(morgan('dev'));
+//Application-wide Middleware
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.static('public'));
 
-// - Routes
+//Routes
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/restaurants', restaurantsRouter);
@@ -40,7 +34,7 @@ app.use((req, res, next) => {
     next(err);
 });
 
-// Error Logger
+//Error Logger
 app.use((err, req, res, next) => {
     if (environment === 'production' || environment === 'test') {
         // TODO Log the error to the database.

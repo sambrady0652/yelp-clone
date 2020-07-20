@@ -1,52 +1,33 @@
-// - External Requirements
+//External Modules
 const express = require('express');
-const bcrypt = require('bcryptjs');
-const csurf = require('csurf');
 const cookieParser = require('cookie-parser');
-const { check } = require('express-validator');
 
-// - Internal Requirements
-const { asyncHandler, handleValidationErrors } = require('../utils');
-const db = require('../db/models');
-const { getUserToken, requireAuth } = require('../auth');
-const { sequelize } = require('../db/models');
-const { environment, MapsSecretKey } = require('../config')
-
-// - Declarations
-const { User, Review, Restaurant, userFavoriteRestaurant, RestaurantKeyword } = db;
+//Internal Modules
+const { asyncHandler } = require('../utils');
+const { Restaurant } = require('../db/models');
+const { requireAuth } = require('../auth');
+const { MapsSecretKey } = require('../config')
 const router = express.Router();
-const csrfProtection = csurf({ cookie: true });
 
-// - Users-wide Middleware
+//Middleware
 router.use(requireAuth);
 router.use(cookieParser());
 
+// Retreives Map API Secret Key 
+router.get('/key', asyncHandler(async (req, res) => {
+    const key = MapsSecretKey.MAPS_SECRET_KEY;
+    res.json({ key })
+}));
 
-
+//Retreives Restaurant ID, sends to Map.js Module to place pin on map
 router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
     const restaurantId = parseInt(req.params.id, 10)
     const restaurant = await Restaurant.findOne({
         where: {
             id: restaurantId
         }
-    })
-
+    });
     res.json({ restaurant })
 }));
-
-// Get Secret Key for Maps
-router.get('/key', asyncHandler(async (req, res) => {
-    const key = MapsSecretKey.MAPS_SECRET_KEY;
-    res.json({ key })
-}));
-
-router.post('/search', asyncHandler(async (req, res) => {
-    console.log("INSIDE API ROUTE-------------")
-    const { keyword } = req.body;
-    const searchTerm = await RestaurantKeyword.findOne({ where: { keyword: keyword.toLowerCase() } });
-    const restaurants = await Restaurant.findAll({ where: { keywordId: searchTerm.id } });
-    res.json({ restaurants });
-}));
-
 
 module.exports = router;

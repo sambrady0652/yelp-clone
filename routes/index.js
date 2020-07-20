@@ -1,22 +1,13 @@
-// - External Requirements
+//External Modules
 const express = require('express');
-const bcrypt = require("bcryptjs");
-const csurf = require('csurf');
 
-// - Internal Requirements
-const { asyncHandler, handleValidationErrors, includesKeyword } = require('../utils');
-const db = require('../db/models');
-const validateEmailAndPassword = require('./users');
+//Internal Modules
+const { asyncHandler, handleValidationErrors, includesKeyword, validateEmailAndPassword } = require('../utils');
+const { User, Restaurant, RestaurantKeyword } = require('../db/models');
 const { getUserToken } = require('../auth');
-const { MapsSecretKey } = require('../config')
-const { handleErrors } = require('../utils');
 
-// - Declarations
-const { User, Restaurant, RestaurantKeyword } = db;
 const router = express.Router();
-const csrfProtection = csurf({ cookie: true });
 
-//Routes
 
 //Renders Splash Page
 router.get('/', asyncHandler(async (req, res) => {
@@ -29,7 +20,7 @@ router.get('/login', asyncHandler(async (req, res) => {
     res.render('login', { title: "Log In - Welp" })
 }));
 
-//Submits Login Form, Starts Session
+//Submits Login Form, Starts User Session
 router.post(
     "/login",
     validateEmailAndPassword,
@@ -57,11 +48,12 @@ router.post(
         }
     }));
 
-//Renders Search Results Page 
+//Renders Empty Search Results Page 
 router.get('/search', asyncHandler(async (req, res) => {
     res.render('search-page', { title: "Search Results" });
 }));
 
+//Renders Search Result Page with keyword provided via Req.params
 router.get('/search/:val', asyncHandler(async (req, res) => {
     const keyword = req.params.val
     const keywordIncluded = await includesKeyword(keyword);
@@ -75,12 +67,10 @@ router.get('/search/:val', asyncHandler(async (req, res) => {
     }
 }));
 
+//Renders Search Results Page with keyword provided via Req.body
 router.post('/search', asyncHandler(async (req, res) => {
     const { keyword } = req.body;
     const keywordIncluded = await includesKeyword(keyword);
-
-    const key = MapsSecretKey.MAPS_SECRET_KEY;
-    const src = `https://maps.googleapis.com/maps/api/js?key=${key}&callback=initMap&libraries=&v=weekly`;
 
     if (!keywordIncluded) {
         res.render('no-results', { title: "Sorry, No Results" });
