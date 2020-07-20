@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const rating = document.getElementById("ratingFormInput");
 
 
+
     //Event Listeners to change buttons' color when clicked:
     // Event Listeners for 'transparent' buttons on clickable star rating
     // --- sets rating as value of input on line 19 on review-form.pug
@@ -42,4 +43,10 @@ document.addEventListener('DOMContentLoaded', () => {
         rateDefault.setAttribute("class", `mainReviewCard__rating reviewRatingDefault reviewRatingDefault--${newRateImg}`);
         rating.setAttribute("value", 5);
     });
+
+    const userId = localStorage.getItem("WELP_CURRENT_USER_ID")
+    console.log(userId)
+    let userIdForm = document.getElementById("userId")
+    userIdForm.value = userId;
+
 });
