@@ -62,6 +62,7 @@ router.get('/search/:val', asyncHandler(async (req, res) => {
         res.render('no-results', { title: "Sorry, No Results" });
     }
     else {
+        const searchTerm = await RestaurantKeyword.findOne({ where: { keyword: keyword.toLowerCase() } });
         //Checks to see if there are any restaurants associated with that keyword
         if (!searchTerm) {
             res.render('no-results', { title: "Sorry, No Results" });
