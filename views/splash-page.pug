@@ -10,11 +10,7 @@ block content
                 a(href="") You can always order in
             div(class="orderBar__options")
                 div(class="orderBar__options-items")
-                    button(type="text" value="" class="btn btn-outline-dark" id="orderBar-Delivery") Delivery
-                div(class="orderBar__options-items")
-                    button(type="text" value="" class="btn btn-outline-dark" id="orderBar-Pizza") Pizza Delivery
-                div(class="orderBar__options-items")
-                    button(type="text" value="" class="btn btn-outline-dark" id="orderBar-Chinese") Chinese Food Delivery
+                    p Call in to any of our Great Restaurants!
                 div(class="orderBar__options-items")
                     button(type="text" value="" class="btn btn-outline-dark" id="orderBar-x") X
         div(class="topSplashBar")
@@ -70,15 +66,7 @@ block content
                         restaurant.phone, 
                         restaurant.image_url
                     )
-    div(class="welpFooterDefault")
-        div(class="welpFooterDefault__body")
-            div(class="welpFooterDefault__body-link-lists")
-                div(class="col")
-            div(class="welpFooterDefault__penultimate")
-                img(class="welpFooter__streetImg" src="/images/footerImage.jpg")
-            div(class="welpFooterDefault__ultimate")
-                p Copyright
-                i(class="fa fa-creative-commons")
-                p 2020 Welp Industrial Light and Magic. All contents were developed for Educational Purposes.
+    include footer.pug
+    
     script(type="module" src="/js/splash-page.js")
 

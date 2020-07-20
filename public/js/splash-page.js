@@ -1,8 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
     //Retreive Buttons from DOM
-    const deliveryBtn = document.getElementById("orderBar-Delivery");
-    const pizzaBtn = document.getElementById("orderBar-Pizza");
-    const chineseBtn = document.getElementById("orderBar-Chinese");
     const xBtn = document.getElementById("orderBar-x");
     const quickLinksItalian = document.getElementById("quickLinks-italian");
     const quickLinksChinese = document.getElementById("quickLinks-chinese");
@@ -24,16 +21,6 @@ document.addEventListener("DOMContentLoaded", () => {
         unknown.classList.add("hidden");
     }
 
-    //Order Bar Buttons
-    deliveryBtn.addEventListener("click", (e) => {
-        //TODO
-    });
-    pizzaBtn.addEventListener("click", (e) => {
-        //TODO
-    });
-    chineseBtn.addEventListener("click", (e) => {
-        //TODO
-    });
     //Show/Hide Order Bar
     xBtn.addEventListener("click", (e) => {
         orderBar.classList.add("hidden");
